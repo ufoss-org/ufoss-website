@@ -6,7 +6,9 @@
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs"
   },
-  "keywords": [ "UFOSS" ],
+  "keywords": [
+    "UFOSS"
+  ],
   "license": "The Unlicense",
   "devDependencies": {
     "vuepress": "^1.5.0"
