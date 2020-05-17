@@ -4,8 +4,7 @@
   "description": "UFOSS public website",
   "scripts": {
     "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs",
-    "now-build": "npm run docs:build"
+    "docs:build": "vuepress build docs"
   },
   "keywords": [ "UFOSS" ],
   "license": "The Unlicense",

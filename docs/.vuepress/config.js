@@ -1,15 +1,13 @@
 module.exports = {
     title: 'UFOSS',
-    description: "UFOSS public website",
-    evergreen: true,
-    themeConfig:{
-        editLinks: true,
+    description: "Provide softwares together with their source code in public domain",
+    themeConfig: {
         sidebar: {
             '/': [
+                '/projects',
                 {
                     title: 'Dino',
-                    collapsable: false,
-                    children: ['/dino/introduction'],
+                    path: '/dino/dino',
                 },
             ],
         },
