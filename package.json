@@ -1,0 +1,15 @@
+{
+  "name": "ufoss-website",
+  "version": "1.0.0",
+  "description": "UFOSS public website",
+  "scripts": {
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
+    "now-build": "npm run docs:build"
+  },
+  "keywords": [ "UFOSS" ],
+  "license": "The Unlicense",
+  "devDependencies": {
+    "vuepress": "^1.5.0"
+  }
+}
