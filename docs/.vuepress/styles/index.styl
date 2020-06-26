@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=New+Rocker&display=swap');
+
+.theme-container.custom-bdp-class {
+  font-family: 'New Rocker', cursive;
+  background-color DimGrey
+  text-align: center;
+  font-size: 30px;
+  color: LightGrey
+
+  .theme-default-content:not(.custom) {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 !important;
+  }
+
+  .theme-default-content:not(.custom) > :first-child {
+    margin-top: 0;
+  }
+
+  .text-centered {
+    text-align center
+  }
+
+  .flex-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .flex-container-vertical {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height 100%
+  }
+
+  .flex-container-vertical :nth-child(odd) {
+    font-family: 'Metal Mania', cursive;
+  }
+}
