@@ -1,5 +1,6 @@
 ---
 metaTitle: BDP Fest
+description: Best festival of your life
 navbar: false
 sidebar: false
 pageClass: custom-bdp-class
@@ -16,7 +17,7 @@ pageClass: custom-bdp-class
         </div>
     </div>
     <div style="flex: 0 0 59%">
-        <img src="/bdpfest.png" alt="bdpfest" style="max-width: 400px" />
+        <img src="/bdpfest.png" alt="bdpfest" class="responsive-image" />
     </div>
     <div style="flex: 0 0 20%">
         <div class="flex-container-vertical">
