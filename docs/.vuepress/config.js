@@ -9,6 +9,14 @@ module.exports = {
                     title: 'Dino',
                     path: '/dino/dino',
                 },
+                {
+                    title: 'Kotysa',
+                    path: '/kotysa/kotysa',
+                    collapsable: false,
+                    children: [
+                        '/kotysa/queries',
+                    ],
+                },
             ],
         },
     }

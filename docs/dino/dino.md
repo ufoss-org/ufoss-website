@@ -1,5 +1,6 @@
 ---
 title: Dino
+next: /kotysa/kotysa
 ---
 
 # &#x1f996; Dino &#x1f995;
