@@ -6,7 +6,7 @@ sidebar: false
 pageClass: custom-bdp-class
 ---
 
-<h2>&#x2620; Merci à tous les participants, RDV en 2021 (peut-être) &#x1F3B8;</h2>
+<h2>&#x2620; Merci à tous les participants de l'édition 2020 !! &#x1F3B8;</h2>
 
 <div class="flex-container">
     <div style="flex: 0 0 20%">

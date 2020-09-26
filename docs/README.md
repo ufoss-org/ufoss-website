@@ -6,6 +6,6 @@ actionLink: /projects
 footer: The unlicense | No Copyright 2020-present
 ---
 
-![Unlicense logo](/the_unlicense.png) All UFOSS softwares release code into the public domain using [The Unlicense](https://unlicense.org/), thereby releasing all rights authors may hold to that code.
+UFOSS softwares source code is released in the public domain using [The Unlicense](https://unlicense.org/) ![Unlicense logo](/the_unlicense.png), thereby releasing all rights authors may hold to that code.
 
-Source code of UFOSS softwares is available in [github](https://github.com/ufoss-org)
+Source code of UFOSS projects is available in [github](https://github.com/ufoss-org)

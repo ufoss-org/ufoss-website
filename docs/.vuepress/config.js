@@ -11,10 +11,13 @@ module.exports = {
                 },
                 {
                     title: 'Kotysa',
-                    path: '/kotysa/kotysa',
-                    collapsable: false,
                     children: [
-                        '/kotysa/queries',
+                        ['/kotysa/kotysa', 'Introduction'],
+                        ['/kotysa/table-mapping', 'Table mapping'],
+                        ['/kotysa/queries', 'SQL queries'],
+                        ['/kotysa/kotysa-android', 'Kotysa for android'],
+                        ['/kotysa/kotysa-spring-r2dbc', 'Kotysa for Spring R2DBC'],
+                        ['/kotysa/kotysa-spring-jdbc', 'Kotysa for Spring JDBC'],
                     ],
                 },
             ],
