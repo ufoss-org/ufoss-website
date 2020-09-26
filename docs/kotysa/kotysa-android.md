@@ -26,7 +26,7 @@ kotysa-android provides a SQL client on top of Android's included SqLite,
 it can be obtained via an Extension function directly on Android's```SQLiteOpenHelper```.
 
 ```kotlin
-class UserRepository(sqLiteOpenHelper: SQLiteOpenHelper, tables: Tables) {
+class Repository(sqLiteOpenHelper: SQLiteOpenHelper, tables: Tables) {
 
 	private val sqlClient = sqLiteOpenHelper.sqlClient(tables)
 
@@ -35,3 +35,17 @@ class UserRepository(sqLiteOpenHelper: SQLiteOpenHelper, tables: Tables) {
 ```
 
 See [SqLite supported types](table-mapping#sqlite)
+
+## Transaction
+
+kotysa-android provides a transaction on top of Android's included SqLite, 
+it can be obtained via an Extension function directly on Android's ```SQLiteDatabase```.
+
+```kotlin
+class Service(client: SQLiteDatabase) {
+
+	private val operator = client.transactionalOp()
+
+	// use transaction
+}
+```

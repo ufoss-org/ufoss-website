@@ -31,7 +31,7 @@ it can be obtained via an Extension function directly on spring-r2dbc's ```Datab
 It provides a SQL client API using Reactor ```Mono``` and ```Flux```.
 
 ```kotlin
-class UserRepository(client: DatabaseClient, tables: Tables) {
+class Repository(client: DatabaseClient, tables: Tables) {
 
 	private val sqlClient = client.sqlClient(tables)
 
@@ -47,7 +47,7 @@ it can be obtained via an Extension function directly on spring-r2dbc's ```Datab
 It provides a SQL client API using ```suspend``` functions and ```Flow``` from kotlinx-coroutines.
 
 ```kotlin
-class UserRepository(client: DatabaseClient, tables: Tables) {
+class Repository(client: DatabaseClient, tables: Tables) {
 
 	private val sqlClient = client.coSqlClient(tables)
 
@@ -59,3 +59,17 @@ class UserRepository(client: DatabaseClient, tables: Tables) {
 
 * [H2](table-mapping#h2)
 * [PostgreSQL](table-mapping#postgresql)
+
+## Transaction
+
+kotysa-spring-r2dbc provides a transaction on top of spring-tx, 
+it can be obtained via an Extension function directly on spring-tx's ```TransactionalOperator```.
+
+```kotlin
+class Service(template: TransactionalOperator) {
+
+	private val operator = template.transactionalOp()
+
+	// use transaction
+}
+```

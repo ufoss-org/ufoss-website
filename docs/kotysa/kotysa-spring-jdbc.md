@@ -28,7 +28,7 @@ kotysa-spring-jdbc provides a SQL client on top of spring-jdbc,
 it can be obtained via an Extension function directly on spring-jdbc's ```JdbcOperations```.
 
 ```kotlin
-class UserRepository(client: JdbcOperations, tables: Tables) {
+class Repository(client: JdbcOperations, tables: Tables) {
 
 	private val sqlClient = client.sqlClient(tables)
 
@@ -40,3 +40,17 @@ class UserRepository(client: JdbcOperations, tables: Tables) {
 
 * [H2](table-mapping#h2)
 * [PostgreSQL](table-mapping#postgresql)
+
+## Transaction
+
+kotysa-spring-jdbc provides a transaction on top of spring-tx, 
+it can be obtained via an Extension function directly on spring-tx's ```TransactionOperations```.
+
+```kotlin
+class Service(template: TransactionOperations) {
+
+	private val operator = template.transactionalOp()
+
+	// use transaction
+}
+```

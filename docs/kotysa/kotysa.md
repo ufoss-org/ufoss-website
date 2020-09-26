@@ -37,7 +37,7 @@ data class User(
 
 ### step 2 -> Describe database model
 
-Use [type-safe DSL](table-mapping) to map database model based to entities
+Use [type-safe Tables DSL](table-mapping) to map database model based to entities
 
 ```kotlin
 val tables =
@@ -74,8 +74,9 @@ No annotations, no code generation, just regular Kotlin code ! No JPA, just pure
 
 ## Getting started
 
-Kotysa is agnostic from Sql Engine (SqLite on Android and R2DBC. JDBC in future) :
-* use Kotysa with [Spring data R2DBC](kotysa-spring-r2dbc)
+Kotysa is agnostic from Sql Engine :
+* use Kotysa with [Spring R2DBC](kotysa-spring-r2dbc)
+* use Kotysa with [Spring JDBC](kotysa-spring-jdbc)
 * use Kotysa with [SqLite on Android](kotysa-android)
 
 ::: tip Notice

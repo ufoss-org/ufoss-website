@@ -61,3 +61,15 @@ data class UserDto(
 )
 ```
 
+## Transaction
+
+Kotysa provides a functional Transaction support.
+
+```kotlin
+operator.execute<Unit> { transaction ->
+    // transaction will rollback when exiting this code block
+    transaction.setRollbackOnly()
+
+    // do your queries
+}
+```
