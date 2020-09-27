@@ -17,6 +17,11 @@ Kotysa is still in active development phase, some key features are still missing
 [[toc]]
 
 ## Easy to use : 3 steps only
+
+::: tip Description
+No annotations, no external configuration files, no code generation, just regular Kotlin code ! No JPA, just pure SQL !
+:::
+
 ### step 1 -> Create Kotlin entities
 
 data classes are great for that !
@@ -37,7 +42,8 @@ data class User(
 
 ### step 2 -> Describe database model
 
-Use [type-safe Tables DSL](table-mapping) to map database model based to entities
+Use [type-safe Tables DSL](table-mapping) to map database tables to your entities,
+this is the ORM (object-relational mapping) step
 
 ```kotlin
 val tables =
@@ -61,16 +67,14 @@ val tables =
 
 Use [type-safe SqlClient DSL](queries), Kotysa generates SQL for you !
 
+You don't have to be aware of all SQL differences between databases, Kotysa will generate the right SQL syntax for your database.
+
 ```kotlin
 val admins = sqlClient.select<User>()
         .innerJoin<Role>().on { it[User::roleId] }
         .where { it[Role::label] eq "admin" }
         .fetchAll() // returns all admin users
 ```
-
-::: tip Description
-No annotations, no code generation, just regular Kotlin code ! No JPA, just pure SQL !
-:::
 
 ## Getting started
 
@@ -87,3 +91,7 @@ Kotysa provides [Kotlin Coroutines first class support with R2DBC](kotysa-spring
 
 * See [basic sample projects](https://github.com/ufoss-org/kotysa/tree/master/samples).
 * [Real world sample project with R2DBC](https://github.com/pull-vert/demo-kotlin) is a Spring Boot Reactive web application with a R2DBC backend accessed via Kotysa, HTTP2, JWT based Security, Bean validation, RestDoc...
+
+## Source code
+
+&#x1F468;&#x200D;&#x1F4BB; Open source code is available on [github](https://github.com/ufoss-org/kotysa), feel free to watch it, contribute, fork, copy, whatever you want.

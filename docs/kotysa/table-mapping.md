@@ -52,7 +52,7 @@ val tables =
 
 ## Data types
 
-More supported data types will be added later. Kotysa uses Java 8+ ```java.time.*``` types for dates.
+More supported data types will be added later. Kotysa uses Java 8+ ```java.time.*``` (and Kotlinx datetime equivalents) types for dates.
 
 ### H2
 
@@ -68,12 +68,12 @@ More supported data types will be added later. Kotysa uses Java 8+ ```java.time.
         <td>VARCHAR</td>
     </tr>
     <tr>
-        <td>java.time.LocalDate</td>
+        <td>java.time.LocalDate or kotlinx.datetime.LocalDate</td>
         <td>Represents a date without time part and without timezone</td>
         <td>DATE</td>
     </tr>
     <tr>
-        <td rowspan="2">java.time.LocalDateTime</td>
+        <td rowspan="2">java.time.LocalDateTime or kotlinx.datetime.LocalDateTime</td>
         <td rowspan="2">Represents a date+time without timezone</td>
         <td>TIMESTAMP</td>
     </tr>
@@ -121,12 +121,12 @@ More supported data types will be added later. Kotysa uses Java 8+ ```java.time.
         <td>VARCHAR</td>
     </tr>
     <tr>
-        <td>java.time.LocalDate</td>
+        <td>java.time.LocalDate or kotlinx.datetime.LocalDate</td>
         <td>Represents a date without time part and without timezone</td>
         <td>DATE</td>
     </tr>
     <tr>
-        <td>java.time.LocalDateTime</td>
+        <td>java.time.LocalDateTime or kotlinx.datetime.LocalDateTime</td>
         <td>Represents a date+time without timezone</td>
         <td>TIMESTAMP</td>
     </tr>
@@ -175,12 +175,12 @@ More supported data types will be added later. Kotysa uses Java 8+ ```java.time.
         <td>TEXT</td>
     </tr>
     <tr>
-        <td>java.time.LocalDate</td>
+        <td>java.time.LocalDate or kotlinx.datetime.LocalDate</td>
         <td>Represents a date without time part and without timezone</td>
         <td>TEXT</td>
     </tr>
     <tr>
-        <td>java.time.LocalDateTime</td>
+        <td>java.time.LocalDateTime or kotlinx.datetime.LocalDateTime</td>
         <td>Represents a date+time without timezone</td>
         <td>TEXT</td>
     </tr>
