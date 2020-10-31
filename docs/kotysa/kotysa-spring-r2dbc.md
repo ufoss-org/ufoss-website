@@ -9,7 +9,7 @@ next: ./kotysa-spring-jdbc
 ## Dependency
 
 kotysa-spring-r2dbc is a single dependency you can add to your Spring project. \
-This is a companion version for spring-r2dbc 5.3.0-RC1 (included in Spring boot 2.4.0-M3) and does not replace it.
+This is a companion version for spring-r2dbc 5.3.0 (included in Spring boot 2.4.0-RC1) and does not replace it.
 
 ```groovy
 repositories {
@@ -17,7 +17,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.ufoss.kotysa:kotysa-spring-r2dbc:0.1.7'
+    implementation 'org.ufoss.kotysa:kotysa-spring-r2dbc:0.1.8'
     
     implementation 'org.springframework:spring-r2dbc'
 }
@@ -57,12 +57,13 @@ class Repository(client: DatabaseClient, tables: Tables) {
 
 ## Supported databases
 
-* [H2](table-mapping#h2)
+* [MySQL](table-mapping#mysql)
 * [PostgreSQL](table-mapping#postgresql)
+* [H2](table-mapping#h2)
 
-## Transaction
+## Reactive transaction
 
-kotysa-spring-r2dbc provides a transaction on top of spring-tx, 
+kotysa-spring-r2dbc provides transaction support to use with reactive SqlClient on top of spring-tx, 
 it can be obtained via an Extension function directly on spring-tx's ```TransactionalOperator```.
 
 ```kotlin
@@ -70,6 +71,20 @@ class Service(template: TransactionalOperator) {
 
 	private val operator = template.transactionalOp()
 
-	// use transaction
+	// use transaction with reactive SqlClient
+}
+```
+
+## Coroutines transaction
+
+kotysa-spring-r2dbc provides transaction support to use with coroutines SqlClient on top of spring-tx, 
+it can be obtained via an Extension function directly on spring-tx's ```TransactionalOperator```.
+
+```kotlin
+class Service(template: TransactionalOperator) {
+
+	private val operator = template.coTransactionalOp()
+
+	// use transaction with coroutines SqlClient
 }
 ```

@@ -41,10 +41,10 @@ fun selectFirstByFirstname(firstname: String) = sqlClient.select<User>()
         // null String forbidden        ^^^^^^^^^
         .fetchFirst()
 
-fun selectAllByAlias(alias1: String?, alias2: String?) = sqlClient.select<User>()
+fun selectAllByAliases(alias1: String?, alias2: String?) = sqlClient.select<User>()
         .where { it[User::alias] eq alias1 }
         // null String accepted     ^^^^^ ,
-        // if alias1==null, gives "WHERE user.alias IS NULL"
+        // if alias1==null will generate "WHERE user.alias IS NULL" SQL
         .or { it[User::alias] eq alias2 }
         .fetchAll()
         
@@ -63,7 +63,7 @@ data class UserDto(
 
 ## Transaction
 
-Kotysa provides a functional Transaction support.
+Kotysa provides a functional Transaction support, all queries inside the transaction block will be transactional.
 
 ```kotlin
 operator.execute<Unit> { transaction ->

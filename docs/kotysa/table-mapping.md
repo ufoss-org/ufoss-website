@@ -6,15 +6,15 @@ next: ./queries
 
 # Table mapping
 
-This step allows describing how to map each table to a class (aka Entity).
+This step allows describing how to map a table to a class (aka Entity).
 
 **Table of content**
 
 [[toc]]
 
-## Describe Database Model with Type-Safe DSL
+## Describe database model with type-safe DSL
 
-```tables``` functional DSL is used to define all mappings rules (columns, primary and foreign keys...).
+These are 2 simple entities that we will use :
 
 ```kotlin
 data class Role(
@@ -30,21 +30,34 @@ data class User(
         val alias: String? = null,
         val id: UUID = UUID.randomUUID()
 )
+```
 
+Use Kotysa's ```tables``` functional DSL to define all mappings rules (columns, primary and foreign keys...) beetween
+your entities and the database tables, this is the ORM (object-relational mapping) step in Kotlin.
+
+This DSL is based on type and nullability of your entities fields.
+
+```kotlin
 val tables =
         tables().h2 { // choose database type
             table<Role> {
                 name = "roles"
-                column { it[Role::id].uuid() }.primaryKey()
+                column { it[Role::id].uuid() }
+                    .primaryKey()
                 column { it[Role::label].varchar() }
             }
             table<User> {
                 name = "users"
                 column { it[User::id].uuid() }.primaryKey()
-                column { it[User::firstname].varchar().name("fname") }
-                column { it[User::lastname].varchar().name("lname") }                
+                column { it[User::firstname].varchar {
+                    name = "fname"
+                } }
+                column { it[User::lastname].varchar {
+                    name = "lname"
+                } }                
                 column { it[User::isAdmin].boolean() }
-                column { it[User::roleId].uuid() }.foreignKey<Role>()
+                column { it[User::roleId].uuid() }
+                    .foreignKey<Role>()
                 column { it[User::alias].varchar() }
             }
         }
@@ -52,7 +65,9 @@ val tables =
 
 ## Data types
 
-More supported data types will be added later. Kotysa uses Java 8+ ```java.time.*``` (and Kotlinx datetime equivalents) types for dates.
+More supported data types will be added later.
+
+Kotysa uses Java 8+ ```java.time.*``` (and Kotlinx-datetime equivalents) types for dates.
 
 ### H2
 
@@ -60,50 +75,54 @@ More supported data types will be added later. Kotysa uses Java 8+ ```java.time.
     <tr>
         <th>Kotlin type</th>
         <th>Description
-        <th>H2 SQL type</th>
+        <th>SQL type</th>
     </tr>
     <tr>
         <td>String</td>
         <td>Represents a variable-length character string, maximum length fixed</td>
-        <td>VARCHAR</td>
+        <td>varchar</td>
     </tr>
     <tr>
         <td>java.time.LocalDate or kotlinx.datetime.LocalDate</td>
         <td>Represents a date without time part and without timezone</td>
-        <td>DATE</td>
+        <td>date</td>
     </tr>
     <tr>
         <td rowspan="2">java.time.LocalDateTime or kotlinx.datetime.LocalDateTime</td>
         <td rowspan="2">Represents a date+time without timezone</td>
-        <td>TIMESTAMP</td>
+        <td>timestamp</td>
     </tr>
     <tr>
-        <td>DATETIME</td>
+        <td>datetime</td>
     </tr>
     <tr>
         <td>java.time.OffsetDateTime</td>
         <td>Represents a date+time with timezone</td>
-        <td>TIMESTAMP WITH TIME ZONE</td>
+        <td>timestampWithTimeZone</td>
     </tr>
     <tr>
         <td>java.time.LocalTime</td>
         <td>Represents a time without a date part and without timezone</td>
-        <td>TIME(9)</td>
+        <td>time</td>
     </tr>
     <tr>
         <td>Boolean</td>
         <td>Represents a boolean state. Nullable Boolean is not allowed !</td>
-        <td>BOOLEAN</td>
+        <td>boolean</td>
     </tr>
     <tr>
         <td>java.util.UUID</td>
         <td>Universally unique identifier (128 bit value)</td>
-        <td>UUID</td>
+        <td>uuid</td>
     </tr>
     <tr>
-        <td>Int</td>
+        <td rowspan="2">Int</td>
         <td>Represents an integer</td>
-        <td>INTEGER</td>
+        <td>integer</td>
+    </tr>
+    <tr>
+        <td>Represents an auto-incremented integer</td>
+        <td>autoIncrementInteger</td>
     </tr>
 </table>
 
@@ -113,51 +132,95 @@ More supported data types will be added later. Kotysa uses Java 8+ ```java.time.
     <tr>
         <th>Kotlin type</th>
         <th>Description
-        <th>PostgreSQL type</th>
+        <th>SQL type</th>
     </tr>
     <tr>
         <td>String</td>
         <td>Represents a variable-length character string, maximum length fixed</td>
-        <td>VARCHAR</td>
+        <td>varchar</td>
     </tr>
     <tr>
         <td>java.time.LocalDate or kotlinx.datetime.LocalDate</td>
         <td>Represents a date without time part and without timezone</td>
-        <td>DATE</td>
+        <td>date</td>
     </tr>
     <tr>
         <td>java.time.LocalDateTime or kotlinx.datetime.LocalDateTime</td>
         <td>Represents a date+time without timezone</td>
-        <td>TIMESTAMP</td>
+        <td>timestamp</td>
     </tr>
     <tr>
         <td>java.time.OffsetDateTime</td>
-        <td>Represents a date+time with timezone. PostgreSQL uses UTC timezone to store timestamp with time zone, so you may have to override equals to use Instant based "isEqual" method on java.time.OffsetDateTime fields</td>
-        <td>TIMESTAMP WITH TIME ZONE</td>
+        <td>Represents a date+time with timezone.<br />PostgreSQL uses UTC timezone to store TIMESTAMP WITH TIME ZONE, so you may have to override equals to use Instant based "isEqual" method on java.time.OffsetDateTime fields</td>
+        <td>timestampWithTimeZone</td>
     </tr>
     <tr>
         <td>java.time.LocalTime</td>
         <td>Represents a time without a date part and without timezone</td>
-        <td>TIME</td>
+        <td>time</td>
     </tr>
     <tr>
         <td>Boolean</td>
         <td>Represents a boolean state. Nullable Boolean is not allowed !</td>
-        <td>BOOLEAN</td>
+        <td>boolean</td>
     </tr>
     <tr>
         <td>java.util.UUID</td>
         <td>Universally unique identifier (128 bit value)</td>
-        <td>UUID</td>
+        <td>uuid</td>
     </tr>
     <tr>
         <td rowspan="2">Int</td>
         <td>Represents an integer</td>
-        <td>INTEGER</td>
+        <td>integer</td>
     </tr>
     <tr>
         <td>Represents an auto-incremented integer</td>
-        <td>SERIAL</td>
+        <td>serial</td>
+    </tr>
+</table>
+
+### MySQL
+
+<table>
+    <tr>
+        <th>Kotlin type</th>
+        <th>Description
+        <th>SQL type</th>
+    </tr>
+    <tr>
+        <td>String</td>
+        <td>Represents a variable-length character string, maximum length fixed (size is mandatory in MySQL)</td>
+        <td>varchar</td>
+    </tr>
+    <tr>
+        <td>java.time.LocalDate or kotlinx.datetime.LocalDate</td>
+        <td>Represents a date without time part and without timezone</td>
+        <td>date</td>
+    </tr>
+    <tr>
+        <td>java.time.LocalDateTime or kotlinx.datetime.LocalDateTime</td>
+        <td>Represents a date+time without timezone</td>
+        <td>datetime</td>
+    </tr>
+    <tr>
+        <td>java.time.LocalTime</td>
+        <td>Represents a time without a date part and without timezone</td>
+        <td>time</td>
+    </tr>
+    <tr>
+        <td>Boolean</td>
+        <td>Represents a boolean state. Nullable Boolean is not allowed !</td>
+        <td>boolean</td>
+    </tr>
+    <tr>
+        <td rowspan="2">Int</td>
+        <td>Represents an integer</td>
+        <td>integer</td>
+    </tr>
+    <tr>
+        <td>Represents an auto-incremented integer</td>
+        <td>autoIncrementInteger</td>
     </tr>
 </table>
 
@@ -167,41 +230,41 @@ More supported data types will be added later. Kotysa uses Java 8+ ```java.time.
     <tr>
         <th>Kotlin type</th>
         <th>Description
-        <th>SqLite SQL type</th>
+        <th>SQL type</th>
     </tr>
     <tr>
         <td>String</td>
         <td>Represents a variable-length character string, maximum length fixed</td>
-        <td>TEXT</td>
+        <td>text</td>
     </tr>
     <tr>
         <td>java.time.LocalDate or kotlinx.datetime.LocalDate</td>
         <td>Represents a date without time part and without timezone</td>
-        <td>TEXT</td>
+        <td>text</td>
     </tr>
     <tr>
         <td>java.time.LocalDateTime or kotlinx.datetime.LocalDateTime</td>
         <td>Represents a date+time without timezone</td>
-        <td>TEXT</td>
+        <td>text</td>
     </tr>
     <tr>
         <td>java.time.OffsetDateTime</td>
         <td>Represents a date+time with timezone</td>
-        <td>TEXT</td>
+        <td>text</td>
     </tr>
     <tr>
         <td>java.time.LocalTime</td>
         <td>Represents a time without a date part and without timezone</td>
-        <td>TEXT</td>
+        <td>text</td>
     </tr>
     <tr>
         <td>Boolean</td>
         <td>Represents a boolean state. Nullable Boolean is not allowed !</td>
-        <td>INTEGER</td>
+        <td>integer</td>
     </tr>
     <tr>
         <td>Int</td>
         <td>Represents an integer</td>
-        <td>INTEGER</td>
+        <td>integer</td>
     </tr>
 </table>

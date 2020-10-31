@@ -9,7 +9,7 @@ next: ./table-mapping
 The idiomatic way to write **Ko**tlin **ty**pe-**sa**fe SQL.
 
 ::: warning
-Kotysa is still in active development phase, some key features are still missing. Regular early releases will provide new features, see [next milestones](https://github.com/ufoss-org/kotysa/milestones).
+Kotysa is still in active development phase. Regular early releases will provide new features, see [next milestones](https://github.com/ufoss-org/kotysa/milestones).
 :::
 
 **Table of content**
@@ -42,7 +42,7 @@ data class User(
 
 ### step 2 -> Describe database model
 
-Use [type-safe Tables DSL](table-mapping) to map database tables to your entities,
+Use [type-safe Tables DSL](table-mapping) to map your entities with the database tables,
 this is the ORM (object-relational mapping) step
 
 ```kotlin
@@ -50,14 +50,19 @@ val tables =
         tables().postgresql { // choose database type
             table<Role> {
                 name = "roles"
-                column { it[Role::id].uuid() }.primaryKey()
+                column { it[Role::id].uuid() }
+                    .primaryKey()
                 column { it[Role::label].varchar() }
             }
             table<User> {
                 name = "users"
-                column { it[User::id].uuid() }.primaryKey()
-                column { it[User::firstname].varchar().name("first-name") }
-                column { it[User::roleId].uuid() }.foreignKey<Role>()
+                column { it[User::id].uuid() }
+                    .primaryKey()
+                column { it[User::firstname].varchar {
+                    name = "first-name"
+                } }
+                column { it[User::roleId].uuid() }
+                    .foreignKey<Role>()
                 column { it[User::alias].varchar() }
             }
         }
