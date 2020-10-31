@@ -57,9 +57,9 @@ class Repository(client: DatabaseClient, tables: Tables) {
 
 ## Supported databases
 
-* [MySQL](table-mapping#mysql)
-* [PostgreSQL](table-mapping#postgresql)
-* [H2](table-mapping#h2)
+* [MySQL](table-mapping.html#mysql)
+* [PostgreSQL](table-mapping.html#postgresql)
+* [H2](table-mapping.html#h2)
 
 ## Reactive transaction
 

@@ -42,7 +42,7 @@ data class User(
 
 ### step 2 -> Describe database model
 
-Use [type-safe Tables DSL](table-mapping) to map your entities with the database tables,
+Use [type-safe Tables DSL](table-mapping.html) to map your entities with the database tables,
 this is the ORM (object-relational mapping) step
 
 ```kotlin
@@ -70,7 +70,7 @@ val tables =
 
 ### step 3 -> Write SQL queries
 
-Use [type-safe SqlClient DSL](queries), Kotysa generates SQL for you !
+Use [type-safe SqlClient DSL](queries.html), Kotysa generates SQL for you !
 
 You don't have to be aware of all SQL differences between databases, Kotysa will generate the right SQL syntax for your database.
 
@@ -84,12 +84,12 @@ val admins = sqlClient.select<User>()
 ## Getting started
 
 Kotysa is agnostic from Sql Engine :
-* use Kotysa with [Spring R2DBC](kotysa-spring-r2dbc)
-* use Kotysa with [Spring JDBC](kotysa-spring-jdbc)
-* use Kotysa with [SqLite on Android](kotysa-android)
+* use Kotysa with [Spring R2DBC](kotysa-spring-r2dbc.html)
+* use Kotysa with [Spring JDBC](kotysa-spring-jdbc.html)
+* use Kotysa with [SqLite on Android](kotysa-android.html)
 
 ::: tip Notice
-Kotysa provides [Kotlin Coroutines first class support with R2DBC](kotysa-spring-r2dbc#coroutines-first-class-support)
+Kotysa provides [Kotlin Coroutines first class support with R2DBC](kotysa-spring-r2dbc.html#coroutines-first-class-support)
 :::
 
 ### Samples

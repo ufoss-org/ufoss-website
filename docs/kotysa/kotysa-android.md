@@ -34,7 +34,7 @@ class Repository(sqLiteOpenHelper: SQLiteOpenHelper, tables: Tables) {
 }
 ```
 
-See [SqLite supported types](table-mapping#sqlite)
+See [SqLite supported types](table-mapping.html#sqlite)
 
 ## Transaction
 
