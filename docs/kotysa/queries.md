@@ -47,6 +47,10 @@ val admins = (sqlClient selectFrom USER
         where ROLE.label eq "admin"
         ).fetchAll() // returns all admin users
 
+val pagination = (sqlClient selectFrom USER
+        limit 1 offset 1
+        ).fetchAll()
+
 fun createTable() = sqlClient createTable USER
 
 fun insert() = sqlClient.insert(jdoe, bboss)
