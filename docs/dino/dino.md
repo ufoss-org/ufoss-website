@@ -57,4 +57,4 @@ depending on the JDK your project uses.
 
 ## Source code
 
-&#x1F468;&#x200D;&#x1F4BB; Open source code is available on [github](https://github.com/ufoss-org/dino), feel free to watch it, contribute, fork, copy, whatever you want.
+&#x1F468;&#x200D;&#x1F4BB; Open source code of Dino is available on [github](https://github.com/ufoss-org/dino), feel free to watch it, contribute, fork, copy, whatever you want.

@@ -7,57 +7,71 @@ next: ./kotysa-android
 # Type-safe SQL queries
 
 All Kotysa's **SqlClient** implementations support :
-* ```select<T>``` that returns one (```fetchOne()``` and ```fetchFirst()```) or several (```fetchAll()```) results
-* ```createTable<T>``` for table creation
-* ```insert``` for single or multiple rows insertion
-* ```deleteFromTable<T>``` that returns number of deleted rows
-* ```updateTable<T>``` to update fields, returns number of updated rows
+* ```select ...``` that returns one (```fetchOne()``` and ```fetchFirst()```) or several (```fetchAll()```) results
+* ```createTable ...``` for table creation
+* ```insert ...``` for single or multiple rows insertion
+* ```deleteFrom ...``` that returns number of deleted rows
+* ```update ...``` to update fields, returns number of updated rows
 
 ```kotlin
-fun createTable() = sqlClient.createTable<User>()
+fun selectAll() = sqlClient selectAllFrom USER
+
+fun countAll() = sqlClient selectCountAllFrom USER
+
+fun countWithAlias() =
+        (sqlClient selectCount USER.alias
+                from USER
+                ).fetchOne()
+
+fun selectAllMappedToDto() =
+        (sqlClient select { UserDto(it[USER.firstname]!!, it[USER.alias]) }
+                from USER
+                ).fetchAll()
+
+fun selectFirstByFirstname(firstname: String) =
+        (sqlClient selectFrom USER
+                where USER.firstname eq firstname
+                // null String forbidden ^^^^^^^^
+                ).fetchFirst()
+
+fun selectAllByAliases(alias1: String?, alias2: String?) =
+        (sqlClient selectFrom USER
+                where USER.alias eq alias1
+                // null String accepted ^^
+                // if alias1==null, Kotysa will generate "WHERE user.alias IS NULL" SQL
+                or USER.alias eq alias2
+                ).fetchAll()
+
+val admins = (sqlClient selectFrom USER
+        innerJoin ROLE on USER.roleId eq ROLE.id
+        where ROLE.label eq "admin"
+        ).fetchAll() // returns all admin users
+
+fun createTable() = sqlClient createTable USER
 
 fun insert() = sqlClient.insert(jdoe, bboss)
 
-fun deleteAll() = sqlClient.deleteAllFromTable<User>()
+fun deleteAll() = sqlClient deleteAllFrom USER
 
-fun deleteById(id: UUID) = sqlClient.deleteFromTable<User>()
-        .where { it[User::id] eq id }
-        .execute()
+fun deleteById(id: UUID) =
+        (sqlClient deleteFrom USER
+                where USER.id eq id
+                ).execute()
 
-fun selectAll() = sqlClient.selectAll<User>()
+fun updateFirstname(newFirstname: String) =
+        (sqlClient update USER
+                set USER.firstname eq newFirstname
+                ).execute()
 
-fun countAll() = sqlClient.countAll<User>()
+private val roleUser = Role("user")
+private val roleAdmin = Role("admin")
 
-fun countWithAlias() = sqlClient.select { count { it[User::alias] } }.fetchOne()
-
-fun selectAllMappedToDto() =
-        sqlClient.select {
-            UserDto("${it[User::firstname]} ${it[User::lastname]}",
-                    it[User::alias])
-        }.fetchAll()
-        
-fun selectFirstByFirstname(firstname: String) = sqlClient.select<User>()
-        .where { it[User::firstname] eq firstname }
-        // null String forbidden        ^^^^^^^^^
-        .fetchFirst()
-
-fun selectAllByAliases(alias1: String?, alias2: String?) = sqlClient.select<User>()
-        .where { it[User::alias] eq alias1 }
-        // null String accepted     ^^^^^ ,
-        // if alias1==null will generate "WHERE user.alias IS NULL" SQL
-        .or { it[User::alias] eq alias2 }
-        .fetchAll()
-        
-fun updateFirstname(newFirstname: String) = sqlClient.updateTable<User>()
-        .set { it[User::firstname] = newFirstname }
-        .execute()
-
-val jdoe = User("John", "Doe", false)
-val bboss = User("Big", "Boss", true, "TheBoss")
+private val userJdoe = User("John", roleUser.id)
+private val userBboss = User("Big boss", roleAdmin.id, "TheBoss")
 
 data class UserDto(
-		val name: String,
-		val alias: String?
+        val name: String,
+        val alias: String?
 )
 ```
 

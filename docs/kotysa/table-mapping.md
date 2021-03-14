@@ -38,29 +38,24 @@ your entities and the database tables, this is the ORM (object-relational mappin
 This DSL is based on type and nullability of your entities fields.
 
 ```kotlin
-val tables =
-        tables().h2 { // choose database type
-            table<Role> {
-                name = "roles"
-                column { it[Role::id].uuid() }
-                    .primaryKey()
-                column { it[Role::label].varchar() }
-            }
-            table<User> {
-                name = "users"
-                column { it[User::id].uuid() }.primaryKey()
-                column { it[User::firstname].varchar {
-                    name = "fname"
-                } }
-                column { it[User::lastname].varchar {
-                    name = "lname"
-                } }                
-                column { it[User::isAdmin].boolean() }
-                column { it[User::roleId].uuid() }
-                    .foreignKey<Role>()
-                column { it[User::alias].varchar() }
-            }
-        }
+   object ROLE : H2Table<Role>("roles") {
+    val id = uuid(Role::id)
+            .primaryKey()
+    val label = varchar(Role::label)
+}
+
+object USER : H2Table<User>("users") {
+    val id = uuid(User::id)
+            .primaryKey("PK_users")
+    val firstname = varchar(User::firstname, "fname")
+    val lastname = varchar(User::lastname, "lname")
+    val isAdmin = boolean(User::isAdmin)
+    val roleId = uuid(User::roleId)
+            .foreignKey(ROLE.id, "FK_users_roles")
+    val alias = varchar(User::alias)
+}
+
+private val tables = tables().h2(ROLE, USER)
 ```
 
 ## Data types
@@ -263,8 +258,12 @@ Kotysa uses Java 8+ ```java.time.*``` (and Kotlinx-datetime equivalents) types f
         <td>integer</td>
     </tr>
     <tr>
-        <td>Int</td>
+        <td rowspan="2">Int</td>
         <td>Represents an integer</td>
         <td>integer</td>
+    </tr>
+    <tr>
+        <td>Represents an auto-incremented integer</td>
+        <td>autoIncrementInteger</td>
     </tr>
 </table>
