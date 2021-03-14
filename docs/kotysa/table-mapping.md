@@ -38,7 +38,7 @@ your entities and the database tables, this is the ORM (object-relational mappin
 This DSL is based on type and nullability of your entities fields.
 
 ```kotlin
-   object ROLE : H2Table<Role>("roles") {
+object ROLE : H2Table<Role>("roles") {
     val id = uuid(Role::id)
             .primaryKey()
     val label = varchar(Role::label)
