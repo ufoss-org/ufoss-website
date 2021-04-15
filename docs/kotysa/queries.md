@@ -51,6 +51,16 @@ val pagination = (sqlClient selectFrom USER
         limit 1 offset 1
         ).fetchAll()
 
+val distinctFirstnames = (sqlClient selectDistinct USER.firstname
+        from USER
+        ).fetchAll()
+
+val countUsersGroupByCountry =
+        (sqlClient selectCount USER.id and USER.country
+                from USER
+                groupBy USER.country
+                ).fetchAll()
+
 fun createTable() = sqlClient createTable USER
 
 fun insert() = sqlClient.insert(jdoe, bboss)
@@ -70,8 +80,8 @@ fun updateFirstname(newFirstname: String) =
 private val roleUser = Role("user")
 private val roleAdmin = Role("admin")
 
-private val userJdoe = User("John", roleUser.id)
-private val userBboss = User("Big boss", roleAdmin.id, "TheBoss")
+private val userJdoe = User("John", roleUser.id, "USA")
+private val userBboss = User("Big boss", roleAdmin.id, "France", "TheBoss")
 
 data class UserDto(
         val name: String,

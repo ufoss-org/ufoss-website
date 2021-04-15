@@ -12,11 +12,11 @@ This is a companion version for spring-jdbc 5.3.x (included in Spring boot 2.4.x
 
 ```groovy
 repositories {
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {
-    implementation 'org.ufoss.kotysa:kotysa-spring-jdbc:0.2.1'
+    implementation 'org.ufoss.kotysa:kotysa-spring-jdbc:0.2.3'
     
     implementation 'org.springframework:spring-jdbc'
 }

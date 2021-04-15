@@ -13,11 +13,11 @@ This is a companion version for spring-r2dbc 5.3.x (included in Spring boot 2.4.
 
 ```groovy
 repositories {
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {
-    implementation 'org.ufoss.kotysa:kotysa-spring-r2dbc:0.2.1'
+    implementation 'org.ufoss.kotysa:kotysa-spring-r2dbc:0.2.3'
     
     implementation 'org.springframework:spring-r2dbc'
 }

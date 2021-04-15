@@ -12,11 +12,11 @@ kotysa-android is a single dependency you can add to your Android project.
 
 ```groovy
 repositories {
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {
-    implementation 'org.ufoss.kotysa:kotysa-android:0.2.1'
+    implementation 'org.ufoss.kotysa:kotysa-android:0.2.3'
 }
 ```
 

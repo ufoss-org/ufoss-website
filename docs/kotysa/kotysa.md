@@ -35,6 +35,7 @@ data class Role(
 data class User(
         val firstname: String,
         val roleId: UUID,
+        val country: String,
         val alias: String? = null,
         val id: UUID = UUID.randomUUID()
 )
@@ -58,6 +59,7 @@ object USER : H2Table<User>("users") {
     val firstname = varchar(User::firstname, "fname")
     val roleId = uuid(User::roleId)
             .foreignKey(ROLE.id, "FK_users_roles")
+    val country = varchar(User::country)
     val alias = varchar(User::alias)
 }
 
