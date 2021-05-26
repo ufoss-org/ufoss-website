@@ -6,11 +6,16 @@ next: ./table-mapping
 
 # Kotysa
 
-The idiomatic way to write **Ko**tlin **ty**pe-**sa**fe SQL.
+Kotysa is a light ORM that offers the idiomatic way to write **Ko**tlin **ty**pe-**sa**fe SQL.
+Kotysa Query API is agnostic from Sql Engine : change database engine without code change.
 
-::: warning
-Kotysa is still in active development phase. Regular releases will provide new features, see [next milestones](https://github.com/ufoss-org/kotysa/milestones).
-:::
+## Supported Databases
+
+* MySQL with [Spring JDBC](kotysa-spring-jdbc.html) or [Spring R2DBC](kotysa-spring-r2dbc.html) : [MySQL supported data types](table-mapping.html#mysql)
+* PostgreSQL with [Spring JDBC](kotysa-spring-jdbc.html) or [Spring R2DBC](kotysa-spring-r2dbc.html) : [PostgreSQL supported data types](table-mapping.html#postgresql)
+* H2 with [Spring JDBC](kotysa-spring-jdbc.html) or [Spring R2DBC](kotysa-spring-r2dbc.html) : [H2 supported data types](table-mapping.html#h2)
+* Microsoft SQL Server with [Spring JDBC](kotysa-spring-jdbc.html) or [Spring R2DBC](kotysa-spring-r2dbc.html) :  : [MSSQL supported data types](table-mapping.html#mssql)
+* [SqLite on Android](kotysa-android.html) : [SqLite supported data types](table-mapping.html#sqlite)
 
 **Table of content**
 
@@ -37,7 +42,7 @@ data class User(
         val roleId: UUID,
         val country: String,
         val alias: String? = null,
-        val id: UUID = UUID.randomUUID()
+        val id: Int? = null
 )
 ```
 
@@ -54,7 +59,7 @@ object ROLE : H2Table<Role>("roles") {
 }
 
 object USER : H2Table<User>("users") {
-    val id = uuid(User::id)
+    val id = autoIncrementInteger(User::id)
             .primaryKey("PK_users")
     val firstname = varchar(User::firstname, "fname")
     val roleId = uuid(User::roleId)
@@ -71,7 +76,7 @@ private val tables = tables().h2(ROLE, USER)
 
 Use [type-safe SqlClient DSL](queries.html), Kotysa generates SQL for you !
 
-You don't have to be aware of all SQL differences between databases, Kotysa will generate the right SQL syntax for your database.
+You don't have to be aware of all subtle SQL differences between databases, Kotysa will generate the right SQL syntax for your database.
 
 ```kotlin
 val admins = (sqlClient selectFrom USER
@@ -80,22 +85,19 @@ val admins = (sqlClient selectFrom USER
         ).fetchAll() // returns all admin users
 ```
 
-## Getting started
-
-Kotysa is agnostic from Sql Engine :
-* use Kotysa with [Spring R2DBC](kotysa-spring-r2dbc.html)
-* use Kotysa with [Spring JDBC](kotysa-spring-jdbc.html)
-* use Kotysa with [SqLite on Android](kotysa-android.html)
-
 ::: tip Notice
 Kotysa provides [Kotlin Coroutines first class support with R2DBC](kotysa-spring-r2dbc.html#coroutines-first-class-support)
 :::
 
 ### Samples
 
-* See [basic sample projects](https://github.com/ufoss-org/kotysa/tree/master/samples).
+* See [basic sample projects for jdbc, r2dbc-reactive and r2dbc-coroutines](https://github.com/ufoss-org/kotysa/tree/master/samples).
 * [Real world sample project](https://github.com/pull-vert/demo-kotlin) is a Spring Boot Reactive web application with a R2DBC backend accessed via Kotysa, with HTTP2, JWT based Security, Bean validation, RestDoc...
 
 ## Source code
 
-&#x1F468;&#x200D;&#x1F4BB; Open source code of Kotysa is available on [github](https://github.com/ufoss-org/kotysa), feel free to watch it, contribute, fork, copy, whatever you want.
+&#x1F468;&#x200D;&#x1F4BB; Open source code of Kotysa is available on [github](https://github.com/ufoss-org/kotysa), feel free to watch it, submit issues, contribute, fork, copy, whatever you want.
+
+::: tip Status
+Regular releases will provide new features, see [next milestones](https://github.com/ufoss-org/kotysa/milestones).
+:::

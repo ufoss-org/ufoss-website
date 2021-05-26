@@ -8,7 +8,7 @@ prev: ./kotysa-spring-r2dbc
 ## Dependency
 
 kotysa-spring-jdbc is a single dependency you can add to your Spring project. \
-This is a companion version for spring-jdbc 5.3.x (included in Spring boot 2.4.x) and does not replace it.
+This is a companion version for spring-jdbc 5.3.x (included in Spring boot 2.5.x and 2.4.x) and does not replace it.
 
 ```groovy
 repositories {
@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.ufoss.kotysa:kotysa-spring-jdbc:0.2.3'
+    implementation 'org.ufoss.kotysa:kotysa-spring-jdbc:1.0.1'
     
     implementation 'org.springframework:spring-jdbc'
 }
@@ -40,6 +40,7 @@ class Repository(client: JdbcOperations, tables: Tables) {
 
 * [MySQL](table-mapping.html#mysql)
 * [PostgreSQL](table-mapping.html#postgresql)
+* [MSSQL](table-mapping.html#mssql)
 * [H2](table-mapping.html#h2)
 
 ## Transaction
