@@ -60,8 +60,6 @@ private val tables = tables().h2(ROLE, USER)
 
 ## Data types
 
-More supported data types will be added later.
-
 Kotysa uses Java 8+ ```java.time.*``` (and Kotlinx-datetime equivalents) types for dates.
 
 ### H2
