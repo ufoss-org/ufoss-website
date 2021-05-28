@@ -16,7 +16,7 @@ Kotysa provides you a DSL to write type-safe SQL queries in pure Kotlin.
 
 ### Select one or several columns or tables
 
-* Single select returns either column's type or table's mapped Entity (= in this case will select all columns from this table)
+* Single select returns either column's type or table's mapped Entity type
 * 2 selects return a `Pair<T, U>`
 * 3 selects return a `Triple<T, U, V>`
 * 4 selects and more return a `List<Any?>`
