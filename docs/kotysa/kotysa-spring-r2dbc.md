@@ -44,7 +44,7 @@ class Repository(client: DatabaseClient, tables: Tables) {
 kotysa-spring-r2dbc provides a coroutines SQL client on top of spring-r2dbc, 
 it can be obtained via an Extension function directly on spring-r2dbc's ```DatabaseClient```.
 
-It provides a SQL client API using ```suspend``` functions and ```Flow``` from kotlinx-coroutines.
+It provides a SQL client API using ```suspend``` functions and ```Flow``` from [kotlinx.coroutines](https://github.com/Kotlin/kotlinx.coroutines).
 
 ```kotlin
 class Repository(client: DatabaseClient, tables: Tables) {

@@ -14,22 +14,53 @@ Kotysa provides you a DSL to write type-safe SQL queries in pure Kotlin.
 
 ## Select
 
-### Select from
+### Select one or several columns or tables
 
-Returns rows from a table as mapped Objects
+* Single select returns either column's type or table's mapped Entity (= in this case will select all columns from this table)
+* 2 selects return a `Pair<T, U>`
+* 3 selects return a `Triple<T, U, V>`
+* 4 selects and more return a `List<Any?>`
 
 ```kotlin
-fun selectFirstByFirstname(firstname: String) =
-    (sqlClient selectFrom USER
-        where USER.firstname eq firstname
-        // null String forbidden ^^^^^^^^
-        ).fetchFirst()
+// returns a User? (= will select all columns from the USER table)
+fun selectUserById(id: Int) =
+    (sqlClient select USER
+        from USER
+        where USER.id eq id
+        ).fetchOne()
 
-fun selectAllByAliases(alias1: String?) =
-    (sqlClient selectFrom USER
-        where USER.alias eq alias1
-        // null String accepted ^^
-        // if alias1==null, Kotysa will generate "WHERE user.alias IS NULL" SQL
+// returns String?
+fun selectFirstnameById(id: Int) =
+    (sqlClient select USER.firstname
+        from USER
+        where USER.id eq id
+        ).fetchOne()
+
+// returns Pair<String?, String?>?
+fun selectFirstnameAndAliasById(id: Int) =
+    (sqlClient select USER.firstname and USER.alias
+        from USER
+        where USER.id eq id
+        ).fetchOne()
+
+// returns Triple<String?, String?, String?>?
+fun selectFirstnameAndLastnameAndAliasById(id: Int) =
+    (sqlClient select USER.firstname and USER.lastname and USER.alias
+        from USER
+        where USER.id eq id
+        ).fetchOne()
+
+// returns List<Any?>?
+fun selectFirstnameAndLastnameAndAliasAndIsAdminById(id: Int) =
+    (sqlClient select USER.firstname and USER.lastname and USER.alias and USER.isAdmin
+        from USER
+        where USER.id eq id
+        ).fetchOne()
+
+// returns List<Pair<String?, String?>>
+fun selectAllFirstnameAndAlias() =
+    (sqlClient select USER.firstname and USER.alias
+        from USER
         ).fetchAll()
 ```
 
@@ -74,9 +105,28 @@ fun selectUserSumId() =
         ).fetchOne()
 ```
 
+### Select from
+
+Returns rows from a table as mapped Objects (= will select all columns from this table)
+
+```kotlin
+fun selectFirstByFirstname(firstname: String) =
+    (sqlClient selectFrom USER
+        where USER.firstname eq firstname
+        // null String forbidden ^^^^^^^^
+        ).fetchFirst()
+
+fun selectAllByAliases(alias1: String?) =
+    (sqlClient selectFrom USER
+        where USER.alias eq alias1
+        // null String accepted ^^
+        // if alias1==null, Kotysa will generate "WHERE user.alias IS NULL" SQL
+        ).fetchAll()
+```
+
 ### Select all from
 
-Returns all rows from a table as mapped Objects
+Returns all rows from a table as mapped Objects (= will select all columns from this table)
 
 ```kotlin
 fun selectAll() = sqlClient selectAllFrom USER
@@ -97,7 +147,7 @@ fun countAll() = sqlClient selectCountAllFrom USER
 * CoroutinesSqlCLient is a **suspend function** that returns a `Long`
 
 ### Map selected columns to a DTO
-Code block will be executed for each return rows
+Code block will be executed for each returned row
 
 ::: tip Tip
 Allow you to build a DTO from columns of several tables
@@ -170,7 +220,7 @@ fun selectUserByIdAsc() =
 ### Fetch the database
 
 ::: tip
-If you use kotysa-android or kotysa-spring-jdbc, use `org.ufoss.kotysa.SqlClient`
+With **kotysa-android** or **kotysa-spring-jdbc**, you work with `org.ufoss.kotysa.SqlClient`
 :::
 
 **SqlClient**
@@ -186,7 +236,7 @@ If you use kotysa-android or kotysa-spring-jdbc, use `org.ufoss.kotysa.SqlClient
 * ```fun fetchAllStream(): Stream<T>``` returns several results as `java.util.stream.Stream`, can be empty if no results
 
 ::: tip
-If you use kotysa-spring-r2dbc, use reactive `org.ufoss.kotysa.r2dbc.ReactorSqlClient` or coroutines `org.ufoss.kotysa.CoroutinesSqlClient`
+With **kotysa-spring-r2dbc**, you work with either reactive `org.ufoss.kotysa.r2dbc.ReactorSqlClient` or coroutines `org.ufoss.kotysa.CoroutinesSqlClient`
 :::
 
 **ReactorSqlClient**
@@ -234,9 +284,13 @@ private val userBboss = User("Big boss", roleAdmin.id, "France", "TheBoss")
 fun insert() = sqlClient.insert(jdoe, bboss)
 ```
 
+* SqlClient returns void
+* ReactorSqlCLient returns a `reactor.core.publisher.Mono<Void>`
+* CoroutinesSqlCLient is a **suspend function** that returns void
+
 ## Delete
 
-### Normal Delete
+### Normal delete
 
 Delete rows from a table, return the number of deleted rows
 
@@ -273,6 +327,10 @@ fun updateFirstname(newFirstname: String) =
                 set USER.firstname eq newFirstname
                 ).execute()
 ```
+
+* SqlClient returns Int
+* ReactorSqlCLient returns a `reactor.core.publisher.Mono<Int>`
+* CoroutinesSqlCLient is a **suspend function** that returns Int
 
 ## Transaction
 

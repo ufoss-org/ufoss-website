@@ -14,6 +14,8 @@ This step allows describing how to map a table to a class (aka Entity).
 
 ## Describe database model with type-safe DSL
 
+### Entities = simple Kotlin classes
+
 These are 2 simple entities that we will use :
 
 ```kotlin
@@ -28,9 +30,11 @@ data class User(
         val isAdmin: Boolean,
         val roleId: UUID,
         val alias: String? = null,
-        val id: UUID = UUID.randomUUID()
+        val id: Int? = null
 )
 ```
+
+### Mapping entities to database tables
 
 Use Kotysa's ```tables``` functional DSL to define all mappings rules (columns, primary and foreign keys...) beetween
 your entities and the database tables, this is the ORM (object-relational mapping) step in Kotlin.
@@ -45,8 +49,8 @@ object ROLE : H2Table<Role>("roles") {
 }
 
 object USER : H2Table<User>("users") {
-    val id = uuid(User::id)
-            .primaryKey("PK_users")
+    val id = autoIncrementInteger(User::id)
+        .primaryKey("PK_users")
     val firstname = varchar(User::firstname, "fname")
     val lastname = varchar(User::lastname, "lname")
     val isAdmin = boolean(User::isAdmin)

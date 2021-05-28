@@ -11,11 +11,11 @@ Kotysa Query API is agnostic from Sql Engine : change database engine without co
 
 ## Supported Databases
 
-* MySQL with [Spring JDBC](kotysa-spring-jdbc.html) or [Spring R2DBC](kotysa-spring-r2dbc.html) : [MySQL supported data types](table-mapping.html#mysql)
-* PostgreSQL with [Spring JDBC](kotysa-spring-jdbc.html) or [Spring R2DBC](kotysa-spring-r2dbc.html) : [PostgreSQL supported data types](table-mapping.html#postgresql)
-* H2 with [Spring JDBC](kotysa-spring-jdbc.html) or [Spring R2DBC](kotysa-spring-r2dbc.html) : [H2 supported data types](table-mapping.html#h2)
-* Microsoft SQL Server with [Spring JDBC](kotysa-spring-jdbc.html) or [Spring R2DBC](kotysa-spring-r2dbc.html) :  : [MSSQL supported data types](table-mapping.html#mssql)
-* [SqLite on Android](kotysa-android.html) : [SqLite supported data types](table-mapping.html#sqlite)
+* MySQL with [Spring JDBC](kotysa-spring-jdbc.html) or [Spring R2DBC](kotysa-spring-r2dbc.html) -> [MySQL supported data types](table-mapping.html#mysql)
+* PostgreSQL with [Spring JDBC](kotysa-spring-jdbc.html) or [Spring R2DBC](kotysa-spring-r2dbc.html) -> [PostgreSQL supported data types](table-mapping.html#postgresql)
+* H2 with [Spring JDBC](kotysa-spring-jdbc.html) or [Spring R2DBC](kotysa-spring-r2dbc.html) -> [H2 supported data types](table-mapping.html#h2)
+* Microsoft SQL Server with [Spring JDBC](kotysa-spring-jdbc.html) or [Spring R2DBC](kotysa-spring-r2dbc.html) -> [MSSQL supported data types](table-mapping.html#mssql)
+* [SqLite on Android](kotysa-android.html) -> [SqLite supported data types](table-mapping.html#sqlite)
 
 **Table of content**
 
@@ -91,13 +91,13 @@ Kotysa provides [Kotlin Coroutines first class support with R2DBC](kotysa-spring
 
 ### Samples
 
-* See [basic sample projects for jdbc, r2dbc-reactive and r2dbc-coroutines](https://github.com/ufoss-org/kotysa/tree/master/samples).
-* [Real world sample project](https://github.com/pull-vert/demo-kotlin) is a Spring Boot Reactive web application with a R2DBC backend accessed via Kotysa, with HTTP2, JWT based Security, Bean validation, RestDoc...
+* See [basic sample projects for jdbc, r2dbc-reactive and r2dbc-coroutines](https://github.com/ufoss-org/kotysa/tree/master/samples), using Spring Boot with [spring-fu](https://github.com/spring-projects-experimental/spring-fu).
+* [Real world sample project](https://github.com/pull-vert/demo-kotlin) is a Spring Boot reactive web application with a R2DBC backend accessed via Kotysa, with HTTP2, JWT based Security, Bean validation, RestDoc...
 
 ## Source code
 
 &#x1F468;&#x200D;&#x1F4BB; Open source code of Kotysa is available on [github](https://github.com/ufoss-org/kotysa), feel free to watch it, submit issues, contribute, fork, copy, whatever you want.
 
 ::: tip Status
-Regular releases will provide new features, see [next milestones](https://github.com/ufoss-org/kotysa/milestones).
+Regular releases will provide new features to Kotysa, see [next milestones](https://github.com/ufoss-org/kotysa/milestones).
 :::
