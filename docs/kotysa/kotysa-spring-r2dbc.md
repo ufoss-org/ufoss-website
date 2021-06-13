@@ -17,7 +17,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.ufoss.kotysa:kotysa-spring-r2dbc:1.0.1'
+    implementation 'org.ufoss.kotysa:kotysa-spring-r2dbc:1.1.0'
     
     implementation 'org.springframework:spring-r2dbc'
 }
@@ -60,6 +60,7 @@ class Repository(client: DatabaseClient, tables: Tables) {
 * [MySQL](table-mapping.html#mysql)
 * [PostgreSQL](table-mapping.html#postgresql)
 * [MSSQL](table-mapping.html#mssql)
+* [MariaDB](table-mapping.html#mariadb)
 * [H2](table-mapping.html#h2)
 
 ## Reactive transaction

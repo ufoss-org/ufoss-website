@@ -15,6 +15,7 @@ Kotysa Query API is agnostic from Sql Engine : change database engine without co
 * PostgreSQL with [Spring JDBC](kotysa-spring-jdbc.html) or [Spring R2DBC](kotysa-spring-r2dbc.html) -> [PostgreSQL supported data types](table-mapping.html#postgresql)
 * H2 with [Spring JDBC](kotysa-spring-jdbc.html) or [Spring R2DBC](kotysa-spring-r2dbc.html) -> [H2 supported data types](table-mapping.html#h2)
 * Microsoft SQL Server with [Spring JDBC](kotysa-spring-jdbc.html) or [Spring R2DBC](kotysa-spring-r2dbc.html) -> [MSSQL supported data types](table-mapping.html#mssql)
+* MariaDB with [Spring JDBC](kotysa-spring-jdbc.html) or [Spring R2DBC](kotysa-spring-r2dbc.html) -> [MariaDB supported data types](table-mapping.html#mariadb)
 * [SqLite on Android](kotysa-android.html) -> [SqLite supported data types](table-mapping.html#sqlite)
 
 **Table of content**

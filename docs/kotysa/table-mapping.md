@@ -205,7 +205,7 @@ Kotysa uses Java 8+ ```java.time.*``` (and Kotlinx-datetime equivalents) types f
     </tr>
     <tr>
         <td>String</td>
-        <td>Represents a variable-length character string, maximum length fixed (size is mandatory in MySQL)</td>
+        <td>Represents a variable-length character string, maximum length fixed (size is mandatory in MySQL). Default = 255</td>
         <td>varchar</td>
     </tr>
     <tr>
@@ -258,7 +258,7 @@ Kotysa uses Java 8+ ```java.time.*``` (and Kotlinx-datetime equivalents) types f
     </tr>
     <tr>
         <td>String</td>
-        <td>Represents a variable-length character string, maximum length fixed (size is mandatory in MySQL)</td>
+        <td>Represents a variable-length character string, maximum length fixed</td>
         <td>varchar</td>
     </tr>
     <tr>
@@ -293,6 +293,59 @@ Kotysa uses Java 8+ ```java.time.*``` (and Kotlinx-datetime equivalents) types f
     <tr>
         <td>Represents an auto-incremented long</td>
         <td>identityBigInt</td>
+    </tr>
+</table>
+
+### MariaDB
+
+<table>
+    <tr>
+        <th>Kotlin type</th>
+        <th>Description
+        <th>SQL type</th>
+    </tr>
+    <tr>
+        <td>String</td>
+        <td>Represents a variable-length character string, maximum length fixed (size is mandatory in MariaDB). Default = 255</td>
+        <td>varchar</td>
+    </tr>
+    <tr>
+        <td>java.time.LocalDate or kotlinx.datetime.LocalDate</td>
+        <td>Represents a date without time part and without timezone</td>
+        <td>date</td>
+    </tr>
+    <tr>
+        <td>java.time.LocalDateTime or kotlinx.datetime.LocalDateTime</td>
+        <td>Represents a date+time without timezone</td>
+        <td>datetime</td>
+    </tr>
+    <tr>
+        <td>java.time.LocalTime</td>
+        <td>Represents a time without a date part and without timezone</td>
+        <td>time</td>
+    </tr>
+    <tr>
+        <td>Boolean</td>
+        <td>Represents a boolean state. Nullable Boolean is not allowed !</td>
+        <td>boolean</td>
+    </tr>
+    <tr>
+        <td rowspan="2">Int</td>
+        <td>Represents an integer</td>
+        <td>integer</td>
+    </tr>
+    <tr>
+        <td>Represents an auto-incremented integer</td>
+        <td>autoIncrementInteger</td>
+    </tr>
+    <tr>
+        <td rowspan="2">Long</td>
+        <td>Represents a long</td>
+        <td>bigInt</td>
+    </tr>
+    <tr>
+        <td>Represents an auto-incremented long</td>
+        <td>autoIncrementBigInt</td>
     </tr>
 </table>
 
