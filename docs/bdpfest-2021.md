@@ -6,16 +6,14 @@ sidebar: false
 pageClass: custom-bdp-class
 ---
 
-<h2>&#x2620; Merci à tous les participants de l'édition 2020 !! &#x1F3B8;</h2>
-
 <div class="flex-container">
     <div style="flex: 0 0 20%">
         <div class="flex-container-vertical">
-            <div>24/25/26 juillet 2020</div>
-            <div>Chez Chewy</div>
+            <div>soirée du 18 au 19 juin 2021</div>
+            <div>Chez Fred</div>
             <div>Concerts <del>live</del></div>
-            <div>Camping</div>
-            <div>Douche au jet d'eau</div>
+            <div>En indoor</div>
+            <div>Tout confort</div>
         </div>
     </div>
     <div style="flex: 0 0 59%">
