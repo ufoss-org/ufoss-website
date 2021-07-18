@@ -141,9 +141,13 @@ Kotysa uses Java 8+ ```java.time.*``` (and Kotlinx-datetime equivalents) types f
         <th>SQL type</th>
     </tr>
     <tr>
-        <td>String</td>
+        <td rowspan="2">String</td>
         <td>Represents a variable-length character string, maximum length fixed</td>
         <td>varchar</td>
+    </tr>
+    <tr>
+        <td>Represents a variable-length character string, unlimited length</td>
+        <td>text</td>
     </tr>
     <tr>
         <td>java.time.LocalDate or kotlinx.datetime.LocalDate</td>
@@ -204,9 +208,25 @@ Kotysa uses Java 8+ ```java.time.*``` (and Kotlinx-datetime equivalents) types f
         <th>SQL type</th>
     </tr>
     <tr>
-        <td>String</td>
-        <td>Represents a variable-length character string, maximum length fixed (size is mandatory in MySQL). Default = 255</td>
+        <td rowspan="5">String</td>
+        <td>Represents a variable-length character string, maximum length fixed (size is mandatory in MySQL). Default size = 255</td>
         <td>varchar</td>
+    </tr>
+    <tr>
+        <td>Represents a variable-length character string, max length = 255</td>
+        <td>tinytext</td>
+    </tr>
+    <tr>
+        <td>Represents a variable-length character string, max length = 65_535</td>
+        <td>text</td>
+    </tr>
+    <tr>
+        <td>Represents a variable-length character string, max length = 16_777_215</td>
+        <td>mediumtext</td>
+    </tr>
+    <tr>
+        <td>Represents a variable-length character string, max length = 4_294_967_295</td>
+        <td>longtext</td>
     </tr>
     <tr>
         <td>java.time.LocalDate or kotlinx.datetime.LocalDate</td>
@@ -305,9 +325,25 @@ Kotysa uses Java 8+ ```java.time.*``` (and Kotlinx-datetime equivalents) types f
         <th>SQL type</th>
     </tr>
     <tr>
-        <td>String</td>
-        <td>Represents a variable-length character string, maximum length fixed (size is mandatory in MariaDB). Default = 255</td>
+        <td rowspan="5">String</td>
+        <td>Represents a variable-length character string, maximum length fixed (size is mandatory in MariaDB). Default size = 255</td>
         <td>varchar</td>
+    </tr>
+    <tr>
+        <td>Represents a variable-length character string, max length = 255</td>
+        <td>tinytext</td>
+    </tr>
+    <tr>
+        <td>Represents a variable-length character string, max length = 65_535</td>
+        <td>text</td>
+    </tr>
+    <tr>
+        <td>Represents a variable-length character string, max length = 16_777_215</td>
+        <td>mediumtext</td>
+    </tr>
+    <tr>
+        <td>Represents a variable-length character string, max length = 4_294_967_295</td>
+        <td>longtext</td>
     </tr>
     <tr>
         <td>java.time.LocalDate or kotlinx.datetime.LocalDate</td>

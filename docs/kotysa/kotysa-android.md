@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.ufoss.kotysa:kotysa-android:1.1.0'
+    implementation 'org.ufoss.kotysa:kotysa-android:1.1.1'
 }
 ```
 
