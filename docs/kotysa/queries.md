@@ -272,7 +272,7 @@ fun createTable() = sqlClient createTableIfNotExists USER
 
 ## Insert
 
-Insert some mapped objects in a database table
+Insert one or several mapped objects in a database table
 
 ```kotlin
 private val roleUser = Role("user")
@@ -281,12 +281,33 @@ private val roleAdmin = Role("admin")
 private val userJdoe = User("John", roleUser.id, "USA")
 private val userBboss = User("Big boss", roleAdmin.id, "France", "TheBoss")
 
-fun insert() = sqlClient.insert(jdoe, bboss)
+fun insert() = sqlClient.insert(userJdoe, userBboss)
 ```
 
 * SqlClient returns void
 * ReactorSqlCLient returns a `reactor.core.publisher.Mono<Void>`
 * CoroutinesSqlCLient is a **suspend function** that returns void
+
+### InsertAndReturn
+
+Insert one or several mapped objects in a database table, and return the inserted objects,
+useful for auto-incremented columns or default values
+
+```kotlin
+private val roleUser = Role("user")
+
+private val userJdoe = User("John", roleUser.id, "USA")
+
+fun insertAndReturn() = sqlClient insertAndReturn userJdoe
+```
+
+::: tip
+T corresponds to inserted entity type
+:::
+
+* SqlClient returns T or a List<T> if several entities passed
+* ReactorSqlCLient returns a `reactor.core.publisher.Mono<T>` or a `reactor.core.publisher.Flux<T>` if several entities passed
+* CoroutinesSqlCLient is a **suspend function** that returns T or a `kotlinx.coroutines.flow.Flow<T>` if several entities passed
 
 ## Delete
 

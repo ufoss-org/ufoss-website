@@ -9,7 +9,7 @@ next: ./kotysa-spring-jdbc
 ## Dependency
 
 kotysa-spring-r2dbc is a single dependency you can add to your Spring project. \
-This is a companion version for spring-r2dbc 5.3.x (included in Spring boot 2.5.x and 2.4.x) and does not replace it.
+This is a companion version for spring-r2dbc 5.3.x (included in Spring boot 2.6.X, 2.5.x and 2.4.x) and does not replace it.
 
 ```groovy
 repositories {
@@ -17,9 +17,25 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.ufoss.kotysa:kotysa-spring-r2dbc:1.1.1'
+    implementation 'org.ufoss.kotysa:kotysa-spring-r2dbc:1.1.3'
     
     implementation 'org.springframework:spring-r2dbc'
+}
+```
+
+## Coroutines first class support
+
+kotysa-spring-r2dbc provides a coroutines SQL client on top of spring-r2dbc,
+it can be obtained via an Extension function directly on spring-r2dbc's ```DatabaseClient```.
+
+It provides a SQL client API using ```suspend``` functions, and ```Flow``` from [kotlinx.coroutines](https://github.com/Kotlin/kotlinx.coroutines).
+
+```kotlin
+class Repository(client: DatabaseClient, tables: Tables) {
+
+	private val sqlClient = client.coSqlClient(tables)
+
+	// enjoy coroutines sqlClient for spring-r2dbc :)
 }
 ```
 
@@ -36,22 +52,6 @@ class Repository(client: DatabaseClient, tables: Tables) {
 	private val sqlClient = client.sqlClient(tables)
 
 	// enjoy reactive sqlClient for spring-r2dbc :)
-}
-```
-
-## Coroutines first class support
-
-kotysa-spring-r2dbc provides a coroutines SQL client on top of spring-r2dbc, 
-it can be obtained via an Extension function directly on spring-r2dbc's ```DatabaseClient```.
-
-It provides a SQL client API using ```suspend``` functions and ```Flow``` from [kotlinx.coroutines](https://github.com/Kotlin/kotlinx.coroutines).
-
-```kotlin
-class Repository(client: DatabaseClient, tables: Tables) {
-
-	private val sqlClient = client.coSqlClient(tables)
-
-	// enjoy coroutines sqlClient for spring-r2dbc :)
 }
 ```
 
