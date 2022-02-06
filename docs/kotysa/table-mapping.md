@@ -42,24 +42,24 @@ your entities and the database tables, this is the ORM (object-relational mappin
 This DSL is based on type and nullability of your entities fields.
 
 ```kotlin
-object ROLE : H2Table<Role>("roles") {
+object Roles : H2Table<Role>("roles") {
     val id = uuid(Role::id)
             .primaryKey()
     val label = varchar(Role::label)
 }
 
-object USER : H2Table<User>("users") {
+object Users : H2Table<User>("users") {
     val id = autoIncrementInteger(User::id)
         .primaryKey("PK_users")
     val firstname = varchar(User::firstname, "fname")
     val lastname = varchar(User::lastname, "lname")
     val isAdmin = boolean(User::isAdmin)
     val roleId = uuid(User::roleId)
-            .foreignKey(ROLE.id, "FK_users_roles")
+            .foreignKey(Roles.id, "FK_users_roles")
     val alias = varchar(User::alias)
 }
 
-private val tables = tables().h2(ROLE, USER)
+private val tables = tables().h2(Roles, Users)
 ```
 
 ## Data types
@@ -104,7 +104,7 @@ Kotysa uses Java 8+ ```java.time.*``` (and Kotlinx-datetime equivalents) types f
     </tr>
     <tr>
         <td>Boolean</td>
-        <td>Represents a boolean state. Nullable Boolean is not allowed !</td>
+        <td>Represents a boolean state</td>
         <td>boolean</td>
     </tr>
     <tr>
@@ -171,7 +171,7 @@ Kotysa uses Java 8+ ```java.time.*``` (and Kotlinx-datetime equivalents) types f
     </tr>
     <tr>
         <td>Boolean</td>
-        <td>Represents a boolean state. Nullable Boolean is not allowed !</td>
+        <td>Represents a boolean state</td>
         <td>boolean</td>
     </tr>
     <tr>
@@ -245,7 +245,7 @@ Kotysa uses Java 8+ ```java.time.*``` (and Kotlinx-datetime equivalents) types f
     </tr>
     <tr>
         <td>Boolean</td>
-        <td>Represents a boolean state. Nullable Boolean is not allowed !</td>
+        <td>Represents a boolean state</td>
         <td>boolean</td>
     </tr>
     <tr>
@@ -293,7 +293,7 @@ Kotysa uses Java 8+ ```java.time.*``` (and Kotlinx-datetime equivalents) types f
     </tr>
     <tr>
         <td>Boolean</td>
-        <td>Represents a boolean state. Nullable Boolean is not allowed !</td>
+        <td>Represents a boolean state</td>
         <td>bit</td>
     </tr>
     <tr>
@@ -362,7 +362,7 @@ Kotysa uses Java 8+ ```java.time.*``` (and Kotlinx-datetime equivalents) types f
     </tr>
     <tr>
         <td>Boolean</td>
-        <td>Represents a boolean state. Nullable Boolean is not allowed !</td>
+        <td>Represents a boolean state</td>
         <td>boolean</td>
     </tr>
     <tr>
@@ -420,7 +420,7 @@ Kotysa uses Java 8+ ```java.time.*``` (and Kotlinx-datetime equivalents) types f
     </tr>
     <tr>
         <td>Boolean</td>
-        <td>Represents a boolean state. Nullable Boolean is not allowed !</td>
+        <td>Represents a boolean state</td>
         <td>integer</td>
     </tr>
     <tr>

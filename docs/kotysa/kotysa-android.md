@@ -1,7 +1,7 @@
 ---
 title: kotysa-android
 prev: ./queries
-next: ./kotysa-spring-r2dbc
+next: ./kotysa-spring-jdbc
 ---
 
 # Kotysa for SqLite on Android
@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.ufoss.kotysa:kotysa-android:1.1.3'
+    implementation 'org.ufoss.kotysa:kotysa-android:2.0.0'
 }
 ```
 

@@ -11,6 +11,6 @@
   ],
   "license": "The Unlicense",
   "devDependencies": {
-    "vuepress": "^1.6.0"
+    "vuepress": "^1.9.7"
   }
 }

@@ -1,14 +1,15 @@
 ---
 title: kotysa-spring-jdbc
-prev: ./kotysa-spring-r2dbc
+prev: ./kotysa-android
+next: ./kotysa-spring-r2dbc
 ---
 
 # Kotysa for Spring JDBC
 
 ## Dependency
 
-kotysa-spring-jdbc is a single dependency you can add to your Spring project. \
-This is a companion version for spring-jdbc 5.3.x (included in Spring boot 2.6.X, 2.5.x and 2.4.x) and does not replace it.
+`kotysa-spring-jdbc` is a single dependency you can add to your Spring project. \
+This is a companion version for `spring-jdbc` 5.3.x (included in Spring boot 2.6.X, 2.5.x and 2.4.x) and does not replace it.
 
 ```groovy
 repositories {
@@ -16,15 +17,17 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.ufoss.kotysa:kotysa-spring-jdbc:1.1.3'
+    implementation 'org.ufoss.kotysa:kotysa-spring-jdbc:2.0.0'
     
     implementation 'org.springframework:spring-jdbc'
 }
 ```
 
+Check this [sample project](https://github.com/ufoss-org/kotysa/tree/master/samples/kotysa-spring-jdbc) for a Spring Boot Servlet WebMVC application with a JDBC backend accessed via `kotysa-spring-jdbc`
+
 ## Usage
 
-kotysa-spring-jdbc provides a SQL client on top of spring-jdbc, 
+`kotysa-spring-jdbc` provides a SQL client on top of `spring-jdbc`, 
 it can be obtained via an Extension function directly on spring-jdbc's ```JdbcOperations```.
 
 ```kotlin
@@ -46,7 +49,7 @@ class Repository(client: JdbcOperations, tables: Tables) {
 
 ## Transaction
 
-kotysa-spring-jdbc provides a transaction on top of spring-tx, 
+`kotysa-spring-jdbc` provides a transaction on top of `spring-tx`, 
 it can be obtained via an Extension function directly on spring-tx's ```TransactionOperations```.
 
 ```kotlin

@@ -22,45 +22,46 @@ Kotysa provides you a DSL to write type-safe SQL queries in pure Kotlin.
 * 4 selects and more return a `List<Any?>`
 
 ```kotlin
-// returns a User? (= will select all columns from the USER table)
+// select a Table = will select all columns from the Users table
 fun selectUserById(id: Int) =
-    (sqlClient select USER
-        from USER
-        where USER.id eq id
+    (sqlClient select Users
+        from Users
+        where Users.id eq id
         ).fetchOne()
 
-// returns String?
+// select a single column
 fun selectFirstnameById(id: Int) =
-    (sqlClient select USER.firstname
-        from USER
-        where USER.id eq id
+    (sqlClient select Users.firstname
+        from Users
+        where Users.id eq id
         ).fetchOne()
 
-// returns Pair<String?, String?>?
+// returns Pair<String, String?>
 fun selectFirstnameAndAliasById(id: Int) =
-    (sqlClient select USER.firstname and USER.alias
-        from USER
-        where USER.id eq id
+    (sqlClient select Users.firstname and Users.alias
+        from Users
+        where Users.id eq id
         ).fetchOne()
 
-// returns Triple<String?, String?, String?>?
-fun selectFirstnameAndLastnameAndAliasById(id: Int) =
-    (sqlClient select USER.firstname and USER.lastname and USER.alias
-        from USER
-        where USER.id eq id
+// returns Triple<String, UUID, String?>
+fun selectFirstnameAndRoleIdAndAliasById(id: Int) =
+    (sqlClient select Users.firstname and Users.roleId and Users.alias
+        from Users
+        where Users.id eq id
         ).fetchOne()
 
-// returns List<Any?>?
+// returns List<Any?>
 fun selectFirstnameAndLastnameAndAliasAndIsAdminById(id: Int) =
-    (sqlClient select USER.firstname and USER.lastname and USER.alias and USER.isAdmin
-        from USER
-        where USER.id eq id
+    (sqlClient select Users.firstname and Users.lastname and Users.alias and Users.isAdmin
+        from Users
+        where Users.id eq id
         ).fetchOne()
 
-// returns List<Pair<String?, String?>>
+// fetchAll = multiple results
+// returns List<Pair<String, String?>>
 fun selectAllFirstnameAndAlias() =
-    (sqlClient select USER.firstname and USER.alias
-        from USER
+    (sqlClient select Users.firstname and Users.alias
+        from Users
         ).fetchAll()
 ```
 
@@ -70,8 +71,8 @@ Counts the number of rows having a non-null value for the specified column
 
 ```kotlin
 fun countWithAlias() =
-    (sqlClient selectCount USER.alias
-        from USER
+    (sqlClient selectCount Users.alias
+        from Users
         ).fetchOne()
 ```
 
@@ -81,8 +82,8 @@ Returns distinct values of the specified column
 
 ```kotlin
 val distinctFirstnames =
-    (sqlClient selectDistinct USER.firstname
-        from USER
+    (sqlClient selectDistinct Users.firstname
+        from Users
         ).fetchAll()
 ```
 
@@ -90,35 +91,35 @@ val distinctFirstnames =
 
 ```kotlin
 fun selectUserMinId() =
-    (sqlClient selectMin USER.id
-        from USER
+    (sqlClient selectMin Users.id
+        from Users
         ).fetchOne()
 
 fun selectUserMaxId() =
-    (sqlClient selectMax USER.id 
-        from USER
+    (sqlClient selectMax Users.id 
+        from Users
         ).fetchOne()
 
 fun selectUserSumId() =
-    (sqlClient selectSum USER.id
-        from USER
+    (sqlClient selectSum Users.id
+        from Users
         ).fetchOne()
 ```
 
 ### Select from
 
-Returns rows from a table as mapped Objects (= will select all columns from this table)
+Shortcut to return rows from a table as table's mapped Entity (= will select all columns from this table)
 
 ```kotlin
-fun selectFirstByFirstname(firstname: String) =
-    (sqlClient selectFrom USER
-        where USER.firstname eq firstname
+fun selectFirstUserByFirstname(firstname: String) =
+    (sqlClient selectFrom Users
+        where Users.firstname eq firstname
         // null String forbidden ^^^^^^^^
         ).fetchFirst()
 
-fun selectAllByAliases(alias1: String?) =
-    (sqlClient selectFrom USER
-        where USER.alias eq alias1
+fun selectAllUsersByAliases(alias1: String?) =
+    (sqlClient selectFrom Users
+        where Users.alias eq alias1
         // null String accepted ^^
         // if alias1==null, Kotysa will generate "WHERE user.alias IS NULL" SQL
         ).fetchAll()
@@ -126,10 +127,10 @@ fun selectAllByAliases(alias1: String?) =
 
 ### Select all from
 
-Returns all rows from a table as mapped Objects (= will select all columns from this table)
+Shortcut to return all rows from a table as table's mapped Entity (= will select all columns from this table)
 
 ```kotlin
-fun selectAll() = sqlClient selectAllFrom USER
+fun selectAll() = sqlClient selectAllFrom Users
 ```
 * SqlClient returns a `List<User>`
 * ReactorSqlCLient returns a `reactor.core.publisher.Flux<User>`
@@ -137,9 +138,9 @@ fun selectAll() = sqlClient selectAllFrom USER
 
 ### Count all from
 
-Return the number of rows of a table
+Shortcut to return the total number of rows of a table
 ```kotlin
-fun countAll() = sqlClient selectCountAllFrom USER
+fun countAll() = sqlClient selectCountAllFrom Users
 ```
 
 * SqlClient returns a `Long`
@@ -147,7 +148,7 @@ fun countAll() = sqlClient selectCountAllFrom USER
 * CoroutinesSqlCLient is a **suspend function** that returns a `Long`
 
 ### Map selected columns to a DTO
-Code block will be executed for each returned row
+Use a code block that will be executed for each returned row
 
 ::: tip Tip
 Allow you to build a DTO from columns of several tables
@@ -159,42 +160,47 @@ data class UserDto(
     val alias: String?
 )
 
-fun selectAllMappedToDto() =
-    (sqlClient select { UserDto(it[USER.firstname]!!, it[USER.alias]) }
-        from USER
+fun selectAllUsersMappedToDto() =
+    (sqlClient select { UserDto(it[Users.firstname]!!, it[Users.alias]) }
+        from Users
         ).fetchAll()
 ```
 
+* SqlClient returns a `List<UserDto>`
+* ReactorSqlCLient returns a `reactor.core.publisher.Flux<UserDto>`
+* CoroutinesSqlCLient returns a `kotlinx.coroutines.flow.Flow<UserDto>`
+
 ### Or
+SQL `OR` clause
 
 ```kotlin
-fun selectAllByAliases(alias1: String?, alias2: String?) =
-        (sqlClient selectFrom USER
-            where USER.alias eq alias1
-            or USER.alias eq alias2
+fun selectAllUsersByAliases(alias1: String?, alias2: String?) =
+        (sqlClient selectFrom Users
+            where Users.alias eq alias1
+                or Users.alias eq alias2
             ).fetchAll()
 ```
 
 ### Join
 
-Join database tables with join clause
+Join database tables with `JOIN` clause
 
 ```kotlin
 val admins =
-    (sqlClient selectFrom USER
-        innerJoin ROLE on USER.roleId eq ROLE.id
-        where ROLE.label eq "admin"
+    (sqlClient selectFrom Users
+        innerJoin Roles on Users.roleId eq Roles.id
+        where Roles.label eq "admin"
         ).fetchAll() // returns all admin users
 ```
 
 ### Limit and offset
 
-For pagination, use LIMIT and OFFSET
+For pagination, use `LIMIT` and `OFFSET`
 
 ```kotlin
 val pagination =
-    (sqlClient selectFrom USER
-        limit 1 offset 1
+    (sqlClient selectFrom Users
+        limit 5 offset 1
         ).fetchAll()
 ```
 
@@ -202,9 +208,9 @@ val pagination =
 
 ```kotlin
 val countUsersGroupByCountry =
-    (sqlClient selectCount USER.id and USER.country
-        from USER
-        groupBy USER.country
+    (sqlClient selectCount Users.id and Users.country
+        from Users
+        groupBy Users.country
         ).fetchAll()
 ```
 
@@ -212,18 +218,16 @@ val countUsersGroupByCountry =
 
 ```kotlin
 fun selectUserByIdAsc() =
-    (sqlClient selectFrom USER
-        orderByAsc USER.id
+    (sqlClient selectFrom Users
+        orderByAsc Users.id
         ).fetchAll()
 ```
 
 ### Fetch the database
 
-::: tip
-With **kotysa-android** or **kotysa-spring-jdbc**, you work with `org.ufoss.kotysa.SqlClient`
-:::
+Use the terminal operation that you need to fetch single or multiple results
 
-**SqlClient**
+**With kotysa-jdbc, kotysa-spring-jdbc and kotysa-android**
 * ```fun fetchOne(): T?``` returns one result
   * @throws NoResultException if no results
   * @throws NonUniqueResultException if more than one result
@@ -235,17 +239,7 @@ With **kotysa-android** or **kotysa-spring-jdbc**, you work with `org.ufoss.koty
 * ```fun fetchAll(): List<T>``` returns several results as `List`, can be empty if no results
 * ```fun fetchAllStream(): Stream<T>``` returns several results as `java.util.stream.Stream`, can be empty if no results
 
-::: tip
-With **kotysa-spring-r2dbc**, you work with either reactive `org.ufoss.kotysa.r2dbc.ReactorSqlClient` or coroutines `org.ufoss.kotysa.CoroutinesSqlClient`
-:::
-
-**ReactorSqlClient**
-* ```fun fetchOne(): Mono<T>``` returns one result as `reactor.core.publisher.Mono`, or an empty Mono if no result
-  * @throws NonUniqueResultException if more than one result
-* ```fun fetchFirst(): Mono<T>``` returns the first result as `reactor.core.publisher.Mono`, or an empty Mono if no result
-* ```fun fetchAll(): Flux<T>``` returns several results as `reactor.core.publisher.Flux`, or an empty Flux if no result
-
-**CoroutinesSqlClient**
+**With kotysa-r2dbc or kotysa-spring-r2dbc using coroutines syntax**
 * ```suspend fun fetchOne(): T?``` returns one result
   * @throws NoResultException if no results
   * @throws NonUniqueResultException if more than one result
@@ -255,15 +249,21 @@ With **kotysa-spring-r2dbc**, you work with either reactive `org.ufoss.kotysa.r2
   * @throws NoResultException if no results
 * ```suspend fun fetchFirstOrNull(): T?``` returns the first result, or null if no results
 * ```fun fetchAll(): Flow<T>``` returns several results as `kotlinx.coroutines.flow.Flow`, can be empty if no results
+* 
+**With kotysa-spring-r2dbc using reactive syntax**
+* ```fun fetchOne(): Mono<T>``` returns one result as `reactor.core.publisher.Mono`, or an empty Mono if no result
+  * @throws NonUniqueResultException if more than one result
+* ```fun fetchFirst(): Mono<T>``` returns the first result as `reactor.core.publisher.Mono`, or an empty Mono if no result
+* ```fun fetchAll(): Flux<T>``` returns several results as `reactor.core.publisher.Flux`, or an empty Flux if no result
 
 ## Create table
 
 Use `createTable` or `createTableIfNotExists`
 
 ```kotlin
-fun createTable() = sqlClient createTable USER
+fun createTable() = sqlClient createTable Users
 // or
-fun createTable() = sqlClient createTableIfNotExists USER
+fun createTable() = sqlClient createTableIfNotExists Users
 ```
 
 * SqlClient returns void
@@ -281,7 +281,8 @@ private val roleAdmin = Role("admin")
 private val userJdoe = User("John", roleUser.id, "USA")
 private val userBboss = User("Big boss", roleAdmin.id, "France", "TheBoss")
 
-fun insert() = sqlClient.insert(userJdoe, userBboss)
+fun insertRoles() = sqlClient.insert(roleUser, roleAdmin)
+fun insertUsers() = sqlClient.insert(userJdoe, userBboss)
 ```
 
 * SqlClient returns void
@@ -291,23 +292,21 @@ fun insert() = sqlClient.insert(userJdoe, userBboss)
 ### InsertAndReturn
 
 Insert one or several mapped objects in a database table, and return the inserted objects,
-useful for auto-incremented columns or default values
+useful for auto-incremented columns and/or columns with default values
 
 ```kotlin
-private val roleUser = Role("user")
+private val userCharles = User("Charles", roleUser.id, "United Kingdom")
 
-private val userJdoe = User("John", roleUser.id, "USA")
-
-fun insertAndReturn() = sqlClient insertAndReturn userJdoe
+fun insertUserAndReturn() = sqlClient insertAndReturn userCharles
 ```
 
 ::: tip
 T corresponds to inserted entity type
 :::
 
-* SqlClient returns T or a List<T> if several entities passed
+* SqlClient returns `T` or a `List<T>` if several entities passed
 * ReactorSqlCLient returns a `reactor.core.publisher.Mono<T>` or a `reactor.core.publisher.Flux<T>` if several entities passed
-* CoroutinesSqlCLient is a **suspend function** that returns T or a `kotlinx.coroutines.flow.Flow<T>` if several entities passed
+* CoroutinesSqlCLient is a **suspend function** that returns `T` or a `kotlinx.coroutines.flow.Flow<T>` if several entities passed
 
 ## Delete
 
@@ -316,9 +315,9 @@ T corresponds to inserted entity type
 Delete rows from a table, return the number of deleted rows
 
 ```kotlin
-fun deleteById(id: UUID) =
-        (sqlClient deleteFrom USER
-                where USER.id eq id
+fun deleteById(id: Int) =
+        (sqlClient deleteFrom Users
+                where Users.id eq id
                 ).execute()
 ```
 
@@ -328,10 +327,10 @@ fun deleteById(id: UUID) =
 
 ### Delete all
 
-Deletes all rows from a table, return the number of deleted rows
+Shortcut to delete all rows from a table, return the number of deleted rows
 
 ```kotlin
-fun deleteAll() = sqlClient deleteAllFrom USER
+fun deleteAll() = sqlClient deleteAllFrom Users
 ```
 
 * SqlClient returns Int
@@ -343,9 +342,10 @@ fun deleteAll() = sqlClient deleteAllFrom USER
 Update rows from a table, return the number of updated rows
 
 ```kotlin
-fun updateFirstname(newFirstname: String) =
-        (sqlClient update USER
-                set USER.firstname eq newFirstname
+fun updateUserFirstname(id: Int, newFirstname: String) =
+        (sqlClient update Users
+                set Users.firstname eq newFirstname
+                where Users.id eq id
                 ).execute()
 ```
 
@@ -358,10 +358,10 @@ fun updateFirstname(newFirstname: String) =
 Kotysa provides a functional Transaction support, all queries inside the transaction block will be transactional.
 
 ```kotlin
-operator.execute<Unit> { transaction ->
-    // transaction will rollback when exiting this code block
+operator.transactional { transaction ->
+    // for example : transaction will rollback when exiting this code block
     transaction.setRollbackOnly()
 
-    // do your queries
+    // do your queries inside this transaction
 }
 ```
