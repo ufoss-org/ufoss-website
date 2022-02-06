@@ -64,7 +64,7 @@ private val tables = tables().h2(Roles, Users)
 
 ## Data types
 
-Kotysa uses Java 8+ ```java.time.*``` (and Kotlinx-datetime equivalents) types for dates.
+Kotysa uses Java 8+ ```java.time.*``` (and `kotlinx-datetime` equivalents) types for dates.
 
 ### H2
 

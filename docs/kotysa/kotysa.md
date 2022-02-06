@@ -25,7 +25,7 @@ If you use Ktor, or anything else, check [Kotysa for JDBC](kotysa-jdbc.html) or 
 for Coroutines async SQL.
 
 ### On Android
-Check [Kotysa for SqLite on Android](kotysa-android.html) -> [SqLite supported data types](table-mapping.html#sqlite)
+Check [Kotysa for SqLite on Android](kotysa-android.html) : [SqLite supported data types](table-mapping.html#sqlite)
 
 **Table of content**
 
