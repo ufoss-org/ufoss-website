@@ -193,6 +193,17 @@ val admins =
         ).fetchAll() // returns all admin users
 ```
 
+Of course you can also join tables using equality clause between columns too, this query returns the same results :
+
+```kotlin
+val admins =
+    (sqlClient select Users
+        from Users and Roles
+        where Users.roleId eq Roles.id            
+        and Roles.label eq "admin"
+        ).fetchAll() // returns all admin users
+```
+
 ### Limit and offset
 
 For pagination, use `LIMIT` and `OFFSET`
