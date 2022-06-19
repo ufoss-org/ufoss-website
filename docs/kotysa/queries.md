@@ -161,7 +161,7 @@ data class UserDto(
 )
 
 fun selectAllUsersMappedToDto() =
-    (sqlClient select { UserDto(it[Users.firstname]!!, it[Users.alias]) }
+    (sqlClient selectAndBuild { UserDto(it[Users.firstname]!!, it[Users.alias]) }
         from Users
         ).fetchAll()
 ```
@@ -294,6 +294,30 @@ fun selectOrderByCaseWhenExistsSubQuery(userIds: List<Int>) =
   } then true `else` false
           andAsc Roles.label)
     .fetchAll()
+```
+
+### Aliases
+
+Kotysa provides aliases support for columns and tables.
+
+```kotlin
+fun selectAliasedFirstnameByFirstnameGet(firstname: String) =
+  (sqlClient select H2Users.firstname `as` "fna"
+          from H2Users
+          where H2Users.firstname["fna"] eq firstname
+          ).fetchOne()
+
+fun selectAliasedFirstnameByFirstnameAlias(firstname: String) =
+  (sqlClient select H2Users.firstname `as` "fna"
+          from H2Users
+          where QueryAlias<String>("fna") eq firstname
+          ).fetchOne()
+
+fun selectFirstnameByFirstnameTableAlias(firstname: String) =
+  (sqlClient select H2Users["u"].firstname
+          from H2Users `as` "u"
+          where H2Users["u"].firstname eq firstname
+          ).fetchOne()
 ```
 
 ### Fetch the database
