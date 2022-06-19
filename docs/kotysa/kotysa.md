@@ -18,8 +18,8 @@ Kotysa Query API is agnostic from Sql Engine : change your database engine or yo
 * Microsoft SQL Server : [MSSQL supported data types](table-mapping.html#mssql)
 * MariaDB : [MariaDB supported data types](table-mapping.html#mariadb)
 
-If you use Spring, check [Kotysa for Spring JDBC](kotysa-spring-jdbc.html) for WebMVC or
-[Kotysa for Spring R2DBC](kotysa-spring-r2dbc.html) for WebFlux, which supports both Reactive and Coroutines syntax
+If you use Spring, check [Kotysa for Spring JDBC](kotysa-spring-jdbc.html) for WebMVC sync SQL or
+[Kotysa for Spring R2DBC](kotysa-spring-r2dbc.html) for WebFlux, which supports both Reactive and Coroutines async SQL
 
 If you use Ktor, or anything else, check [Kotysa for JDBC](kotysa-jdbc.html) or [Kotysa for R2DBC](kotysa-r2dbc.html)
 for Coroutines async SQL.

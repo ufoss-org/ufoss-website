@@ -7,10 +7,6 @@ module.exports = {
             '/': [
                 '/projects',
                 {
-                    title: 'Dino',
-                    path: '/dino/dino',
-                },
-                {
                     title: 'Kotysa',
                     children: [
                         ['/kotysa/kotysa', 'Introduction'],
@@ -22,6 +18,10 @@ module.exports = {
                         ['/kotysa/kotysa-jdbc', 'Kotysa for JDBC'],
                         ['/kotysa/kotysa-r2dbc', 'Kotysa for R2DBC'],
                     ],
+                },
+                {
+                    title: 'Dino',
+                    path: '/dino/dino',
                 },
             ],
         },

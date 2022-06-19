@@ -234,6 +234,68 @@ fun selectUserByIdAsc() =
         ).fetchAll()
 ```
 
+### Subqueries
+
+Kotysa provides subquery support.
+
+```kotlin
+fun selectUserById(id: Int) =
+  (sqlClient select Users.firstname and {
+    (this select Roles.label
+            from Roles
+            where Roles.id eq Users.roleId)
+  }
+          from Users
+          where Users.id eq id
+          ).fetchOne()
+
+fun selectCaseWhenExistsSubQuery(userIds: List<Int>) =
+  (sqlClient selectDistinct Roles.label
+          andCaseWhenExists {
+    (this select Users.id
+            from Users
+            where Users.roleId eq Roles.id
+            and Users.id `in` userIds)
+  } then true `else` false
+          from Roles)
+    .fetchAll()
+
+fun selectRoleLabelWhereEqUserSubQuery(userId: Int) =
+  (sqlClient select Roles.label
+          from Roles
+          where Roles.id eq
+          {
+            (this select Users.roleId
+                    from Users
+                    where Users.id eq userId)
+          })
+    .fetchOne()
+
+fun selectRoleLabelWhereExistsUserSubQuery(userIds: List<Int>) =
+  (sqlClient select Roles.label
+          from Roles
+          whereExists
+          {
+            (this select Users.id
+                    from Users
+                    where Users.roleId eq Roles.id
+                    and Users.id `in` userIds)
+          })
+    .fetchAll()
+
+fun selectOrderByCaseWhenExistsSubQuery(userIds: List<Int>) =
+  (sqlClient select Roles.label
+          from Roles
+          orderByDescCaseWhenExists {
+    (this select Users.id
+            from Users
+            where Users.roleId eq Roles.id
+            and Users.id `in` userIds)
+  } then true `else` false
+          andAsc Roles.label)
+    .fetchAll()
+```
+
 ### Fetch the database
 
 Use the terminal operation that you need to fetch single or multiple results
@@ -373,6 +435,6 @@ operator.transactional { transaction ->
     // for example : transaction will rollback when exiting this code block
     transaction.setRollbackOnly()
 
-    // do your queries inside this transaction
+    // execute your queries inside this transaction
 }
 ```
