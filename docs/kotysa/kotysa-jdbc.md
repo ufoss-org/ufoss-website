@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.ufoss.kotysa:kotysa-jdbc:2.1.0'
+    implementation 'org.ufoss.kotysa:kotysa-jdbc:2.1.1'
 
     // Choose the right JDBC driver for your database
     implementation 'com.h2database:h2:xyz'

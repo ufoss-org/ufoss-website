@@ -29,6 +29,7 @@ data class User(
         val lastname: String,
         val isAdmin: Boolean,
         val roleId: UUID,
+        val messageCount: Int = 0,
         val alias: String? = null,
         val id: Int? = null
 )
@@ -56,6 +57,7 @@ object Users : H2Table<User>("users") {
     val isAdmin = boolean(User::isAdmin)
     val roleId = uuid(User::roleId)
             .foreignKey(Roles.id, "FK_users_roles")
+    val messageCount = integer(User::messageCount)
     val alias = varchar(User::alias)
 }
 
@@ -130,6 +132,15 @@ Kotysa uses Java 8+ ```java.time.*``` (and `kotlinx-datetime` equivalents) types
         <td>Represents an auto-incremented long</td>
         <td>autoIncrementBigInt</td>
     </tr>
+    <tr>
+        <td rowspan="2">ByteArray</td>
+        <td>Binary object stored as bytes</td>
+        <td>binary</td>
+    </tr>
+    <tr>
+        <td>Large binary object stored as bytes<br />=> only supported with jdbc</td>
+        <td>blob</td>
+    </tr>
 </table>
 
 ### PostgreSQL
@@ -196,6 +207,11 @@ Kotysa uses Java 8+ ```java.time.*``` (and `kotlinx-datetime` equivalents) types
     <tr>
         <td>Represents an auto-incremented long</td>
         <td>bigSerial</td>
+    </tr>
+    <tr>
+        <td>ByteArray</td>
+        <td>Binary object stored as bytes</td>
+        <td>bytea</td>
     </tr>
 </table>
 
@@ -266,6 +282,15 @@ Kotysa uses Java 8+ ```java.time.*``` (and `kotlinx-datetime` equivalents) types
         <td>Represents an auto-incremented long</td>
         <td>autoIncrementBigInt</td>
     </tr>
+    <tr>
+        <td rowspan="2">ByteArray</td>
+        <td>Binary object stored as bytes</td>
+        <td>binary</td>
+    </tr>
+    <tr>
+        <td>Large binary object stored as bytes<br />=> only supported with jdbc</td>
+        <td>blob</td>
+    </tr>
 </table>
 
 ### MSSQL
@@ -313,6 +338,11 @@ Kotysa uses Java 8+ ```java.time.*``` (and `kotlinx-datetime` equivalents) types
     <tr>
         <td>Represents an auto-incremented long</td>
         <td>identityBigInt</td>
+    </tr>
+    <tr>
+        <td>ByteArray</td>
+        <td>Binary object stored as bytes</td>
+        <td>binary</td>
     </tr>
 </table>
 
@@ -383,6 +413,15 @@ Kotysa uses Java 8+ ```java.time.*``` (and `kotlinx-datetime` equivalents) types
         <td>Represents an auto-incremented long</td>
         <td>autoIncrementBigInt</td>
     </tr>
+    <tr>
+        <td rowspan="2">ByteArray</td>
+        <td>Binary object stored as bytes</td>
+        <td>binary</td>
+    </tr>
+    <tr>
+        <td>Large binary object stored as bytes<br />=> only supported with jdbc</td>
+        <td>blob</td>
+    </tr>
 </table>
 
 ### SqLite
@@ -440,5 +479,10 @@ Kotysa uses Java 8+ ```java.time.*``` (and `kotlinx-datetime` equivalents) types
     <tr>
         <td>Represents an auto-incremented long</td>
         <td>autoIncrementInteger</td>
+    </tr>
+    <tr>
+        <td>ByteArray</td>
+        <td>Binary object stored as bytes</td>
+        <td>blob</td>
     </tr>
 </table>

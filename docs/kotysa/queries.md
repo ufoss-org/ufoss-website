@@ -22,7 +22,7 @@ Kotysa provides you a DSL to write type-safe SQL queries in pure Kotlin.
 * 4 selects and more return a `List<Any?>`
 
 ```kotlin
-// select a Table = will select all columns from the Users table
+// select a Table, returns this table's mapped Entity (= will select all columns from this table)
 fun selectUserById(id: Int) =
     (sqlClient select Users
         from Users
@@ -301,6 +301,7 @@ fun selectOrderByCaseWhenExistsSubQuery(userIds: List<Int>) =
 Kotysa provides aliases support for columns and tables.
 
 ```kotlin
+// column alias
 fun selectAliasedFirstnameByFirstnameGet(firstname: String) =
   (sqlClient select H2Users.firstname `as` "fna"
           from H2Users
@@ -313,6 +314,7 @@ fun selectAliasedFirstnameByFirstnameAlias(firstname: String) =
           where QueryAlias<String>("fna") eq firstname
           ).fetchOne()
 
+// table alias
 fun selectFirstnameByFirstnameTableAlias(firstname: String) =
   (sqlClient select H2Users["u"].firstname
           from H2Users `as` "u"
@@ -442,6 +444,16 @@ Update rows from a table, return the number of updated rows
 fun updateUserFirstname(id: Int, newFirstname: String) =
         (sqlClient update Users
                 set Users.firstname eq newFirstname
+                where Users.id eq id
+                ).execute()
+```
+
+You can also set a column with a column's value, and for number you can add or subtract from this column's value
+
+```kotlin
+fun incrementUserMessageCount(id: Int) =
+        (sqlClient update Users
+                set Users.messageCount eq Users.messageCount plus 1
                 where Users.id eq id
                 ).execute()
 ```

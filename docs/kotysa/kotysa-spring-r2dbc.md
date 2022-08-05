@@ -17,7 +17,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.ufoss.kotysa:kotysa-spring-r2dbc:2.1.0'
+    implementation 'org.ufoss.kotysa:kotysa-spring-r2dbc:2.1.1'
     
     implementation 'org.springframework:spring-r2dbc'
 }

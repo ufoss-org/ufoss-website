@@ -16,14 +16,14 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.ufoss.kotysa:kotysa-android:2.1.0'
+    implementation 'org.ufoss.kotysa:kotysa-android:2.1.1'
 }
 ```
 
 ## Usage
 
 kotysa-android provides a SQL client on top of Android's included SqLite, 
-it can be obtained via an Extension function directly on Android's```SQLiteOpenHelper```.
+it can be obtained via an Extension function directly on Android's ```SQLiteOpenHelper```.
 
 ```kotlin
 class Repository(sqLiteOpenHelper: SQLiteOpenHelper, tables: Tables) {
