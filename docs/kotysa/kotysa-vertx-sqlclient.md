@@ -7,7 +7,7 @@ prev: ./kotysa-r2dbc
 
 ## Dependency
 
-`kotysa-vertx-sqlclient` is a single dependency you can add to your project.
+`kotysa-vertx-sqlclient` is a single dependency you can add to your project. \
 This is a companion version for `smallrye-mutiny-vertx-sql-client` 2.X.Y, included in Quarkus 2.13.X and does not replace it.
 
 ```groovy
@@ -20,7 +20,8 @@ dependencies {
 
     // Choose the right R2DBC driver for your database
     implementation "io.smallrye.reactive:smallrye-mutiny-vertx-mssql-client:xyz"
-    implementation "io.smallrye.reactive:smallrye-mutiny-vertx-mysql-client:xyz" // for mysql and mariadb
+    // for mysql and mariadb
+    implementation "io.smallrye.reactive:smallrye-mutiny-vertx-mysql-client:xyz"
     implementation "io.smallrye.reactive:smallrye-mutiny-vertx-pg-client:xyz"
 }
 ```

@@ -1,6 +1,9 @@
 node_modules
 docs/.vuepress/dist
 
+.temp
+.cache
+
 # IntelliJ
 .idea
 *.iml

@@ -108,5 +108,5 @@ val admins = (sqlClient selectFrom Users
 &#x1F468;&#x200D;&#x1F4BB; Open source code of Kotysa is available on [github](https://github.com/ufoss-org/kotysa), feel free to watch it, submit issues, contribute, fork, copy, whatever you want.
 
 ::: tip Status
-Regular releases will provide new features to Kotysa, see [next milestones](https://github.com/ufoss-org/kotysa/milestones).
+Regular releases will provide new features to Kotysa, see [next milestones](https://github.com/ufoss-org/kotysa/milestones?direction=asc&sort=title&state=open).
 :::

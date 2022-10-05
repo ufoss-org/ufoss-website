@@ -98,7 +98,7 @@ Kotysa uses Java 8+ ```java.time.*``` (and `kotlinx-datetime` equivalents) types
 <table>
     <tr>
         <th>Kotlin type</th>
-        <th>Description
+        <th>Description</th>
         <th>SQL type</th>
     </tr>
     <tr>
@@ -173,7 +173,7 @@ Kotysa uses Java 8+ ```java.time.*``` (and `kotlinx-datetime` equivalents) types
 <table>
     <tr>
         <th>Kotlin type</th>
-        <th>Description
+        <th>Description</th>
         <th>SQL type</th>
     </tr>
     <tr>
@@ -245,7 +245,7 @@ Kotysa uses Java 8+ ```java.time.*``` (and `kotlinx-datetime` equivalents) types
 <table>
     <tr>
         <th>Kotlin type</th>
-        <th>Description
+        <th>Description</th>
         <th>SQL type</th>
     </tr>
     <tr>
@@ -323,7 +323,7 @@ Kotysa uses Java 8+ ```java.time.*``` (and `kotlinx-datetime` equivalents) types
 <table>
     <tr>
         <th>Kotlin type</th>
-        <th>Description
+        <th>Description</th>
         <th>SQL type</th>
     </tr>
     <tr>
@@ -376,7 +376,7 @@ Kotysa uses Java 8+ ```java.time.*``` (and `kotlinx-datetime` equivalents) types
 <table>
     <tr>
         <th>Kotlin type</th>
-        <th>Description
+        <th>Description</th>
         <th>SQL type</th>
     </tr>
     <tr>
@@ -454,7 +454,7 @@ Kotysa uses Java 8+ ```java.time.*``` (and `kotlinx-datetime` equivalents) types
 <table>
     <tr>
         <th>Kotlin type</th>
-        <th>Description
+        <th>Description</th>
         <th>SQL type</th>
     </tr>
     <tr>

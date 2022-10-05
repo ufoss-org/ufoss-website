@@ -1,6 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=New+Rocker&display=swap');
 
+// override search-box style : https://v2.vuepress.vuejs.org/reference/plugin/search.html#styles
+.search-box {
+  --search-input-width: 12rem;
+}
+
 .theme-container.custom-bdp-class {
   font-family: 'New Rocker', cursive;
   background-color: DimGrey;

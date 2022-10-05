@@ -3,6 +3,8 @@ metaTitle: BDP Fest
 description: Best festival of your life
 navbar: false
 sidebar: false
+contributors: false
+lastUpdated: false
 pageClass: custom-bdp-class
 ---
 

@@ -2,8 +2,13 @@
 home: true
 heroImage: /assets/img/scoupy_gris_vert.png
 metaTitle: Unlicensed Free Open Source Softwares
-actionText: UFOSS projects →
-actionLink: /projects
+actions:
+- text: Kotysa ORM
+  link: /kotysa/kotysa
+  type: primary
+- text: Dino IO
+  link: /dino/dino
+  type: secondary
 footer: The unlicense | No Copyright 2020-present
 ---
 
