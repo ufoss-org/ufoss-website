@@ -64,6 +64,31 @@ object Users : H2Table<User>("users") {
 private val tables = tables().h2(Roles, Users)
 ```
 
+### Declare your indexes
+
+In Kotysa, indexes are part of the ```tables``` functional DSL. Just add `unique` on a column, or create an index from
+several columns inside a Table.
+
+```kotlin
+object Roles : H2Table<Role>("roles") {
+    val id = uuid(Role::id)
+        .primaryKey()
+    val label = varchar(Role::label)
+        .unique() // unique index on label column
+}
+
+object Users : H2Table<User>("users") {
+    // ...
+    val firstname = varchar(User::firstname, "fname")
+    val lastname = varchar(User::lastname, "lname")
+    // ...
+    init {
+        // creates an index on the firstname, lastname column pair
+        index(setOf(firstname, lastname), indexName = "full_name_index")
+    }
+}
+```
+
 ## Data types
 
 Kotysa uses Java 8+ ```java.time.*``` (and `kotlinx-datetime` equivalents) types for dates.

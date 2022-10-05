@@ -1,6 +1,7 @@
 ---
 title: kotysa-r2dbc
 prev: ./kotysa-jdbc
+next: ./kotysa-vertx-sqlclient
 ---
 
 # Kotysa for R2DBC
@@ -15,7 +16,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.ufoss.kotysa:kotysa-r2dbc:2.1.1'
+    implementation 'org.ufoss.kotysa:kotysa-r2dbc:2.2.0'
 
     // Choose the right R2DBC driver for your database
     runtimeOnly 'io.r2dbc:r2dbc-h2:xyz'
@@ -37,7 +38,7 @@ it can be obtained via an Extension function directly on ```io.r2dbc.spi.Connect
 It provides a SQL client API using ```suspend``` functions, and ```Flow``` from [kotlinx.coroutines](https://github.com/Kotlin/kotlinx.coroutines).
 
 ```kotlin
-class Repository(connectionFactory: ConnectionFactory, tables: Tables) {
+class Repository(connectionFactory: ConnectionFactory, tables: H2Tables) {
 
 	private val sqlClient = connectionFactory.sqlClient(tables)
 

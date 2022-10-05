@@ -17,7 +17,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.ufoss.kotysa:kotysa-spring-jdbc:2.1.1'
+    implementation 'org.ufoss.kotysa:kotysa-spring-jdbc:2.2.0'
     
     implementation 'org.springframework:spring-jdbc'
 }
@@ -31,7 +31,7 @@ Check this [sample project](https://github.com/ufoss-org/kotysa/tree/master/samp
 it can be obtained via an Extension function directly on spring-jdbc's ```JdbcOperations```.
 
 ```kotlin
-class Repository(client: JdbcOperations, tables: Tables) {
+class Repository(client: JdbcOperations, tables: H2Tables) {
 
 	private val sqlClient = client.sqlClient(tables)
 

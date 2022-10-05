@@ -17,7 +17,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.ufoss.kotysa:kotysa-spring-r2dbc:2.1.1'
+    implementation 'org.ufoss.kotysa:kotysa-spring-r2dbc:2.2.0'
     
     implementation 'org.springframework:spring-r2dbc'
 }
@@ -34,7 +34,7 @@ it can be obtained via an Extension function directly on spring-r2dbc's ```Datab
 It provides a SQL client API using ```suspend``` functions, and ```Flow``` from [kotlinx.coroutines](https://github.com/Kotlin/kotlinx.coroutines).
 
 ```kotlin
-class Repository(client: DatabaseClient, tables: Tables) {
+class Repository(client: DatabaseClient, tables: H2Tables) {
 
 	private val sqlClient = client.coSqlClient(tables)
 

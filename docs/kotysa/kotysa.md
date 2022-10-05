@@ -7,7 +7,7 @@ next: ./table-mapping
 # Kotysa
 
 Kotysa is a light ORM that offers the idiomatic way to write **Ko**tlin **ty**pe-**sa**fe SQL for JVM and Android. \
-Kotysa Query API is agnostic from Sql Engine : change your database engine or your web framework (Ktor, Spring...), but keep your SQL layer stable.
+Kotysa Query API is agnostic from Sql Engine : change your database engine or your web framework (Ktor, Spring, Quarkus...), but keep your SQL layer stable.
 
 ## Supported Databases
 
@@ -20,6 +20,8 @@ Kotysa Query API is agnostic from Sql Engine : change your database engine or yo
 
 If you use Spring, check [Kotysa for Spring JDBC](kotysa-spring-jdbc.html) for WebMVC sync SQL or
 [Kotysa for Spring R2DBC](kotysa-spring-r2dbc.html) for WebFlux, which supports both Reactive and Coroutines async SQL
+
+If you use Quarkus Reactive with Vertx sqlclient, check [Kotysa for Vertx sqlclient](kotysa-vertx-sqlclient.html)
 
 If you use Ktor, or anything else, check [Kotysa for JDBC](kotysa-jdbc.html) or [Kotysa for R2DBC](kotysa-r2dbc.html)
 for Coroutines async SQL.
@@ -66,6 +68,7 @@ object Roles : H2Table<Role>("roles") {
     val id = uuid(Role::id)
             .primaryKey()
     val label = varchar(Role::label)
+        .unique()
 }
 
 object Users : H2Table<User>("users") {
@@ -97,7 +100,7 @@ val admins = (sqlClient selectFrom Users
 
 ### Samples
 
-* See or [sample projects](https://github.com/ufoss-org/kotysa/tree/master/samples) for jdbc, r2dbc, spring-jdbc, spring-r2dbc-reactive and spring-r2dbc-coroutines.
+* See or [sample projects](https://github.com/ufoss-org/kotysa/tree/master/samples) for jdbc, r2dbc, spring-jdbc, spring-r2dbc-reactive, spring-r2dbc-coroutines and vertx-sqlclient.
 * [Real world sample project](https://github.com/pull-vert/demo-kotlin) is a Spring Boot reactive web application with a R2DBC backend accessed via Kotysa, with HTTP2, JWT based Security, Bean validation, RestDoc...
 
 ## Source code

@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.ufoss.kotysa:kotysa-jdbc:2.1.1'
+    implementation 'org.ufoss.kotysa:kotysa-jdbc:2.2.0'
 
     // Choose the right JDBC driver for your database
     implementation 'com.h2database:h2:xyz'
@@ -28,7 +28,10 @@ dependencies {
 ```
 
 Check this [sample project](https://github.com/ufoss-org/kotysa/tree/master/samples/kotysa-ktor-jdbc) for a Ktor Netty
-application with a JDBC backend accessed via `kotysa-jdbc`
+application with a JDBC backend accessed via `kotysa-jdbc`.
+
+Check this [sample project](https://github.com/ufoss-org/kotysa/tree/master/samples/kotysa-quarkus-jdbc) for a
+Quarkus Resteasy application with a JDBC backend accessed via `kotysa-jdbc`.
 
 ## Usage
 
@@ -36,7 +39,7 @@ application with a JDBC backend accessed via `kotysa-jdbc`
 it can be obtained via an Extension function directly on ```javax.sql.DataSource```.
 
 ```kotlin
-class Repository(dataSource: DataSource, tables: Tables) {
+class Repository(dataSource: DataSource, tables: H2Tables) {
 
 	private val sqlClient = dataSource.sqlClient(tables)
 

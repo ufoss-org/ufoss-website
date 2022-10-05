@@ -338,7 +338,7 @@ Use the terminal operation that you need to fetch single or multiple results
 * ```fun fetchAll(): List<T>``` returns several results as `List`, can be empty if no results
 * ```fun fetchAllStream(): Stream<T>``` returns several results as `java.util.stream.Stream`, can be empty if no results
 
-**With kotysa-r2dbc or kotysa-spring-r2dbc using coroutines syntax**
+**With kotysa-r2dbc or kotysa-spring-r2dbc using Coroutines syntax**
 * ```suspend fun fetchOne(): T?``` returns one result
   * @throws NoResultException if no results
   * @throws NonUniqueResultException if more than one result
@@ -349,11 +349,16 @@ Use the terminal operation that you need to fetch single or multiple results
 * ```suspend fun fetchFirstOrNull(): T?``` returns the first result, or null if no results
 * ```fun fetchAll(): Flow<T>``` returns several results as `kotlinx.coroutines.flow.Flow`, can be empty if no results
 * 
-**With kotysa-spring-r2dbc using reactive syntax**
+**With kotysa-spring-r2dbc using Reactor syntax**
 * ```fun fetchOne(): Mono<T>``` returns one result as `reactor.core.publisher.Mono`, or an empty Mono if no result
   * @throws NonUniqueResultException if more than one result
 * ```fun fetchFirst(): Mono<T>``` returns the first result as `reactor.core.publisher.Mono`, or an empty Mono if no result
 * ```fun fetchAll(): Flux<T>``` returns several results as `reactor.core.publisher.Flux`, or an empty Flux if no result
+  **With kotysa-vertx-sqlclient using Mutiny syntax**
+* ```fun fetchOne(): Uni<T>``` returns one result as `io.smallrye.mutiny.Uni`, or an empty Uni if no result
+  * @throws NonUniqueResultException if more than one result
+* ```fun fetchFirst(): Uni<T>``` returns the first result as `io.smallrye.mutiny.Uni`, or an empty Uni if no result
+* ```fun fetchAll(): Uni<List<T>>``` returns several results as `io.smallrye.mutiny.Uni` that contains a List, or an empty Uni if no result
 
 ## Create table
 
@@ -367,6 +372,7 @@ fun createTable() = sqlClient createTableIfNotExists Users
 
 * SqlClient returns void
 * ReactorSqlCLient returns a `reactor.core.publisher.Mono<Void>`
+* VertxSqlClient returns a `io.smallrye.mutiny.Uni<Void>`
 * CoroutinesSqlCLient is a **suspend function** that returns void
 
 ## Insert
@@ -386,6 +392,7 @@ fun insertUsers() = sqlClient.insert(userJdoe, userBboss)
 
 * SqlClient returns void
 * ReactorSqlCLient returns a `reactor.core.publisher.Mono<Void>`
+* VertxSqlClient returns a `io.smallrye.mutiny.Uni<Void>`
 * CoroutinesSqlCLient is a **suspend function** that returns void
 
 ### InsertAndReturn
@@ -405,6 +412,7 @@ T corresponds to inserted entity type
 
 * SqlClient returns `T` or a `List<T>` if several entities passed
 * ReactorSqlCLient returns a `reactor.core.publisher.Mono<T>` or a `reactor.core.publisher.Flux<T>` if several entities passed
+* VertxSqlClient returns a `io.smallrye.mutiny.Uni<T>` or a `io.smallrye.mutiny.Multi<T>` if several entities passed
 * CoroutinesSqlCLient is a **suspend function** that returns `T` or a `kotlinx.coroutines.flow.Flow<T>` if several entities passed
 
 ## Delete
@@ -422,6 +430,7 @@ fun deleteById(id: Int) =
 
 * SqlClient returns Int
 * ReactorSqlCLient returns a `reactor.core.publisher.Mono<Int>`
+* VertxSqlClient returns a `io.smallrye.mutiny.Uni<Int>`
 * CoroutinesSqlCLient is a **suspend function** that returns Int
 
 ### Delete all
@@ -434,6 +443,7 @@ fun deleteAll() = sqlClient deleteAllFrom Users
 
 * SqlClient returns Int
 * ReactorSqlCLient returns a `reactor.core.publisher.Mono<Int>`
+* VertxSqlClient returns a `io.smallrye.mutiny.Uni<Int>`
 * CoroutinesSqlCLient is a **suspend function** that returns Int
 
 ## Update
@@ -460,6 +470,7 @@ fun incrementUserMessageCount(id: Int) =
 
 * SqlClient returns Int
 * ReactorSqlCLient returns a `reactor.core.publisher.Mono<Int>`
+* VertxSqlClient returns a `io.smallrye.mutiny.Uni<Int>`
 * CoroutinesSqlCLient is a **suspend function** that returns Int
 
 ## Transaction
