@@ -134,6 +134,7 @@ fun selectAll() = sqlClient selectAllFrom Users
 ```
 * SqlClient returns a `List<User>`
 * ReactorSqlCLient returns a `reactor.core.publisher.Flux<User>`
+* VertxSqlClient returns a `io.smallrye.mutiny.Uni<List<User>>`
 * CoroutinesSqlCLient returns a `kotlinx.coroutines.flow.Flow<User>`
 
 ### Count all from
@@ -145,6 +146,7 @@ fun countAll() = sqlClient selectCountAllFrom Users
 
 * SqlClient returns a `Long`
 * ReactorSqlCLient returns a `reactor.core.publisher.Mono<Long>`
+* VertxSqlClient returns a `io.smallrye.mutiny.Uni<Long>`
 * CoroutinesSqlCLient is a **suspend function** that returns a `Long`
 
 ### Map selected columns to a DTO
@@ -168,6 +170,7 @@ fun selectAllUsersMappedToDto() =
 
 * SqlClient returns a `List<UserDto>`
 * ReactorSqlCLient returns a `reactor.core.publisher.Flux<UserDto>`
+* VertxSqlClient returns a `io.smallrye.mutiny.Uni<List<UserDto>>`
 * CoroutinesSqlCLient returns a `kotlinx.coroutines.flow.Flow<UserDto>`
 
 ### Or
@@ -348,13 +351,14 @@ Use the terminal operation that you need to fetch single or multiple results
   * @throws NoResultException if no results
 * ```suspend fun fetchFirstOrNull(): T?``` returns the first result, or null if no results
 * ```fun fetchAll(): Flow<T>``` returns several results as `kotlinx.coroutines.flow.Flow`, can be empty if no results
-* 
+
 **With kotysa-spring-r2dbc using Reactor syntax**
 * ```fun fetchOne(): Mono<T>``` returns one result as `reactor.core.publisher.Mono`, or an empty Mono if no result
   * @throws NonUniqueResultException if more than one result
 * ```fun fetchFirst(): Mono<T>``` returns the first result as `reactor.core.publisher.Mono`, or an empty Mono if no result
 * ```fun fetchAll(): Flux<T>``` returns several results as `reactor.core.publisher.Flux`, or an empty Flux if no result
-  **With kotysa-vertx-sqlclient using Mutiny syntax**
+
+**With kotysa-vertx-sqlclient using Mutiny syntax**
 * ```fun fetchOne(): Uni<T>``` returns one result as `io.smallrye.mutiny.Uni`, or an empty Uni if no result
   * @throws NonUniqueResultException if more than one result
 * ```fun fetchFirst(): Uni<T>``` returns the first result as `io.smallrye.mutiny.Uni`, or an empty Uni if no result
