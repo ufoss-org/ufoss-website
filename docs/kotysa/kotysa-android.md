@@ -1,5 +1,5 @@
 ---
-title: kotysa-android
+title: Kotysa for Android
 prev: ./queries
 next: ./kotysa-spring-jdbc
 ---
@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.ufoss.kotysa:kotysa-android:2.2.0'
+    implementation 'org.ufoss.kotysa:kotysa-android:2.3.0'
 }
 ```
 

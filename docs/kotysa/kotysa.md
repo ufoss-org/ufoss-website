@@ -1,5 +1,5 @@
 ---
-title: Kotysa
+title: Introduction
 prev: /dino/dino
 next: ./table-mapping
 ---

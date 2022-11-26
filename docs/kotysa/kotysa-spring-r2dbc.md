@@ -1,5 +1,5 @@
 ---
-title: kotysa-spring-r2dbc
+title: Kotysa for Spring R2DBC
 prev: ./kotysa-spring-jdbc
 next: ./kotysa-jdbc
 ---
@@ -9,7 +9,8 @@ next: ./kotysa-jdbc
 ## Dependency
 
 `kotysa-spring-r2dbc` is a single dependency you can add to your Spring project. \
-This is a companion version for `spring-r2dbc` 5.3.x (included in Spring boot 2.7.X, 2.6.X, 2.5.x and 2.4.x) and does not replace it.
+This is a companion version for `spring-r2dbc` 5.3.x (included in Spring boot 2.7.X, 2.6.X, 2.5.x and 2.4.x) and does
+not replace it.
 
 ```groovy
 repositories {
@@ -17,7 +18,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.ufoss.kotysa:kotysa-spring-r2dbc:2.2.0'
+    implementation 'org.ufoss.kotysa:kotysa-spring-r2dbc:2.3.0'
     
     implementation 'org.springframework:spring-r2dbc'
 }
@@ -31,7 +32,7 @@ for a Spring Boot WebFlux application with a R2DBC backend accessed via `kotysa-
 `kotysa-spring-r2dbc` provides a coroutines SQL client on top of `spring-r2dbc`,
 it can be obtained via an Extension function directly on spring-r2dbc's ```DatabaseClient```.
 
-It provides a SQL client API using ```suspend``` functions, and ```Flow``` from [kotlinx.coroutines](https://github.com/Kotlin/kotlinx.coroutines).
+It provides a SQL client API using ```suspend``` functions and ```Flow``` from [kotlinx.coroutines](https://github.com/Kotlin/kotlinx.coroutines).
 
 ```kotlin
 class Repository(client: DatabaseClient, tables: H2Tables) {
@@ -47,7 +48,7 @@ class Repository(client: DatabaseClient, tables: H2Tables) {
 `kotysa-spring-r2dbc` provides a reactive SQL client on top of `spring-r2dbc`, 
 it can be obtained via an Extension function directly on spring-r2dbc's ```DatabaseClient```.
 
-It provides a SQL client API using Reactor ```Mono``` and ```Flux```.
+It provides a SQL client API using ```Mono``` and ```Flux``` from Reactor.
 
 ```kotlin
 class Repository(client: DatabaseClient, tables: Tables) {

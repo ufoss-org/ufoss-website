@@ -1,5 +1,5 @@
 ---
-title: kotysa-spring-jdbc
+title: Kotysa for Spring JDBC
 prev: ./kotysa-android
 next: ./kotysa-spring-r2dbc
 ---
@@ -17,7 +17,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.ufoss.kotysa:kotysa-spring-jdbc:2.2.0'
+    implementation 'org.ufoss.kotysa:kotysa-spring-jdbc:2.3.0'
     
     implementation 'org.springframework:spring-jdbc'
 }

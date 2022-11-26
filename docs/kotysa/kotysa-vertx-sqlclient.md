@@ -1,6 +1,7 @@
 ---
-title: kotysa-vertx-sqlclient
+title: Kotysa for Vertx Sqlclient
 prev: ./kotysa-r2dbc
+next: ./postgresql-textsearch
 ---
 
 # Kotysa for Vertx sqlclient
@@ -16,7 +17,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.ufoss.kotysa:kotysa-vertx-sqlclient:2.2.0'
+    implementation 'org.ufoss.kotysa:kotysa-vertx-sqlclient:2.3.0'
 
     // Choose the right R2DBC driver for your database
     implementation "io.smallrye.reactive:smallrye-mutiny-vertx-mssql-client:xyz"

@@ -12,7 +12,7 @@ This step allows describing how to map a table to a class (aka Entity).
 
 [[toc]]
 
-## Describe database model with type-safe DSL
+## Mapping of the database model
 
 ### Entities = simple Kotlin classes
 
@@ -37,8 +37,8 @@ data class User(
 
 ### Mapping entities to database tables
 
-Use Kotysa's ```tables``` functional DSL to define all mappings rules (columns, primary and foreign keys...) beetween
-your entities and the database tables, this is the ORM (object-relational mapping) step in Kotlin.
+Define all mappings rules (columns, primary and foreign keys...) between your entities and the database tables.
+This is the ORM (object-relational mapping) step.
 
 This DSL is based on type and nullability of your entities fields.
 
@@ -66,8 +66,8 @@ private val tables = tables().h2(Roles, Users)
 
 ### Declare your indexes
 
-In Kotysa, indexes are part of the ```tables``` functional DSL. Just add `unique` on a column, or create an index from
-several columns inside a Table.
+In Kotysa, indexes are part of the table mapping. Just add `unique` on a column, or create an index from several columns
+inside a Table.
 
 ```kotlin
 object Roles : H2Table<Role>("roles") {
@@ -91,7 +91,7 @@ object Users : H2Table<User>("users") {
 
 ## Data types
 
-Kotysa uses Java 8+ ```java.time.*``` (and `kotlinx-datetime` equivalents) types for dates.
+Kotysa uses Java 8+ ```java.time.*``` and `kotlinx-datetime` corresponding types for dates.
 
 ### H2
 

@@ -1,5 +1,5 @@
 ---
-title: Queries
+title: SQL queries
 prev: ./table-mapping
 next: ./kotysa-android
 ---
