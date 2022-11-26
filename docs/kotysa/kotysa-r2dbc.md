@@ -61,6 +61,6 @@ In `kotysa-r2dbc-coroutines`, transaction is available directly on the sqlClient
 
 ```kotlin
 sqlClient.transactional { transaction ->
-    // do your queries inside this transaction
+    // execute your queries inside this transaction
 }
 ```

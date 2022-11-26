@@ -35,7 +35,7 @@ Quarkus Reactive Resteasy application with a Mutiny Vertx Sqlclient backend acce
 `kotysa-vertx-sqlclient` provides a reactive SQL client on top of `smallrye-mutiny-vertx-sql-client`, 
 it can be obtained via an Extension function directly on ```io.vertx.mutiny.sqlclient.Pool```.
 
-It provides a SQL client API using Mutiny ```Uni``` and ```Multi```.
+It provides a SQL client API using ```Uni``` and ```Multi``` from Mutiny.
 
 ```kotlin
 class Repository(private val dbClient: PgPool, private val tables: PostgresqlTables) {
@@ -43,7 +43,7 @@ class Repository(private val dbClient: PgPool, private val tables: PostgresqlTab
         @Produces
         fun sqlClient() = dbClient.sqlClient(tables)
 
-	// enjoy sqlClient for Quarkus with Vertx sqlclient :)
+	// enjoy reactive sqlClient for Quarkus with Vertx sqlclient :)
 }
 ```
 
@@ -60,6 +60,6 @@ In `kotysa-vertx-sqlclient`, transaction is available directly on the sqlClient.
 
 ```kotlin
 sqlClient.transactional { transaction ->
-    // do your queries inside this transaction
+    // execute your queries inside this transaction
 }
 ```

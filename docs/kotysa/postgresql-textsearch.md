@@ -13,8 +13,9 @@ These are PostgreSQL specific features, which are therefore reserved for Postgre
 
 ## step 1 -> table mapping for tsvector
 
-This is a simple example of how to declare `tsvector`, and corresponding GIST or GIN indexes that allow to efficiently
-query the tsvector. See [this article](https://www.postgresql.org/docs/current/textsearch-tables.html#TEXTSEARCH-TABLES-INDEX)
+This is a simple example of how to declare `tsvector`, that can aggregate one or several columns, and the corresponding
+GIST or GIN indexes that allow to efficiently query on this tsvector.
+See [this article](https://www.postgresql.org/docs/current/textsearch-tables.html#TEXTSEARCH-TABLES-INDEX)
 
 ```kotlin
 data class Article(
@@ -38,17 +39,17 @@ object Articles : PostgresqlTable<Article>() {
 
 ## step 2 -> text search querying
 
-4 available functions can be used to build a tsquery, depending on what you need :
-* `toTsquery` creates a tsquery value from querytext, which must consist of single tokens separated by the tsquery
+4 available functions can be used to build a `tsquery`, depending on what you need :
+* `toTsquery` creates a `tsquery` value from querytext, which must consist of single tokens separated by the `tsquery`
 operators `&` (AND), `|` (OR), `!` (NOT), and `<->` (FOLLOWED BY), possibly grouped using parentheses. In other words,
-the input to `toTsquery` must already follow the general rules for tsquery input.
-* `plaintoTsquery` transforms the unformatted text querytext to a tsquery value. The text is parsed and normalized much
-as for to_tsvector, then the `&` (AND) tsquery operator is inserted between surviving words.
+the input to `toTsquery` must already follow the general rules for `tsquery` input.
+* `plaintoTsquery` transforms the unformatted text querytext to a `tsquery` value. The text is parsed and normalized
+much as for to_tsvector, then the `&` (AND) tsquery operator is inserted between surviving words.
 * `phrasetoTsquery` behaves much like `plaintoTsquery`, except that it inserts the `<->` (FOLLOWED BY) operator between
 surviving words instead of the `&` (AND) operator. Also, stop words are not simply discarded, but are accounted for by
 inserting `<N>` operators rather than `<->` operators. This function is useful when searching for exact lexeme
 sequences, since the FOLLOWED BY operators check lexeme order not just the presence of all the lexemes.
-* `websearchToTsquery`creates a tsquery value from querytext using an alternative syntax in which simple unformatted
+* `websearchToTsquery`creates a `tsquery` value from querytext using an alternative syntax in which simple unformatted
 text is a valid query. Unlike `plaintoTsquery` and `phrasetoTsquery`, it also recognizes certain operators. Moreover,
 this function will never raise syntax errors, which makes it possible to use raw user-supplied input for search.
 

@@ -23,8 +23,8 @@ If you use Spring, check [Kotysa for Spring JDBC](kotysa-spring-jdbc.html) for W
 
 If you use Quarkus Reactive with Vertx sqlclient, check [Kotysa for Vertx sqlclient](kotysa-vertx-sqlclient.html)
 
-If you use Ktor, or anything else, check [Kotysa for JDBC](kotysa-jdbc.html) or [Kotysa for R2DBC](kotysa-r2dbc.html)
-for Coroutines async SQL.
+If you use Ktor, or anything else, check [Kotysa for JDBC](kotysa-jdbc.html) for a regular blocking SQL application or
+[Kotysa for R2DBC](kotysa-r2dbc.html) for Coroutines async SQL.
 
 ### On Android
 Check [Kotysa for SqLite on Android](kotysa-android.html) : [SqLite supported data types](table-mapping.html#sqlite)
