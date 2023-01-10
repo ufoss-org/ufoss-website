@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.ufoss.kotysa:kotysa-r2dbc-coroutines:2.3.0'
+    implementation 'org.ufoss.kotysa:kotysa-r2dbc-coroutines:2.3.3'
 
     // Choose the right R2DBC driver for your database
     runtimeOnly 'io.r2dbc:r2dbc-h2:xyz'

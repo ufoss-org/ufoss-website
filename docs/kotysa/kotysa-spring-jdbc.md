@@ -17,7 +17,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.ufoss.kotysa:kotysa-spring-jdbc:2.3.0'
+    implementation 'org.ufoss.kotysa:kotysa-spring-jdbc:2.3.3'
     
     implementation 'org.springframework:spring-jdbc'
 }

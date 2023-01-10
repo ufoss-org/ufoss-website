@@ -17,18 +17,18 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.ufoss.kotysa:kotysa-vertx-sqlclient:2.3.0'
+    implementation 'org.ufoss.kotysa:kotysa-vertx-sqlclient:2.3.3'
 
     // Choose the right R2DBC driver for your database
-    implementation "io.smallrye.reactive:smallrye-mutiny-vertx-mssql-client:xyz"
-    // for mysql and mariadb
-    implementation "io.smallrye.reactive:smallrye-mutiny-vertx-mysql-client:xyz"
     implementation "io.smallrye.reactive:smallrye-mutiny-vertx-pg-client:xyz"
+    // for both mysql and mariadb
+    implementation "io.smallrye.reactive:smallrye-mutiny-vertx-mysql-client:xyz"
+    implementation "io.smallrye.reactive:smallrye-mutiny-vertx-mssql-client:xyz"
 }
 ```
 
-Check this [sample project](https://github.com/ufoss-org/kotysa/tree/master/samples/kotysa-quarkus-vertx-sqlclient) for a
-Quarkus Reactive Resteasy application with a Mutiny Vertx Sqlclient backend accessed via `kotysa-vertx-sqlclient`.
+Check this [sample project](https://github.com/ufoss-org/kotysa/tree/master/samples/kotysa-quarkus-vertx-sqlclient) for
+a Quarkus Reactive Resteasy application with a Mutiny Vertx Sqlclient backend accessed via `kotysa-vertx-sqlclient`.
 
 ## Usage
 
@@ -40,8 +40,8 @@ It provides a SQL client API using ```Uni``` and ```Multi``` from Mutiny.
 ```kotlin
 class Repository(private val dbClient: PgPool, private val tables: PostgresqlTables) {
 
-        @Produces
-        fun sqlClient() = dbClient.sqlClient(tables)
+    @Produces
+    fun sqlClient() = dbClient.sqlClient(tables)
 
 	// enjoy reactive sqlClient for Quarkus with Vertx sqlclient :)
 }

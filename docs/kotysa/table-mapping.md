@@ -16,6 +16,8 @@ This step allows describing how to map a table to a class (aka Entity).
 
 ### Entities = simple Kotlin classes
 
+Kotlin's [data classes](https://kotlinlang.org/docs/data-classes.html) are great for entities because their main purpose
+is to hold data. \
 These are 2 simple entities that we will use :
 
 ```kotlin
@@ -37,7 +39,7 @@ data class User(
 
 ### Mapping entities to database tables
 
-Define all mappings rules (columns, primary and foreign keys...) between your entities and the database tables.
+Define all mappings rules (columns, primary and foreign keys, indexes...) between your entities and the database tables.
 This is the ORM (object-relational mapping) step.
 
 This DSL is based on type and nullability of your entities fields.
@@ -66,8 +68,8 @@ private val tables = tables().h2(Roles, Users)
 
 ### Declare your indexes
 
-In Kotysa, indexes are part of the table mapping. Just add `unique` on a column, or create an index from several columns
-inside a Table.
+In Kotysa, indexes are part of the table mapping. Just add `unique` on a column, or create an `index` from several
+columns of a table.
 
 ```kotlin
 object Roles : H2Table<Role>("roles") {
@@ -92,81 +94,6 @@ object Users : H2Table<User>("users") {
 ## Data types
 
 Kotysa uses Java 8+ ```java.time.*``` and `kotlinx-datetime` corresponding types for dates.
-
-### H2
-
-<table>
-    <tr>
-        <th>Kotlin type</th>
-        <th>Description</th>
-        <th>SQL type</th>
-    </tr>
-    <tr>
-        <td>String</td>
-        <td>Represents a variable-length character string, maximum length fixed</td>
-        <td>varchar</td>
-    </tr>
-    <tr>
-        <td>java.time.LocalDate or kotlinx.datetime.LocalDate</td>
-        <td>Represents a date without time part and without timezone</td>
-        <td>date</td>
-    </tr>
-    <tr>
-        <td rowspan="2">java.time.LocalDateTime or kotlinx.datetime.LocalDateTime</td>
-        <td rowspan="2">Represents a date+time without timezone</td>
-        <td>timestamp</td>
-    </tr>
-    <tr>
-        <td>datetime</td>
-    </tr>
-    <tr>
-        <td>java.time.OffsetDateTime</td>
-        <td>Represents a date+time with timezone</td>
-        <td>timestampWithTimeZone</td>
-    </tr>
-    <tr>
-        <td>java.time.LocalTime</td>
-        <td>Represents a time without a date part and without timezone</td>
-        <td>time</td>
-    </tr>
-    <tr>
-        <td>Boolean</td>
-        <td>Represents a boolean state</td>
-        <td>boolean</td>
-    </tr>
-    <tr>
-        <td>java.util.UUID</td>
-        <td>Universally unique identifier (128 bit value)</td>
-        <td>uuid</td>
-    </tr>
-    <tr>
-        <td rowspan="2">Int</td>
-        <td>Represents an integer</td>
-        <td>integer</td>
-    </tr>
-    <tr>
-        <td>Represents an auto-incremented integer</td>
-        <td>autoIncrementInteger</td>
-    </tr>
-    <tr>
-        <td rowspan="2">Long</td>
-        <td>Represents a long</td>
-        <td>bigInt</td>
-    </tr>
-    <tr>
-        <td>Represents an auto-incremented long</td>
-        <td>autoIncrementBigInt</td>
-    </tr>
-    <tr>
-        <td rowspan="2">ByteArray</td>
-        <td>Binary object stored as bytes</td>
-        <td>binary</td>
-    </tr>
-    <tr>
-        <td>Large binary object stored as bytes<br />=> only supported with jdbc</td>
-        <td>blob</td>
-    </tr>
-</table>
 
 ### PostgreSQL
 
@@ -232,6 +159,21 @@ Kotysa uses Java 8+ ```java.time.*``` and `kotlinx-datetime` corresponding types
     <tr>
         <td>Represents an auto-incremented long</td>
         <td>bigSerial</td>
+    </tr>
+    <tr>
+        <td>Float</td>
+        <td>Represents a single precision floating point number</td>
+        <td>real</td>
+    </tr>
+    <tr>
+        <td>Double</td>
+        <td>Represents a double precision floating point number</td>
+        <td>double precision</td>
+    </tr>
+    <tr>
+        <td>BigDecimal</td>
+        <td>Represents a exact decimal number with fixed precision and scale</td>
+        <td>decimal or numeric</td>
     </tr>
     <tr>
         <td>ByteArray</td>
@@ -308,6 +250,111 @@ Kotysa uses Java 8+ ```java.time.*``` and `kotlinx-datetime` corresponding types
         <td>autoIncrementBigInt</td>
     </tr>
     <tr>
+        <td>Float</td>
+        <td>Represents a single precision floating point number</td>
+        <td>float</td>
+    </tr>
+    <tr>
+        <td>Double</td>
+        <td>Represents a double precision floating point number</td>
+        <td>double precision</td>
+    </tr>
+    <tr>
+        <td>BigDecimal</td>
+        <td>Represents a exact decimal number with fixed precision and scale</td>
+        <td>decimal or numeric</td>
+    </tr>
+    <tr>
+        <td rowspan="2">ByteArray</td>
+        <td>Binary object stored as bytes</td>
+        <td>binary</td>
+    </tr>
+    <tr>
+        <td>Large binary object stored as bytes<br />=> only supported with jdbc</td>
+        <td>blob</td>
+    </tr>
+</table>
+
+### H2
+
+<table>
+    <tr>
+        <th>Kotlin type</th>
+        <th>Description</th>
+        <th>SQL type</th>
+    </tr>
+    <tr>
+        <td>String</td>
+        <td>Represents a variable-length character string, maximum length fixed</td>
+        <td>varchar</td>
+    </tr>
+    <tr>
+        <td>java.time.LocalDate or kotlinx.datetime.LocalDate</td>
+        <td>Represents a date without time part and without timezone</td>
+        <td>date</td>
+    </tr>
+    <tr>
+        <td rowspan="2">java.time.LocalDateTime or kotlinx.datetime.LocalDateTime</td>
+        <td rowspan="2">Represents a date+time without timezone</td>
+        <td>timestamp</td>
+    </tr>
+    <tr>
+        <td>datetime</td>
+    </tr>
+    <tr>
+        <td>java.time.OffsetDateTime</td>
+        <td>Represents a date+time with timezone</td>
+        <td>timestampWithTimeZone</td>
+    </tr>
+    <tr>
+        <td>java.time.LocalTime</td>
+        <td>Represents a time without a date part and without timezone</td>
+        <td>time</td>
+    </tr>
+    <tr>
+        <td>Boolean</td>
+        <td>Represents a boolean state</td>
+        <td>boolean</td>
+    </tr>
+    <tr>
+        <td>java.util.UUID</td>
+        <td>Universally unique identifier (128 bit value)</td>
+        <td>uuid</td>
+    </tr>
+    <tr>
+        <td rowspan="2">Int</td>
+        <td>Represents an integer</td>
+        <td>integer</td>
+    </tr>
+    <tr>
+        <td>Represents an auto-incremented integer</td>
+        <td>autoIncrementInteger</td>
+    </tr>
+    <tr>
+        <td rowspan="2">Long</td>
+        <td>Represents a long</td>
+        <td>bigInt</td>
+    </tr>
+    <tr>
+        <td>Represents an auto-incremented long</td>
+        <td>autoIncrementBigInt</td>
+    </tr>
+    <tr>
+        <td>Float</td>
+        <td>Represents a single precision floating point number</td>
+        <td>real</td>
+    </tr>
+    <tr>
+        <td>Double</td>
+        <td>Represents a double precision floating point number</td>
+        <td>double precision</td>
+    </tr>
+    <tr>
+        <td>BigDecimal</td>
+        <td>Represents a exact decimal number with fixed precision and scale</td>
+        <td>decimal or numeric</td>
+    </tr>
+    <tr>
         <td rowspan="2">ByteArray</td>
         <td>Binary object stored as bytes</td>
         <td>binary</td>
@@ -363,6 +410,21 @@ Kotysa uses Java 8+ ```java.time.*``` and `kotlinx-datetime` corresponding types
     <tr>
         <td>Represents an auto-incremented long</td>
         <td>identityBigInt</td>
+    </tr>
+    <tr>
+        <td>Float</td>
+        <td>Represents a single precision floating point number</td>
+        <td>real</td>
+    </tr>
+    <tr>
+        <td>Double</td>
+        <td>Represents a double precision floating point number</td>
+        <td>float</td>
+    </tr>
+    <tr>
+        <td>BigDecimal</td>
+        <td>Represents a exact decimal number with fixed precision and scale</td>
+        <td>decimal or numeric</td>
     </tr>
     <tr>
         <td>ByteArray</td>
@@ -439,6 +501,21 @@ Kotysa uses Java 8+ ```java.time.*``` and `kotlinx-datetime` corresponding types
         <td>autoIncrementBigInt</td>
     </tr>
     <tr>
+        <td>Float</td>
+        <td>Represents a single precision floating point number</td>
+        <td>float</td>
+    </tr>
+    <tr>
+        <td>Double</td>
+        <td>Represents a double precision floating point number</td>
+        <td>double precision</td>
+    </tr>
+    <tr>
+        <td>BigDecimal</td>
+        <td>Represents a exact decimal number with fixed precision and scale</td>
+        <td>decimal or numeric</td>
+    </tr>
+    <tr>
         <td rowspan="2">ByteArray</td>
         <td>Binary object stored as bytes</td>
         <td>binary</td>
@@ -460,37 +537,32 @@ Kotysa uses Java 8+ ```java.time.*``` and `kotlinx-datetime` corresponding types
     <tr>
         <td>String</td>
         <td>Represents a variable-length character string, maximum length fixed</td>
-        <td>text</td>
+        <td rowspan="5">text</td>
     </tr>
     <tr>
         <td>java.time.LocalDate or kotlinx.datetime.LocalDate</td>
         <td>Represents a date without time part and without timezone</td>
-        <td>text</td>
     </tr>
     <tr>
         <td>java.time.LocalDateTime or kotlinx.datetime.LocalDateTime</td>
         <td>Represents a date+time without timezone</td>
-        <td>text</td>
     </tr>
     <tr>
         <td>java.time.OffsetDateTime</td>
         <td>Represents a date+time with timezone</td>
-        <td>text</td>
     </tr>
     <tr>
         <td>java.time.LocalTime</td>
         <td>Represents a time without a date part and without timezone</td>
-        <td>text</td>
     </tr>
     <tr>
         <td>Boolean</td>
         <td>Represents a boolean state</td>
-        <td>integer</td>
+        <td rowspan="2">integer</td>
     </tr>
     <tr>
         <td rowspan="2">Int</td>
         <td>Represents an integer</td>
-        <td>integer</td>
     </tr>
     <tr>
         <td>Represents an auto-incremented integer</td>
@@ -504,6 +576,15 @@ Kotysa uses Java 8+ ```java.time.*``` and `kotlinx-datetime` corresponding types
     <tr>
         <td>Represents an auto-incremented long</td>
         <td>autoIncrementInteger</td>
+    </tr>
+    <tr>
+        <td>Float</td>
+        <td>Represents a single precision floating point number</td>
+        <td rowspan="2">real</td>
+    </tr>
+    <tr>
+        <td>Double</td>
+        <td>Represents a double precision floating point number</td>
     </tr>
     <tr>
         <td>ByteArray</td>
