@@ -39,10 +39,14 @@ data class User(
 
 ### Mapping entities to database tables
 
-Define all mappings rules (columns, primary and foreign keys, indexes...) between your entities and the database tables.
 This is the ORM (object-relational mapping) step.
+Define all mappings rules between your entities and the database tables
+* columns
+* primary and foreign keys
+* indexes
+* identity (auto-generated number columns)
 
-This DSL is based on type and nullability of your entities fields.
+This DSL is based on type and nullability of the fields of your entities.
 
 ```kotlin
 object Roles : H2Table<Role>("roles") {
@@ -88,6 +92,22 @@ object Users : H2Table<User>("users") {
         // creates an index on the firstname, lastname column pair
         index(setOf(firstname, lastname), indexName = "full_name_index")
     }
+}
+```
+
+### Identity
+
+In Kotysa, identity is part of the table mapping. Declare auto-generated `Int` and `Long` columns as `identity`
+
+::: warning
+partial support for Oracle and MSSQL only for now
+:::
+
+```kotlin
+object OracleEntities : OracleTable<OracleEntity>() {
+    val id = number(OracleEntity::id)
+        .identity()
+        .primaryKey()
 }
 ```
 
@@ -394,22 +414,14 @@ Kotysa uses Java 8+ ```java.time.*``` and `kotlinx-datetime` corresponding types
         <td>bit</td>
     </tr>
     <tr>
-        <td rowspan="2">Int</td>
+        <td>Int</td>
         <td>Represents an integer</td>
         <td>integer</td>
     </tr>
     <tr>
-        <td>Represents an auto-incremented integer</td>
-        <td>identityInteger</td>
-    </tr>
-    <tr>
-        <td rowspan="2">Long</td>
+        <td>Long</td>
         <td>Represents a long</td>
         <td>bigInt</td>
-    </tr>
-    <tr>
-        <td>Represents an auto-incremented long</td>
-        <td>identityBigInt</td>
     </tr>
     <tr>
         <td>Float</td>
@@ -523,6 +535,68 @@ Kotysa uses Java 8+ ```java.time.*``` and `kotlinx-datetime` corresponding types
     <tr>
         <td>Large binary object stored as bytes<br />=> only supported with jdbc</td>
         <td>blob</td>
+    </tr>
+</table>
+
+### Oracle
+
+<table>
+    <tr>
+        <th>Kotlin type</th>
+        <th>Description</th>
+        <th>SQL type</th>
+    </tr>
+    <tr>
+        <td>String</td>
+        <td>Represents a variable-length character string, maximum length fixed</td>
+        <td>varchar2</td>
+    </tr>
+    <tr>
+        <td>java.time.LocalDate or kotlinx.datetime.LocalDate</td>
+        <td>Represents a date without time part and without timezone</td>
+        <td>date</td>
+    </tr>
+    <tr>
+        <td>java.time.LocalDateTime or kotlinx.datetime.LocalDateTime</td>
+        <td>Represents a date+time without timezone</td>
+        <td>timestamp</td>
+    </tr>
+    <tr>
+        <td>Boolean</td>
+        <td>Represents a boolean state</td>
+        <td rowspan="4">number</td>
+    </tr>
+    <tr>
+        <td>Int</td>
+        <td>Represents an integer</td>
+    </tr>
+    <tr>
+        <td>Long</td>
+        <td>Represents a long</td>
+    </tr>
+    <tr>
+        <td>BigDecimal</td>
+        <td>Represents a exact decimal number with fixed precision and scale</td>
+    </tr>
+    <tr>
+        <td>Float</td>
+        <td>Represents a single precision floating point number</td>
+        <td>binaryFloat</td>
+    </tr>
+    <tr>
+        <td>Double</td>
+        <td>Represents a double precision floating point number</td>
+        <td>binaryDouble</td>
+    </tr>
+    <tr>
+        <td>ByteArray</td>
+        <td>Binary object stored as bytes</td>
+        <td>raw</td>
+    </tr>
+    <tr>
+        <td>java.time.OffsetDateTime</td>
+        <td>Represents a date+time with timezone</td>
+        <td>timestampWithTimeZone</td>
     </tr>
 </table>
 
