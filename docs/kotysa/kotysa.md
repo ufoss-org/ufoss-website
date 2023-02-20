@@ -7,7 +7,8 @@ next: ./table-mapping
 # Kotysa
 
 Kotysa is a light ORM that offers the idiomatic way to write **Ko**tlin **ty**pe-**sa**fe SQL for JVM and Android. \
-Kotysa Query API is agnostic from Sql Engine : change your database engine or your web framework (Ktor, Spring, Quarkus...), but keep your SQL layer stable.
+Kotysa Query API is agnostic from the SQL Engine : change your database engine or your web framework (Ktor, Spring,
+Quarkus...), but keep your SQL layer stable.
 
 ## Supported Databases
 
@@ -17,6 +18,7 @@ Kotysa Query API is agnostic from Sql Engine : change your database engine or yo
 * H2 : [H2 supported data types](table-mapping.html#h2)
 * Microsoft SQL Server : [MSSQL supported data types](table-mapping.html#mssql)
 * MariaDB : [MariaDB supported data types](table-mapping.html#mariadb)
+* Oracle : [Oracle supported data types](table-mapping.html#oracle)
 
 If you use Spring, check [Kotysa for Spring JDBC](kotysa-spring-jdbc.html) for WebMVC sync SQL or
 [Kotysa for Spring R2DBC](kotysa-spring-r2dbc.html) for WebFlux, which supports both Reactive and Coroutines async SQL
@@ -89,7 +91,8 @@ private val tables = tables().h2(Roles, Users)
 
 Use [type-safe SqlClient DSL](queries.html), Kotysa executes SQL query for you !
 
-You don't have to be aware of all subtle SQL differences between databases, Kotysa will generate the right SQL syntax for your database.
+You don't have to be aware of all subtle SQL differences between databases, Kotysa will generate the right SQL syntax
+for your database.
 
 ```kotlin
 val admins = (sqlClient selectFrom Users
@@ -100,13 +103,17 @@ val admins = (sqlClient selectFrom Users
 
 ### Samples
 
-* See or [sample projects](https://github.com/ufoss-org/kotysa/tree/master/samples) for jdbc, r2dbc, spring-jdbc, spring-r2dbc-reactive, spring-r2dbc-coroutines and vertx-sqlclient.
-* [Real world sample project](https://github.com/pull-vert/demo-kotlin) is a Spring Boot reactive web application with a R2DBC backend accessed via Kotysa, with HTTP2, JWT based Security, Bean validation, RestDoc...
+* See our [sample projects](https://github.com/ufoss-org/kotysa/tree/master/samples) for jdbc, r2dbc, spring-jdbc,
+spring-r2dbc-reactive, spring-r2dbc-coroutines and vertx-sqlclient.
+* [Real world sample project](https://github.com/pull-vert/demo-kotlin) is a Spring Boot reactive web application with a
+R2DBC backend accessed via Kotysa, with HTTP2, JWT based Security, Bean validation, RestDoc...
 
 ## Source code
 
-&#x1F468;&#x200D;&#x1F4BB; Open source code of Kotysa is available on [github](https://github.com/ufoss-org/kotysa), feel free to watch it, submit issues, contribute, fork, copy, whatever you want.
+&#x1F468;&#x200D;&#x1F4BB; Open source code of Kotysa is available on [github](https://github.com/ufoss-org/kotysa),
+feel free to watch it, submit issues, contribute, fork, copy, whatever you want.
 
 ::: tip Status
-Regular releases will provide new features to Kotysa, see [next milestones](https://github.com/ufoss-org/kotysa/milestones?direction=asc&sort=title&state=open).
+Regular releases will provide new features to Kotysa, see the
+[next milestones](https://github.com/ufoss-org/kotysa/milestones?direction=asc&sort=title&state=open).
 :::

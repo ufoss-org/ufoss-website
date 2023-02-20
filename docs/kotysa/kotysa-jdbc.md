@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.ufoss.kotysa:kotysa-jdbc:2.3.3'
+    implementation 'org.ufoss.kotysa:kotysa-jdbc:2.4.0'
 
     // Choose the right JDBC driver for your database
     implementation 'com.h2database:h2:xyz'
@@ -24,6 +24,7 @@ dependencies {
     implementation 'com.microsoft.sqlserver:mssql-jdbc:xyz'
     implementation 'org.mariadb.jdbc:mariadb-java-client:xyz'
     implementation 'org.postgresql:postgresql:xyz'
+    implementation '"com.oracle.database.jdbc:ojdbc8:xyz'
 }
 ```
 

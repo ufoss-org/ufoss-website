@@ -9,7 +9,8 @@ next: ./kotysa-spring-r2dbc
 ## Dependency
 
 `kotysa-spring-jdbc` is a single dependency you can add to your Spring project. \
-This is a companion version for `spring-jdbc` 5.3.x (included in Spring boot 2.7.X, 2.6.X, 2.5.x and 2.4.x) and does not replace it.
+This is a companion version for `spring-jdbc` 5.3.x (included in Spring boot 2.7.X, 2.6.X, 2.5.x and 2.4.x) and does not
+replace it.
 
 ```groovy
 repositories {
@@ -17,13 +18,14 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.ufoss.kotysa:kotysa-spring-jdbc:2.3.3'
+    implementation 'org.ufoss.kotysa:kotysa-spring-jdbc:2.4.0'
     
     implementation 'org.springframework:spring-jdbc'
 }
 ```
 
-Check this [sample project](https://github.com/ufoss-org/kotysa/tree/master/samples/kotysa-spring-jdbc) for a Spring Boot Servlet WebMVC application with a JDBC backend accessed via `kotysa-spring-jdbc`
+Check this [sample project](https://github.com/ufoss-org/kotysa/tree/master/samples/kotysa-spring-jdbc) for a Spring
+Boot Servlet WebMVC application with a JDBC backend accessed via `kotysa-spring-jdbc`
 
 ## Usage
 

@@ -16,14 +16,15 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.ufoss.kotysa:kotysa-r2dbc-coroutines:2.3.3'
+    implementation 'org.ufoss.kotysa:kotysa-r2dbc-coroutines:2.4.0'
 
     // Choose the right R2DBC driver for your database
     runtimeOnly 'io.r2dbc:r2dbc-h2:xyz'
     runtimeOnly 'org.mariadb:r2dbc-mariadb:xyz'
-    runtimeOnly 'dev.miku:r2dbc-mysql:xyz' // or 'com.github.jasync-sql:jasync-r2dbc-mysql:xyz'
+    runtimeOnly 'com.github.jasync-sql:jasync-r2dbc-mysql:xyz' // or 'dev.miku:r2dbc-mysql:xyz'
     runtimeOnly 'io.r2dbc:r2dbc-mssql:xyz'
     runtimeOnly 'org.postgresql:r2dbc-postgresql:xyz'
+    runtimeOnly 'com.oracle.database.r2dbc:oracle-r2dbc:xyz'
 }
 ```
 

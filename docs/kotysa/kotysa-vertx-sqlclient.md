@@ -17,13 +17,14 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.ufoss.kotysa:kotysa-vertx-sqlclient:2.3.3'
+    implementation 'org.ufoss.kotysa:kotysa-vertx-sqlclient:2.4.0'
 
     // Choose the right R2DBC driver for your database
     implementation "io.smallrye.reactive:smallrye-mutiny-vertx-pg-client:xyz"
     // for both mysql and mariadb
     implementation "io.smallrye.reactive:smallrye-mutiny-vertx-mysql-client:xyz"
     implementation "io.smallrye.reactive:smallrye-mutiny-vertx-mssql-client:xyz"
+    implementation "io.smallrye.reactive:smallrye-mutiny-vertx-oracle-client:xyz"
 }
 ```
 

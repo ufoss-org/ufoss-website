@@ -8,7 +8,7 @@ prev: ./kotysa-vertx-sqlclient
 Kotysa supports PostgreSQL textsearch, with `tsvector` columns and `tsquery` to query them.
 
 ::: warning
-These are PostgreSQL specific features, which are therefore reserved for PostgreSQL Kotysa SQL client.
+These are PostgreSQL specific features, which are therefore reserved for PostgreSQL's Kotysa SQL client.
 :::
 
 ## step 1 -> table mapping for tsvector

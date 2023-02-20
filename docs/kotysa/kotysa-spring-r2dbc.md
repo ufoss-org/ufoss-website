@@ -18,7 +18,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.ufoss.kotysa:kotysa-spring-r2dbc:2.3.3'
+    implementation 'org.ufoss.kotysa:kotysa-spring-r2dbc:2.4.0'
     
     implementation 'org.springframework:spring-r2dbc'
 }
@@ -32,7 +32,8 @@ for a Spring Boot WebFlux application with a R2DBC backend accessed via `kotysa-
 `kotysa-spring-r2dbc` provides a coroutines SQL client on top of `spring-r2dbc`,
 it can be obtained via an Extension function directly on spring-r2dbc's ```DatabaseClient```.
 
-It provides a SQL client API using ```suspend``` functions and ```Flow``` from [kotlinx.coroutines](https://github.com/Kotlin/kotlinx.coroutines).
+It provides a SQL client API using ```suspend``` functions and ```Flow``` from
+[kotlinx.coroutines](https://github.com/Kotlin/kotlinx.coroutines).
 
 ```kotlin
 class Repository(client: DatabaseClient, tables: H2Tables) {
