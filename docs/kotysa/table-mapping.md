@@ -44,7 +44,7 @@ Define all mappings rules between your entities and the database tables
 * columns
 * primary and foreign keys
 * indexes
-* identity (auto-generated number columns)
+* identity (for auto-generated number columns)
 
 This DSL is based on type and nullability of the fields of your entities.
 
@@ -100,7 +100,7 @@ object Users : H2Table<User>("users") {
 In Kotysa, identity is part of the table mapping. Declare auto-generated `Int` and `Long` columns as `identity`
 
 ::: warning
-partial support for Oracle and MSSQL only for now
+Only available for Oracle and MSSQL for now
 :::
 
 ```kotlin
