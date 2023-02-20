@@ -6,7 +6,7 @@ title: Dino
 
 Dino is an IO library for the JVM. Dino is designed from the start to use
 [Project Loom](https://wiki.openjdk.java.net/display/loom/Main) that allows to run as much virtual threads as needed to
-read and write from/to network, without thread pools or event-loops.
+read and write from/to network, without needing thread pools or event-loop.
 
 Dino uses NIO in blocking mode with virtual threads, that acts as a regular blocking behavior but uses non-blocking
 under the hood.
