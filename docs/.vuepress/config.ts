@@ -4,7 +4,7 @@ import { searchPlugin } from '@vuepress/plugin-search'
 
 export default defineUserConfig({
     title: 'UFOSS',
-    description: "Provide softwares together with their source code in public domain",
+    description: "Provide softwares together with their open source code",
     markdown: {
         code: {
             lineNumbers: false
