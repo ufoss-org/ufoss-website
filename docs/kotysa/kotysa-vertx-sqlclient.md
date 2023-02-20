@@ -54,6 +54,7 @@ class Repository(private val dbClient: PgPool, private val tables: PostgresqlTab
 * [PostgreSQL](table-mapping.html#postgresql)
 * [MSSQL](table-mapping.html#mssql)
 * [MariaDB](table-mapping.html#mariadb)
+* [Oracle](table-mapping.html#oracle)
 
 ## Transaction
 

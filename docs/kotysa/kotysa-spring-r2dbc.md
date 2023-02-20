@@ -67,6 +67,7 @@ class Repository(client: DatabaseClient, tables: Tables) {
 * [MSSQL](table-mapping.html#mssql)
 * [MariaDB](table-mapping.html#mariadb)
 * [H2](table-mapping.html#h2)
+* [Oracle](table-mapping.html#oracle)
 
 ## Coroutines transaction
 

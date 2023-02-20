@@ -562,6 +562,11 @@ Kotysa uses Java 8+ ```java.time.*``` and `kotlinx-datetime` corresponding types
         <td>timestamp</td>
     </tr>
     <tr>
+        <td>java.time.OffsetDateTime</td>
+        <td>Represents a date+time with timezone</td>
+        <td>timestampWithTimeZone</td>
+    </tr>
+    <tr>
         <td>Boolean</td>
         <td>Represents a boolean state</td>
         <td rowspan="4">number</td>
@@ -592,11 +597,6 @@ Kotysa uses Java 8+ ```java.time.*``` and `kotlinx-datetime` corresponding types
         <td>ByteArray</td>
         <td>Binary object stored as bytes</td>
         <td>raw</td>
-    </tr>
-    <tr>
-        <td>java.time.OffsetDateTime</td>
-        <td>Represents a date+time with timezone</td>
-        <td>timestampWithTimeZone</td>
     </tr>
 </table>
 

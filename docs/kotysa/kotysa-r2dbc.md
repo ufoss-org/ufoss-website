@@ -55,6 +55,7 @@ class Repository(connectionFactory: ConnectionFactory, tables: H2Tables) {
 * [MSSQL](table-mapping.html#mssql)
 * [MariaDB](table-mapping.html#mariadb)
 * [H2](table-mapping.html#h2)
+* [Oracle](table-mapping.html#oracle)
 
 ## Transaction
 
