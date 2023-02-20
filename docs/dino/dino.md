@@ -38,11 +38,12 @@ NIO.
 
 ### Foreign Memory
 
-* Foreign Memory was added as an experimental feature in Java 14. In Java 19 it is promoted to preview state and no
-longer incubating. It provides low-level, safe and efficient memory access.
+* Foreign Memory was added as an experimental feature in Java 14. With Java 19 it was promoted to preview state and is
+no longer incubating. It provides low-level, safe and efficient memory access.
 * Foreign Memory provides nice features like spatial safety, temporal safety and thread-confinement.
 * Dino uses exclusively off-heap native MemorySegments.
 
 ## Source code
 
-&#x1F468;&#x200D;&#x1F4BB; Open source code of Dino is available on [github](https://github.com/ufoss-org/dino), feel free to watch it, contribute, fork, copy, whatever you want.
+&#x1F468;&#x200D;&#x1F4BB; Open source code of Dino is available on [github](https://github.com/ufoss-org/dino), feel
+free to watch it, contribute, fork.
