@@ -17,7 +17,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.ufoss.kotysa:kotysa-vertx-sqlclient:2.4.0'
+    implementation 'org.ufoss.kotysa:kotysa-vertx-sqlclient:3.0.1'
 
     // Choose the right R2DBC driver for your database
     implementation "io.smallrye.reactive:smallrye-mutiny-vertx-pg-client:xyz"

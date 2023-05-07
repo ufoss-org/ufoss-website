@@ -8,7 +8,7 @@ next: ./kotysa-spring-jdbc
 
 ## Dependency
 
-kotysa-android is a single dependency you can add to your Android project.
+kotysa-sqlite is a single dependency you can add to your Android project.
 
 ```groovy
 repositories {
@@ -16,13 +16,13 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.ufoss.kotysa:kotysa-android:2.4.0'
+    implementation 'org.ufoss.kotysa:kotysa-sqlite-android:3.0.1'
 }
 ```
 
 ## Usage
 
-kotysa-android provides a SQL client on top of Android's included SqLite, 
+kotysa-sqlite provides a SQL client on top of Android's included SqLite, 
 it can be obtained via an Extension function directly on Android's ```SQLiteOpenHelper```.
 
 ```kotlin
@@ -38,7 +38,7 @@ See [SqLite supported types](table-mapping.html#sqlite)
 
 ## Transaction
 
-kotysa-android provides a transaction on top of Android's included SqLite, 
+kotysa-sqlite provides a transaction on top of Android's included SqLite, 
 it can be obtained via an Extension function directly on Android's ```SQLiteDatabase```.
 
 ```kotlin

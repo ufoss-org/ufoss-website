@@ -23,7 +23,7 @@ export default defineUserConfig({
                         '/kotysa/kotysa',
                         '/kotysa/table-mapping',
                         '/kotysa/queries',
-                        '/kotysa/kotysa-android',
+                        '/kotysa/kotysa-sqlite',
                         '/kotysa/kotysa-spring-jdbc',
                         '/kotysa/kotysa-spring-r2dbc',
                         '/kotysa/kotysa-jdbc',

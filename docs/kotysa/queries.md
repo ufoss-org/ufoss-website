@@ -1,7 +1,7 @@
 ---
 title: SQL queries
 prev: ./table-mapping
-next: ./kotysa-android
+next: ./kotysa-sqlite
 ---
 
 # Type-safe SQL queries
@@ -329,7 +329,7 @@ fun selectFirstnameByFirstnameTableAlias(firstname: String) =
 
 Use the terminal operation that you need to fetch single or multiple results
 
-**With kotysa-jdbc, kotysa-spring-jdbc and kotysa-android**
+**With kotysa-jdbc, kotysa-spring-jdbc and kotysa-sqlite**
 * ```fun fetchOne(): T?``` returns one result
   * @throws NoResultException if no results
   * @throws NonUniqueResultException if more than one result

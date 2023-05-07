@@ -29,7 +29,7 @@ If you use Ktor, or anything else, check [Kotysa for JDBC](kotysa-jdbc.html) for
 [Kotysa for R2DBC](kotysa-r2dbc.html) for Coroutines async SQL.
 
 ### On Android
-Check [Kotysa for SqLite on Android](kotysa-android.html) : [SqLite supported data types](table-mapping.html#sqlite)
+Check [Kotysa for SqLite on Android](kotysa-sqlite.html) : [SqLite supported data types](table-mapping.html#sqlite)
 
 **Table of content**
 
@@ -105,8 +105,9 @@ val admins = (sqlClient selectFrom Users
 
 * See our [sample projects](https://github.com/ufoss-org/kotysa/tree/master/samples) for jdbc, r2dbc, spring-jdbc,
 spring-r2dbc-reactive, spring-r2dbc-coroutines and vertx-sqlclient.
-* [Real world sample project](https://github.com/pull-vert/demo-kotlin) is a Spring Boot reactive web application with a
-R2DBC backend accessed via Kotysa, with HTTP2, JWT based Security, Bean validation, RestDoc...
+* A more complete [real world sample project](https://github.com/pull-vert/demo-kotlin) provide you a Spring Boot
+reactive web application with a R2DBC backend accessed via Kotysa, with HTTP2, JWT based Security, Bean validation,
+RestDoc...
 
 ## Source code
 
