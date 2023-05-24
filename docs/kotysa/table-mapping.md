@@ -97,10 +97,10 @@ object Users : H2Table<User>("users") {
 
 ### Identity
 
-In Kotysa, identity is part of the table mapping. Declare auto-generated `Int` and `Long` columns as `identity`
+In Kotysa, identity is part of the table mapping. Simply declare auto-generated `Int` and `Long` columns as `identity`
 
-::: warning
-Only available for Oracle and MSSQL for now
+::: tip
+Identity is available for PostgreSQL, Oracle, MSSQL and H2
 :::
 
 ```kotlin
@@ -113,7 +113,11 @@ object OracleEntities : OracleTable<OracleEntity>() {
 
 ## Data types
 
+Tables below list all the data types that are supported by Kotysa for each database provider.
+
+::: tip
 Kotysa uses Java 8+ ```java.time.*``` and `kotlinx-datetime` corresponding types for dates.
+:::
 
 ### PostgreSQL
 
@@ -148,7 +152,7 @@ Kotysa uses Java 8+ ```java.time.*``` and `kotlinx-datetime` corresponding types
         <td>timestampWithTimeZone</td>
     </tr>
     <tr>
-        <td>java.time.LocalTime</td>
+        <td>java.time.LocalTime or kotlinx.datetime.LocalTime</td>
         <td>Represents a time without a date part and without timezone</td>
         <td>time</td>
     </tr>
@@ -188,12 +192,15 @@ Kotysa uses Java 8+ ```java.time.*``` and `kotlinx-datetime` corresponding types
     <tr>
         <td>Double</td>
         <td>Represents a double precision floating point number</td>
-        <td>double precision</td>
+        <td>doublePrecision</td>
     </tr>
     <tr>
-        <td>BigDecimal</td>
-        <td>Represents a exact decimal number with fixed precision and scale</td>
-        <td>decimal or numeric</td>
+        <td rowspan="2">BigDecimal</td>
+        <td rowspan="2">Represents a exact decimal number with fixed precision and scale</td>
+        <td>decimal</td>
+    </tr>
+    <tr>
+        <td>numeric</td>
     </tr>
     <tr>
         <td>ByteArray</td>
@@ -242,7 +249,7 @@ Kotysa uses Java 8+ ```java.time.*``` and `kotlinx-datetime` corresponding types
         <td>datetime</td>
     </tr>
     <tr>
-        <td>java.time.LocalTime</td>
+        <td>java.time.LocalTime or kotlinx.datetime.LocalTime</td>
         <td>Represents a time without a date part and without timezone</td>
         <td>time</td>
     </tr>
@@ -277,12 +284,15 @@ Kotysa uses Java 8+ ```java.time.*``` and `kotlinx-datetime` corresponding types
     <tr>
         <td>Double</td>
         <td>Represents a double precision floating point number</td>
-        <td>double precision</td>
+        <td>doublePrecision</td>
     </tr>
     <tr>
-        <td>BigDecimal</td>
-        <td>Represents a exact decimal number with fixed precision and scale</td>
-        <td>decimal or numeric</td>
+        <td rowspan="2">BigDecimal</td>
+        <td rowspan="2">Represents a exact decimal number with fixed precision and scale</td>
+        <td>decimal</td>
+    </tr>
+    <tr>
+        <td>numeric</td>
     </tr>
     <tr>
         <td rowspan="2">ByteArray</td>
@@ -327,7 +337,7 @@ Kotysa uses Java 8+ ```java.time.*``` and `kotlinx-datetime` corresponding types
         <td>timestampWithTimeZone</td>
     </tr>
     <tr>
-        <td>java.time.LocalTime</td>
+        <td>java.time.LocalTime or kotlinx.datetime.LocalTime</td>
         <td>Represents a time without a date part and without timezone</td>
         <td>time</td>
     </tr>
@@ -367,12 +377,15 @@ Kotysa uses Java 8+ ```java.time.*``` and `kotlinx-datetime` corresponding types
     <tr>
         <td>Double</td>
         <td>Represents a double precision floating point number</td>
-        <td>double precision</td>
+        <td>doublePrecision</td>
     </tr>
     <tr>
-        <td>BigDecimal</td>
-        <td>Represents a exact decimal number with fixed precision and scale</td>
-        <td>decimal or numeric</td>
+        <td rowspan="2">BigDecimal</td>
+        <td rowspan="2">Represents a exact decimal number with fixed precision and scale</td>
+        <td>decimal</td>
+    </tr>
+    <tr>
+        <td>numeric</td>
     </tr>
     <tr>
         <td rowspan="2">ByteArray</td>
@@ -409,9 +422,24 @@ Kotysa uses Java 8+ ```java.time.*``` and `kotlinx-datetime` corresponding types
         <td>datetime</td>
     </tr>
     <tr>
+        <td>java.time.OffsetDateTime</td>
+        <td>Represents a date+time with timezone.<br />MSSQL uses UTC timezone to store DATETIMEOFFSET, so you may have to override equals to use Instant based "isEqual" method on java.time.OffsetDateTime fields</td>
+        <td>dateTimeOffset</td>
+    </tr>
+    <tr>
+        <td>java.time.LocalTime or kotlinx.datetime.LocalTime</td>
+        <td>Represents a time without a date part and without timezone</td>
+        <td>time</td>
+    </tr>
+    <tr>
         <td>Boolean</td>
         <td>Represents a boolean state</td>
         <td>bit</td>
+    </tr>
+    <tr>
+        <td>java.util.UUID</td>
+        <td>Universally unique identifier (128 bit value)</td>
+        <td>uniqueIdentifier</td>
     </tr>
     <tr>
         <td>Int</td>
@@ -434,9 +462,12 @@ Kotysa uses Java 8+ ```java.time.*``` and `kotlinx-datetime` corresponding types
         <td>float</td>
     </tr>
     <tr>
-        <td>BigDecimal</td>
-        <td>Represents a exact decimal number with fixed precision and scale</td>
-        <td>decimal or numeric</td>
+        <td rowspan="2">BigDecimal</td>
+        <td rowspan="2">Represents a exact decimal number with fixed precision and scale</td>
+        <td>decimal</td>
+    </tr>
+    <tr>
+        <td>numeric</td>
     </tr>
     <tr>
         <td>ByteArray</td>
@@ -485,7 +516,7 @@ Kotysa uses Java 8+ ```java.time.*``` and `kotlinx-datetime` corresponding types
         <td>datetime</td>
     </tr>
     <tr>
-        <td>java.time.LocalTime</td>
+        <td>java.time.LocalTime or kotlinx.datetime.LocalTime</td>
         <td>Represents a time without a date part and without timezone</td>
         <td>time</td>
     </tr>
@@ -520,12 +551,15 @@ Kotysa uses Java 8+ ```java.time.*``` and `kotlinx-datetime` corresponding types
     <tr>
         <td>Double</td>
         <td>Represents a double precision floating point number</td>
-        <td>double precision</td>
+        <td>doublePrecision</td>
     </tr>
     <tr>
-        <td>BigDecimal</td>
-        <td>Represents a exact decimal number with fixed precision and scale</td>
-        <td>decimal or numeric</td>
+        <td rowspan="2">BigDecimal</td>
+        <td rowspan="2">Represents a exact decimal number with fixed precision and scale</td>
+        <td>decimal</td>
+    </tr>
+    <tr>
+        <td>numeric</td>
     </tr>
     <tr>
         <td rowspan="2">ByteArray</td>
@@ -626,7 +660,7 @@ Kotysa uses Java 8+ ```java.time.*``` and `kotlinx-datetime` corresponding types
         <td>Represents a date+time with timezone</td>
     </tr>
     <tr>
-        <td>java.time.LocalTime</td>
+        <td>java.time.LocalTime or kotlinx.datetime.LocalTime</td>
         <td>Represents a time without a date part and without timezone</td>
     </tr>
     <tr>

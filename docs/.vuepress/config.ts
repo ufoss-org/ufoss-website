@@ -1,5 +1,4 @@
-import {defineUserConfig} from 'vuepress'
-import {defaultTheme} from '@vuepress/theme-default'
+import { defaultTheme, defineUserConfig } from 'vuepress'
 import { searchPlugin } from '@vuepress/plugin-search'
 
 export default defineUserConfig({
