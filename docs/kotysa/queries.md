@@ -186,7 +186,13 @@ fun selectAllUsersByAliases(alias1: String?, alias2: String?) =
 
 ### Join
 
-Join database tables with `JOIN` clause
+Join database tables with `JOIN` clause(s) :
+* innerJoin
+* leftJoin
+* rightJoin
+* fullJoin
+
+`JOIN` clauses can be chained.
 
 ```kotlin
 val admins =
@@ -196,7 +202,7 @@ val admins =
         ).fetchAll() // returns all admin users
 ```
 
-Of course you can also join tables using equality clause between columns too, this query returns the same results :
+You can also join tables using equality clause between columns too, this query returns the same results
 
 ```kotlin
 val admins =

@@ -111,6 +111,26 @@ object OracleEntities : OracleTable<OracleEntity>() {
 }
 ```
 
+### Generic table mapping
+
+In order to make integration tests of your repositories easier, Kotysa offers `GenericTable`
+* extend `GenericTable` in this case
+* `tables()` DSL for H2, PostgreSQL and MSSQL accept a combination of DB specific tables OR `GenericTable`
+
+```kotlin
+object Roles : GenericTable<Role>("roles") {
+    val id = uuid(Role::id)
+        .primaryKey()
+    val label = varchar(Role::label)
+}
+
+// in your main code, use PostgreSQL for example
+private val mainTables = tables().postgresql(Roles)
+
+// in your test code, use H2
+private val testTables = tables().h2(Roles)
+```
+
 ## Data types
 
 Tables below list all the data types that are supported by Kotysa for each database provider.
