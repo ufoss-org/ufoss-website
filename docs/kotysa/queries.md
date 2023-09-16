@@ -248,6 +248,7 @@ fun selectUserByIdAsc() =
 Kotysa provides subquery support.
 
 ```kotlin
+// subquery in select
 fun selectUserById(id: Int) =
   (sqlClient select Users.firstname and {
     (this select Roles.label
@@ -258,6 +259,7 @@ fun selectUserById(id: Int) =
           where Users.id eq id
           ).fetchOne()
 
+// Kotysa supports case when exists subquery in select
 fun selectCaseWhenExistsSubQuery(userIds: List<Int>) =
   (sqlClient selectDistinct Roles.label
           andCaseWhenExists {
@@ -269,6 +271,7 @@ fun selectCaseWhenExistsSubQuery(userIds: List<Int>) =
           from Roles)
     .fetchAll()
 
+// subquery in where
 fun selectRoleLabelWhereEqUserSubQuery(userId: Int) =
   (sqlClient select Roles.label
           from Roles
@@ -280,6 +283,7 @@ fun selectRoleLabelWhereEqUserSubQuery(userId: Int) =
           })
     .fetchOne()
 
+// where exists subquery
 fun selectRoleLabelWhereExistsUserSubQuery(userIds: List<Int>) =
   (sqlClient select Roles.label
           from Roles
@@ -292,6 +296,7 @@ fun selectRoleLabelWhereExistsUserSubQuery(userIds: List<Int>) =
           })
     .fetchAll()
 
+// Kotysa supports case when exists subquery in order by
 fun selectOrderByCaseWhenExistsSubQuery(userIds: List<Int>) =
   (sqlClient select Roles.label
           from Roles
@@ -310,7 +315,7 @@ fun selectOrderByCaseWhenExistsSubQuery(userIds: List<Int>) =
 Kotysa provides aliases support for columns and tables.
 
 ```kotlin
-// column alias
+// column alias. 2 syntaxes are available
 fun selectAliasedFirstnameByFirstnameGet(firstname: String) =
   (sqlClient select H2Users.firstname `as` "fna"
           from H2Users
@@ -329,6 +334,63 @@ fun selectFirstnameByFirstnameTableAlias(firstname: String) =
           from H2Users `as` "u"
           where H2Users["u"].firstname eq firstname
           ).fetchOne()
+```
+
+### Conditional queries
+
+Kotysa offers a specific query syntax for complex queries with conditional clauses. \
+Note : A query that uses `query.selects()` always returns a `List<Any?>` \
+Here is an example.
+
+```kotlin
+fun selectConditionalSyntax(params: Int = 0): List<List<Any?>> {
+    val selects = sqlClient.selects()
+    selects.select(tableUsers.firstname)
+    if (params > 0) {
+        selects.select(tableUsers.lastname)
+    }
+    if (params > 1) {
+        selects.select(tableRoles.label)
+    }
+        
+    val froms = selects.froms()
+    froms.from(tableUsers)
+    if (params > 0) {
+        froms.from(tableUserRoles)
+    }
+    if (params > 1) {
+        froms.from(tableRoles)
+    }
+
+    val wheres = froms.wheres()
+    wheres.where(tableUsers.id).sup(0)
+    if (params > 0) {
+        wheres.where(tableUserRoles.userId).eq(tableUsers.id)
+    }
+    if (params > 1) {
+        wheres.where(tableRoles.id).eq(tableUserRoles.roleId)
+    }
+
+    val groupsBy = wheres.groupsBy()
+    groupsBy.groupBy(tableUsers.firstname)
+    if (params > 0) {
+        groupsBy.groupBy(tableUsers.lastname)
+    }
+    if (params > 1) {
+        groupsBy.groupBy(tableRoles.label)
+    }
+
+    val ordersBy = groupsBy.ordersBy()
+    if (params > 0) {
+        ordersBy.orderByDesc(tableUsers.lastname)
+    }
+    if (params > 1) {
+        ordersBy.orderByAsc(tableRoles.label)
+    }
+    ordersBy.orderByAsc(tableUsers.firstname)
+
+    return ordersBy.fetchAll()
+}
 ```
 
 ### Fetch the database
@@ -381,9 +443,9 @@ fun createTable() = sqlClient createTableIfNotExists Users
 ```
 
 * SqlClient returns void
+* CoroutinesSqlCLient is a **suspend function** that returns void
 * ReactorSqlCLient returns a `reactor.core.publisher.Mono<Void>`
 * VertxSqlClient returns a `io.smallrye.mutiny.Uni<Void>`
-* CoroutinesSqlCLient is a **suspend function** that returns void
 
 ## Insert
 
@@ -401,9 +463,10 @@ fun insertUsers() = sqlClient.insert(userJdoe, userBboss)
 ```
 
 * SqlClient returns void
+* CoroutinesSqlCLient is a **suspend function** that returns void
 * ReactorSqlCLient returns a `reactor.core.publisher.Mono<Void>`
 * VertxSqlClient returns a `io.smallrye.mutiny.Uni<Void>`
-* CoroutinesSqlCLient is a **suspend function** that returns void
+
 
 ### InsertAndReturn
 
@@ -421,9 +484,9 @@ T corresponds to inserted entity type
 :::
 
 * SqlClient returns `T` or a `List<T>` if several entities passed
+* CoroutinesSqlCLient is a **suspend function** that returns `T` or a `kotlinx.coroutines.flow.Flow<T>` if several entities passed
 * ReactorSqlCLient returns a `reactor.core.publisher.Mono<T>` or a `reactor.core.publisher.Flux<T>` if several entities passed
 * VertxSqlClient returns a `io.smallrye.mutiny.Uni<T>` or a `io.smallrye.mutiny.Multi<T>` if several entities passed
-* CoroutinesSqlCLient is a **suspend function** that returns `T` or a `kotlinx.coroutines.flow.Flow<T>` if several entities passed
 
 ## Delete
 
@@ -439,9 +502,9 @@ fun deleteById(id: Int) =
 ```
 
 * SqlClient returns Int
+* CoroutinesSqlCLient is a **suspend function** that returns Int
 * ReactorSqlCLient returns a `reactor.core.publisher.Mono<Int>`
 * VertxSqlClient returns a `io.smallrye.mutiny.Uni<Int>`
-* CoroutinesSqlCLient is a **suspend function** that returns Int
 
 ### Delete all
 
@@ -452,9 +515,9 @@ fun deleteAll() = sqlClient deleteAllFrom Users
 ```
 
 * SqlClient returns Int
+* CoroutinesSqlCLient is a **suspend function** that returns Int
 * ReactorSqlCLient returns a `reactor.core.publisher.Mono<Int>`
 * VertxSqlClient returns a `io.smallrye.mutiny.Uni<Int>`
-* CoroutinesSqlCLient is a **suspend function** that returns Int
 
 ## Update
 
@@ -479,9 +542,9 @@ fun incrementUserMessageCount(id: Int) =
 ```
 
 * SqlClient returns Int
+* CoroutinesSqlCLient is a **suspend function** that returns Int
 * ReactorSqlCLient returns a `reactor.core.publisher.Mono<Int>`
 * VertxSqlClient returns a `io.smallrye.mutiny.Uni<Int>`
-* CoroutinesSqlCLient is a **suspend function** that returns Int
 
 ## Transaction
 

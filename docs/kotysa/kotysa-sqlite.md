@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.ufoss.kotysa:kotysa-sqlite-android:3.1.0'
+    implementation 'org.ufoss.kotysa:kotysa-sqlite-android:3.2.1'
 }
 ```
 

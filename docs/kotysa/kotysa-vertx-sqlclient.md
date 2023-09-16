@@ -9,7 +9,8 @@ next: ./postgresql-textsearch
 ## Dependency
 
 `kotysa-vertx-sqlclient` is a single dependency you can add to your project. \
-This is a companion version for `smallrye-mutiny-vertx-sql-client` 2.X.Y, included in Quarkus 2.13.X and does not replace it.
+This is a companion version for `smallrye-mutiny-vertx-sql-client` 3.X.Y (for Mutiny) and `vertx-sql-client` 4.X.Y (for
+Coroutines), included in Quarkus 3.X.Y and does not replace it.
 
 ```groovy
 repositories {
@@ -17,21 +18,47 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.ufoss.kotysa:kotysa-vertx-sqlclient:3.1.0'
+    implementation 'org.ufoss.kotysa:kotysa-vertx-sqlclient:3.2.1'
 
-    // Choose the right R2DBC driver for your database
+    // Mutiny : Choose the right R2DBC driver for your database
     implementation "io.smallrye.reactive:smallrye-mutiny-vertx-pg-client:xyz"
     // for both mysql and mariadb
     implementation "io.smallrye.reactive:smallrye-mutiny-vertx-mysql-client:xyz"
     implementation "io.smallrye.reactive:smallrye-mutiny-vertx-mssql-client:xyz"
     implementation "io.smallrye.reactive:smallrye-mutiny-vertx-oracle-client:xyz"
+
+    // Coroutines : Choose the right R2DBC driver for your database
+    implementation "io.vertx:vertx-pg-client:xyz"
+    // for both mysql and mariadb
+    implementation "io.vertx:vertx-mysql-client:xyz"
+    implementation "io.vertx:vertx-mssql-client:xyz"
+    implementation "io.vertx:vertx-oracle-client:xyz"
 }
 ```
 
-Check this [sample project](https://github.com/ufoss-org/kotysa/tree/master/samples/kotysa-quarkus-vertx-sqlclient) for
-a Quarkus Reactive Resteasy application with a Mutiny Vertx Sqlclient backend accessed via `kotysa-vertx-sqlclient`.
+Check this [reactive sample project with mutiny](https://github.com/ufoss-org/kotysa/tree/master/samples/kotysa-quarkus-vertx-sqlclient-mutiny),
+and this [coroutines sample project](https://github.com/ufoss-org/kotysa/tree/master/samples/kotysa-quarkus-vertx-sqlclient-coroutines)
+for a Quarkus Reactive Resteasy application with a Vertx Sqlclient backend accessed via `kotysa-vertx-sqlclient`.
 
-## Usage
+## Coroutines support
+
+`kotysa-vertx-sqlclient` provides a coroutines SQL client on top of `vertx-sql-client`,
+it can be obtained via an Extension function directly on ```io.vertx.sqlclient.Pool```.
+
+It provides a SQL client API using ```suspend``` functions and ```Flow``` from
+[kotlinx.coroutines](https://github.com/Kotlin/kotlinx.coroutines).
+
+```kotlin
+class Repository(private val dbClient: PgPool, private val tables: PostgresqlTables) {
+
+    @Produces
+    fun sqlClient() = dbClient.coSqlClient(tables)
+
+	// enjoy coroutines sqlClient for Quarkus with Vertx sqlclient :)
+}
+```
+
+## Reactive support
 
 `kotysa-vertx-sqlclient` provides a reactive SQL client on top of `smallrye-mutiny-vertx-sql-client`, 
 it can be obtained via an Extension function directly on ```io.vertx.mutiny.sqlclient.Pool```.
@@ -44,7 +71,7 @@ class Repository(private val dbClient: PgPool, private val tables: PostgresqlTab
     @Produces
     fun sqlClient() = dbClient.sqlClient(tables)
 
-	// enjoy reactive sqlClient for Quarkus with Vertx sqlclient :)
+	// enjoy Mutiny reactive sqlClient for Quarkus with Vertx sqlclient :)
 }
 ```
 

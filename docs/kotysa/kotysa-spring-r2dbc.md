@@ -17,12 +17,12 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.ufoss.kotysa:kotysa-spring-r2dbc:3.1.0'
+    implementation 'org.ufoss.kotysa:kotysa-spring-r2dbc:3.2.1'
     
     implementation 'org.springframework:spring-r2dbc'
 }
 ```
-Check this [reactive sample project](https://github.com/ufoss-org/kotysa/tree/master/samples/kotysa-spring-r2dbc-reactive),
+Check this [reactive sample project with reactor](https://github.com/ufoss-org/kotysa/tree/master/samples/kotysa-spring-r2dbc-reactive),
 and this [coroutines sample project](https://github.com/ufoss-org/kotysa/tree/master/samples/kotysa-spring-r2dbc-coroutines)
 for a Spring Boot WebFlux application with a R2DBC backend accessed via `kotysa-spring-r2dbc`
 
