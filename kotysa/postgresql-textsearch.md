@@ -17,7 +17,7 @@ This is a simple example of how to declare `tsvector`, that can aggregate one or
 GIST or GIN indexes that allow to efficiently query on this tsvector.
 See [this article](https://www.postgresql.org/docs/current/textsearch-tables.html#TEXTSEARCH-TABLES-INDEX)
 
-```kotlin
+```kotlin{13-16}
 data class Article(
         val content: String,
         val title: String?,
@@ -49,11 +49,11 @@ much as for to_tsvector, then the `&` (AND) tsquery operator is inserted between
 surviving words instead of the `&` (AND) operator. Also, stop words are not simply discarded, but are accounted for by
 inserting `<N>` operators rather than `<->` operators. This function is useful when searching for exact lexeme
 sequences, since the FOLLOWED BY operators check lexeme order not just the presence of all the lexemes.
-* `websearchToTsquery`creates a `tsquery` value from querytext using an alternative syntax in which simple unformatted
+* `websearchToTsquery`creates a `tsquery` value from querytext using an alternative syntax in which simple un-formatted
 text is a valid query. Unlike `plaintoTsquery` and `phrasetoTsquery`, it also recognizes certain operators. Moreover,
 this function will never raise syntax errors, which makes it possible to use raw user-supplied input for search.
 
-```kotlin
+```kotlin{3,8,11-14}
 // Use tsquery only in the where clause
 (sqlClient selectFrom Articles
     where Articles.articleSearchable toTsquery "table|create"
@@ -63,9 +63,10 @@ this function will never raise syntax errors, which makes it possible to use raw
 // your text query from the most relevant to the less one
 val tsquery = sqlClient toTsquery "table|create" `as` "query"
 
-sqlClient.select(Articles.content).andTsRankCd(Articles.articleSearchableBoth, tsquery).`as`("rank")
-            .from(Articles).and(tsquery)
-            .where(tsquery).applyOn(Articles.articleSearchableBoth)
-            .orderByDesc(QueryAlias<Float>("rank"))
-            .fetchAll()
+sqlClient.select(Articles.content)
+    .andTsRankCd(Articles.articleSearchableBoth, tsquery).`as`("rank")
+    .from(Articles).and(tsquery)
+    .where(tsquery).applyOn(Articles.articleSearchableBoth)
+    .orderByDesc(QueryAlias<Float>("rank"))
+    .fetchAll()
 ```

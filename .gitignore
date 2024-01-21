@@ -1,8 +1,6 @@
 node_modules
-docs/.vuepress/dist
-
-.temp
-.cache
+.vitepress/dist
+.vitepress/cache
 
 # IntelliJ
 .idea

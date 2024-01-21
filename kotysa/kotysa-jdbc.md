@@ -10,7 +10,7 @@ next: ./kotysa-r2dbc
 
 `kotysa-jdbc` is a single dependency you can add to your project.
 
-```groovy
+```groovy{6}
 repositories {
     mavenCentral()
 }

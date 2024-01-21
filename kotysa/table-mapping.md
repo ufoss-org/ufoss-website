@@ -75,7 +75,7 @@ private val tables = tables().h2(Roles, Users)
 In Kotysa, indexes are part of the table mapping. Just add `unique` on a column, or create an `index` from several
 columns of a table.
 
-```kotlin
+```kotlin{5,13-16}
 object Roles : H2Table<Role>("roles") {
     val id = uuid(Role::id)
         .primaryKey()
@@ -103,7 +103,7 @@ In Kotysa, identity is part of the table mapping. Simply declare auto-generated 
 Identity is available for PostgreSQL, Oracle, MSSQL and H2
 :::
 
-```kotlin
+```kotlin{3}
 object OracleEntities : OracleTable<OracleEntity>() {
     val id = number(OracleEntity::id)
         .identity()
@@ -114,10 +114,10 @@ object OracleEntities : OracleTable<OracleEntity>() {
 ### Generic table mapping
 
 In order to make integration tests of your repositories easier, Kotysa offers `GenericTable`
-* extend `GenericTable` in this case
+* extend `GenericTable` in this case instead of the DB specific one
 * `tables()` DSL for H2, PostgreSQL and MSSQL accept a combination of DB specific tables OR `GenericTable`
 
-```kotlin
+```kotlin{1}
 object Roles : GenericTable<Role>("roles") {
     val id = uuid(Role::id)
         .primaryKey()

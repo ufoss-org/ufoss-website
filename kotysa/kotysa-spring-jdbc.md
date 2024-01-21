@@ -11,7 +11,7 @@ next: ./kotysa-spring-r2dbc
 `kotysa-spring-jdbc` is a single dependency you can add to your Spring project. \
 This is a companion version for `spring-jdbc` 6.0.x (included in Spring boot 3.0.X) and does not replace it.
 
-```groovy
+```groovy{6}
 repositories {
     mavenCentral()
 }

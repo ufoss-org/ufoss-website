@@ -10,7 +10,7 @@ next: ./kotysa-vertx-sqlclient
 
 `kotysa-r2dbc` is a single dependency you can add to your project, compatible with R2DBC 1.0.0.
 
-```groovy
+```groovy{6}
 repositories {
     mavenCentral()
 }

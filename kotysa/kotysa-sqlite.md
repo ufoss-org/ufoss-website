@@ -10,7 +10,7 @@ next: ./kotysa-spring-jdbc
 
 kotysa-sqlite is a single dependency you can add to your Android project.
 
-```groovy
+```groovy{6}
 repositories {
     mavenCentral()
 }

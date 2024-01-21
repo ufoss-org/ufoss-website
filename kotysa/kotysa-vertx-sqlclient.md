@@ -12,7 +12,7 @@ next: ./postgresql-textsearch
 This is a companion version for `smallrye-mutiny-vertx-sql-client` 3.X.Y (for Mutiny) and `vertx-sql-client` 4.X.Y (for
 Coroutines), included in Quarkus 3.X.Y and does not replace it.
 
-```groovy
+```groovy{6}
 repositories {
     mavenCentral()
 }

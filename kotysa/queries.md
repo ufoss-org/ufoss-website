@@ -69,7 +69,7 @@ fun selectAllFirstnameAndAlias() =
 
 Counts the number of rows having a non-null value for the specified column
 
-```kotlin
+```kotlin{2}
 fun countWithAlias() =
     (sqlClient selectCount Users.alias
         from Users
@@ -80,7 +80,7 @@ fun countWithAlias() =
 
 Returns distinct values of the specified column
 
-```kotlin
+```kotlin{2}
 val distinctFirstnames =
     (sqlClient selectDistinct Users.firstname
         from Users
@@ -89,7 +89,7 @@ val distinctFirstnames =
 
 ### Min, max and sum
 
-```kotlin
+```kotlin{2,7,12}
 fun selectUserMinId() =
     (sqlClient selectMin Users.id
         from Users
@@ -110,7 +110,7 @@ fun selectUserSumId() =
 
 Shortcut to return rows from a table as table's mapped Entity (= will select all columns from this table)
 
-```kotlin
+```kotlin{2,8}
 fun selectFirstUserByFirstname(firstname: String) =
     (sqlClient selectFrom Users
         where Users.firstname eq firstname
@@ -150,13 +150,13 @@ fun countAll() = sqlClient selectCountAllFrom Users
 * CoroutinesSqlCLient is a **suspend function** that returns a `Long`
 
 ### Map selected columns to a DTO
-Use a code block that will be executed for each returned row
+`selectAndBuild` gives access to a code block that will be executed for each returned row
 
 ::: tip Tip
 Allow you to build a DTO from columns of several tables
 :::
 
-```kotlin
+```kotlin{7}
 data class UserDto(
     val name: String,
     val alias: String?
@@ -176,7 +176,7 @@ fun selectAllUsersMappedToDto() =
 ### Or
 SQL `OR` clause
 
-```kotlin
+```kotlin{4}
 fun selectAllUsersByAliases(alias1: String?, alias2: String?) =
         (sqlClient selectFrom Users
             where Users.alias eq alias1
@@ -194,7 +194,7 @@ Join database tables with `JOIN` clause(s) :
 
 `JOIN` clauses can be chained.
 
-```kotlin
+```kotlin{3}
 val admins =
     (sqlClient selectFrom Users
         innerJoin Roles on Users.roleId eq Roles.id
@@ -202,9 +202,9 @@ val admins =
         ).fetchAll() // returns all admin users
 ```
 
-You can also join tables using equality clause between columns too, this query returns the same results
+Of course, you can also join tables using equality clause between columns too, this query returns the same results
 
-```kotlin
+```kotlin{3-4}
 val admins =
     (sqlClient select Users
         from Users and Roles
@@ -217,7 +217,7 @@ val admins =
 
 For pagination, use `LIMIT` and `OFFSET`
 
-```kotlin
+```kotlin{3}
 val pagination =
     (sqlClient selectFrom Users
         limit 5 offset 1
@@ -226,7 +226,7 @@ val pagination =
 
 ### Group by
 
-```kotlin
+```kotlin{4}
 val countUsersGroupByCountry =
     (sqlClient selectCount Users.id and Users.country
         from Users
@@ -236,7 +236,7 @@ val countUsersGroupByCountry =
 
 ### Order by
 
-```kotlin
+```kotlin{3}
 fun selectUserByIdAsc() =
     (sqlClient selectFrom Users
         orderByAsc Users.id
@@ -247,10 +247,11 @@ fun selectUserByIdAsc() =
 
 Kotysa provides subquery support.
 
-```kotlin
+```kotlin{4-8,16-21,30-34,41-46,53-58}
 // subquery in select
 fun selectUserById(id: Int) =
-  (sqlClient select Users.firstname and {
+  (sqlClient select Users.firstname
+          and {
     (this select Roles.label
             from Roles
             where Roles.id eq Users.roleId)
@@ -287,8 +288,7 @@ fun selectRoleLabelWhereEqUserSubQuery(userId: Int) =
 fun selectRoleLabelWhereExistsUserSubQuery(userIds: List<Int>) =
   (sqlClient select Roles.label
           from Roles
-          whereExists
-          {
+          whereExists {
             (this select Users.id
                     from Users
                     where Users.roleId eq Roles.id
@@ -314,7 +314,7 @@ fun selectOrderByCaseWhenExistsSubQuery(userIds: List<Int>) =
 
 Kotysa provides aliases support for columns and tables.
 
-```kotlin
+```kotlin{3,5,9,11,16-18}
 // column alias. 2 syntaxes are available
 fun selectAliasedFirstnameByFirstnameGet(firstname: String) =
   (sqlClient select H2Users.firstname `as` "fna"
@@ -398,45 +398,47 @@ fun selectConditionalSyntax(params: Int = 0): List<List<Any?>> {
 Use the terminal operation that you need to fetch single or multiple results
 
 **With kotysa-jdbc, kotysa-spring-jdbc and kotysa-sqlite**
-* ```fun fetchOne(): T?``` returns one result
+* `fun fetchOne(): T?` returns one result
   * @throws NoResultException if no results
   * @throws NonUniqueResultException if more than one result
-* ```fun fetchOneOrNull(): T?``` returns one result, or null if no results
+* `fun fetchOneOrNull(): T?` returns one result, or null if no results
   * @throws NonUniqueResultException if more than one result
-* ```fun fetchFirst(): T?``` returns the first result
+* `fun fetchFirst(): T?` returns the first result
   * @throws NoResultException if no results
-* ```fun fetchFirstOrNull(): T?``` returns the first result, or null if no results
-* ```fun fetchAll(): List<T>``` returns several results as `List`, can be empty if no results
-* ```fun fetchAllStream(): Stream<T>``` returns several results as `java.util.stream.Stream`, can be empty if no results
+* `fun fetchFirstOrNull(): T?` returns the first result, or null if no results
+* `fun fetchAll(): List<T>` returns several results as `List`, can be empty if no results
+* `fun fetchAllStream(): Stream<T>` returns several results as `java.util.stream.Stream`, can be empty if no results
 
 **With kotysa-r2dbc or kotysa-spring-r2dbc using Coroutines syntax**
-* ```suspend fun fetchOne(): T?``` returns one result
+* `suspend fun fetchOne(): T?` returns one result
   * @throws NoResultException if no results
   * @throws NonUniqueResultException if more than one result
-* ```suspend fun fetchOneOrNull(): T?``` returns one result, or null if no results
+* `suspend fun fetchOneOrNull(): T?` returns one result, or null if no results
   * @throws NonUniqueResultException if more than one result
-* ```suspend fun fetchFirst(): T?``` returns the first result
+* `suspend fun fetchFirst(): T?` returns the first result
   * @throws NoResultException if no results
-* ```suspend fun fetchFirstOrNull(): T?``` returns the first result, or null if no results
-* ```fun fetchAll(): Flow<T>``` returns several results as `kotlinx.coroutines.flow.Flow`, can be empty if no results
+* `suspend fun fetchFirstOrNull(): T?` returns the first result, or null if no results
+* `fun fetchAll(): Flow<T>` returns several results as `kotlinx.coroutines.flow.Flow`, can be empty if no results
 
 **With kotysa-spring-r2dbc using Reactor syntax**
-* ```fun fetchOne(): Mono<T>``` returns one result as `reactor.core.publisher.Mono`, or an empty Mono if no result
+* `fun fetchOne(): Mono<T>` returns one result as `reactor.core.publisher.Mono`, or an empty Mono if no result
   * @throws NonUniqueResultException if more than one result
-* ```fun fetchFirst(): Mono<T>``` returns the first result as `reactor.core.publisher.Mono`, or an empty Mono if no result
-* ```fun fetchAll(): Flux<T>``` returns several results as `reactor.core.publisher.Flux`, or an empty Flux if no result
+* `fun fetchFirst(): Mono<T>` returns the first result as `reactor.core.publisher.Mono`, or an empty Mono if no
+result
+* `fun fetchAll(): Flux<T>` returns several results as `reactor.core.publisher.Flux`, or an empty Flux if no result
 
 **With kotysa-vertx-sqlclient using Mutiny syntax**
-* ```fun fetchOne(): Uni<T>``` returns one result as `io.smallrye.mutiny.Uni`, or an empty Uni if no result
+* `fun fetchOne(): Uni<T>` returns one result as `io.smallrye.mutiny.Uni`, or an empty Uni if no result
   * @throws NonUniqueResultException if more than one result
-* ```fun fetchFirst(): Uni<T>``` returns the first result as `io.smallrye.mutiny.Uni`, or an empty Uni if no result
-* ```fun fetchAll(): Uni<List<T>>``` returns several results as `io.smallrye.mutiny.Uni` that contains a List, or an empty Uni if no result
+* `fun fetchFirst(): Uni<T>` returns the first result as `io.smallrye.mutiny.Uni`, or an empty Uni if no result
+* `fun fetchAll(): Uni<List<T>>` returns several results as `io.smallrye.mutiny.Uni` that contains a List, or an empty
+Uni if no result
 
 ## Create table
 
 Use `createTable` or `createTableIfNotExists`
 
-```kotlin
+```kotlin{1,3}
 fun createTable() = sqlClient createTable Users
 // or
 fun createTable() = sqlClient createTableIfNotExists Users
@@ -451,7 +453,7 @@ fun createTable() = sqlClient createTableIfNotExists Users
 
 Insert one or several mapped objects in a database table
 
-```kotlin
+```kotlin{7-8}
 private val roleUser = Role("user")
 private val roleAdmin = Role("admin")
 
@@ -473,14 +475,14 @@ fun insertUsers() = sqlClient.insert(userJdoe, userBboss)
 Insert one or several mapped objects in a database table, and return the inserted objects,
 useful for auto-incremented columns and/or columns with default values
 
-```kotlin
+```kotlin{3}
 private val userCharles = User("Charles", roleUser.id, "United Kingdom")
 
 fun insertUserAndReturn() = sqlClient insertAndReturn userCharles
 ```
 
 ::: tip
-T corresponds to inserted entity type
+T corresponds to the inserted entity type
 :::
 
 * SqlClient returns `T` or a `List<T>` if several entities passed
@@ -494,7 +496,7 @@ T corresponds to inserted entity type
 
 Delete rows from a table, return the number of deleted rows
 
-```kotlin
+```kotlin{2,4}
 fun deleteById(id: Int) =
         (sqlClient deleteFrom Users
                 where Users.id eq id
@@ -523,7 +525,7 @@ fun deleteAll() = sqlClient deleteAllFrom Users
 
 Update rows from a table, return the number of updated rows
 
-```kotlin
+```kotlin{2-3,5}
 fun updateUserFirstname(id: Int, newFirstname: String) =
         (sqlClient update Users
                 set Users.firstname eq newFirstname
@@ -533,7 +535,7 @@ fun updateUserFirstname(id: Int, newFirstname: String) =
 
 You can also set a column with a column's value, and for number you can add or subtract from this column's value
 
-```kotlin
+```kotlin{2-3,5}
 fun incrementUserMessageCount(id: Int) =
         (sqlClient update Users
                 set Users.messageCount eq Users.messageCount plus 1
