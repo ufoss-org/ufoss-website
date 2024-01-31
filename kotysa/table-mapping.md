@@ -70,6 +70,11 @@ object Users : H2Table<User>("users") {
 private val tables = tables().h2(Roles, Users)
 ```
 
+::: tip
+auto-incremented and identity entity fields (see below) can be either nullable, with a null default value, or non-null with
+a default value of 0 or negative.
+:::
+
 ### Declare your indexes
 
 In Kotysa, indexes are part of the table mapping. Just add `unique` on a column, or create an `index` from several
