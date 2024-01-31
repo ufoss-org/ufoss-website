@@ -1,0 +1,12 @@
+:root {
+    --vp-font-family-base: 'Inter var';
+    --vp-font-family-mono: 'JetBrainsMono regular';
+    --vp-code-font-size: 0.8125em
+}
+
+@font-face {
+    font-family: "JetBrainsMono regular";
+    font-display: swap;
+    font-style: normal;
+    src: url('/assets/JetBrainsMono-Regular.woff2') format('woff');
+}
